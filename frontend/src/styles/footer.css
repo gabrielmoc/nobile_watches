@@ -118,7 +118,6 @@
   }
 }
 
-/* Desktop layout */
 @media (min-width: 768px) {
   .footer-links {
     flex-direction: row;
@@ -133,8 +132,7 @@
     height: 24px;
     max-width: 240px;
     object-fit: contain;
-    flex-shrink: 0; /* impede de encolher */
-  }
+    flex-shrink: 0;   }
 }
 
 @media (max-width: 768px) {
