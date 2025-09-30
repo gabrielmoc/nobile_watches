@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
-      "es6"
+      "esnext"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,33 +22,50 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
       "@/*": [
         "./*"
       ],
-      "@/src/*": [
-        "./src/*"
-      ],
       "@/components/*": [
-        "./src/components/*"
+        "components/*"
+      ],
+      "@/modules/*": [
+        "modules/*"
       ],
       "@/lib/*": [
-        "./src/lib/*"
-      ],
-      "@/styles/*": [
-        "./src/styles/*"
-      ],
-      "@/public/*": [
-        "./public/*"
-      ],
-      "@/app/*": [
-        "./src/app/*"
+        "lib/*"
       ],
       "@/types/*": [
-        "./src/types/*"
+        "types/*"
+      ],
+      "@/styles/*": [
+        "styles/*"
+      ],
+      "@/hooks/*": [
+        "lib/hooks/*"
+      ],
+      "@/utils/*": [
+        "lib/utils/*"
+      ],
+      "@/api/*": [
+        "lib/api/*"
+      ],
+      "@/config/*": [
+        "lib/config/*"
+      ],
+      "@/components/ui/*": [
+        "components/ui/*"
       ]
-    }
+    },
+    // Configurações adicionais para melhor DX
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true
   },
   "include": [
     "next-env.d.ts",
@@ -57,9 +74,6 @@
     ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    ".next",
-    "out",
-    "dist"
+    "node_modules"
   ]
 }

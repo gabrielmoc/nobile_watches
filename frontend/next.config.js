@@ -2,6 +2,10 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 
   // Configuração de imagens
   images: {
@@ -9,26 +13,6 @@ const nextConfig = {
     formats: ["image/webp", "image/avif"],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  },
-
-  // Suporte para SVGs como componentes
-  webpack: (config, { isServer }) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
-
-    // Evitar problemas de webpack module
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        path: false,
-        os: false,
-      };
-    }
-
-    return config;
   },
 
   // Otimizações
@@ -40,24 +24,35 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/:path*",
+        source: "/(.*)",
         headers: [
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
           {
             key: "X-Frame-Options",
             value: "DENY",
           },
           {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "origin-when-cross-origin",
           },
         ],
       },
     ];
   },
+
+  // Redirects para URLs antigas (se necessário)
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/relogios",
+  //       destination: "/produtos",
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;

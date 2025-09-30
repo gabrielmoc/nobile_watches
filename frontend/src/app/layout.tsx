@@ -1,50 +1,42 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { Lato } from "next/font/google";
+import localFont from "next/font/local";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "styles/globals.css";
 
-import Footer from "@/src/components/Footer";
-import Header from "@/src/components/Header";
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-lato",
+});
+
+const erstoria = localFont({
+  src: "../../public/fonts/erstoria.otf",
+  variable: "--font-erstoria",
+});
 
 export const metadata: Metadata = {
   title: {
-    default: "Nobile - Marketplace de Relógios de Luxo",
     template: "%s | Nobile",
+    default: "Nobile - Marketplace de Relógios de Luxo",
   },
   description:
-    "A plataforma mais segura para comprar e vender relógios de luxo no Brasil",
-  keywords: [
-    "relógios de luxo",
-    "marketplace",
-    "Rolex",
-    "Omega",
-    "Patek Philippe",
-    "comprar relógios",
-    "vender relógios",
-    "autenticidade garantida",
-  ],
-  authors: [
-    {
-      name: "Gabriel Cavalcanti",
-      url: "https://gabrielcavalcanti.tech",
-    },
-  ],
-  creator: "Gabriel Cavalcanti",
-  publisher: "Nobile Watches",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+    "Encontre vendedores certificados e descubra seu novo relógio de luxo. Mais de 564 mil relógios autênticos.",
+  keywords: ["relógios", "luxo", "marketplace", "Rolex", "Patek Philippe"],
+  authors: [{ name: "Nobile" }],
+  creator: "Nobile",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://nobile.watches",
+    url: "https://nobile.com.br",
     siteName: "Nobile",
     title: "Nobile - Marketplace de Relógios de Luxo",
-    description:
-      "A plataforma mais segura para comprar e vender relógios de luxo no Brasil",
+    description: "Encontre vendedores certificados e descubra seu novo relógio de luxo.",
     images: [
       {
-        url: "/assets/og-image.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Nobile - Relógios de Luxo",
@@ -54,9 +46,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Nobile - Marketplace de Relógios de Luxo",
-    description:
-      "A plataforma mais segura para comprar e vender relógios de luxo no Brasil",
-    images: ["/assets/og-image.jpg"],
+    description: "Encontre vendedores certificados e descubra seu novo relógio de luxo.",
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -69,53 +60,29 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={`${lato.variable} ${erstoria.variable}`}>
       <head>
-        <link
-          rel="preload"
-          href="/fonts/erstoria.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin=""
-        />
-        <link
-          rel="preload"
-          href="/fonts/lato.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin=""
-        />
-
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//api.nobile.com" />
-
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#f97316" />
       </head>
-      <body>
-        <Header />
-
-        <main id="main-content" role="main">
+      <body className={`${lato.className} antialiased`}>
+        {/* Providers globais */}
+        <div id="root" className="min-h-screen flex flex-col">
           {children}
-        </main>
+        </div>
 
-        <Footer />
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              console.log('Nobile Watches loaded');
-            `,
-          }}
-        />
+        {/* Portais para modais */}
+        <div id="modal-root" />
+        <div id="tooltip-root" />
       </body>
     </html>
   );

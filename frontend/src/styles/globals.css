@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #f7f7f7;
+    font-family: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family:
+      var(--font-erstoria), var(--font-lato), ui-sans-serif, system-ui, sans-serif;
+    line-height: 100%;
+  }
+
+  a {
+    color: #777777;
+  }
+
+  input {
+    color: #141414;
+    font-size: 14px;
+    font-family: var(--font-lato);
+    font-weight: 500;
+    background-color: #f7f7f7;
+    line-height: 168%;
+    border: 1.5px solid #efefef;
+    border-radius: 12px;
+  }
+
+  input::placeholder {
+    color: var(--color-gray-400);
+    font-weight: 400;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #f7f7f7 inset !important;
+    box-shadow: 0 0 0 30px #f7f7f7 inset !important;
+    -webkit-text-fill-color: inherit !important;
+  }
+
+  input:-moz-autofill,
+  input:-moz-autofill:hover,
+  input:-moz-autofill:focus {
+    background-color: #f7f7f7 !important;
+  }
+
+  /* Featured slider styles - Destaque do slide central */
+  .featured-slider .slick-slide {
+    transition: all 0.3s ease;
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+
+  .featured-slider .slick-slide.slick-center {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 10;
+  }
+
+  .featured-slider .slick-slide > div {
+    margin: 0 auto;
+  }
+}
+
+@theme {
+  --font-lato: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
+  --font-erstoria: var(--font-erstoria), ui-sans-serif, system-ui, sans-serif;
+  --color-gray-400: #777777;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+}
+
+.seguro {
+  padding: 64px 88px 64px 64px;
+  border: 4px solid pink;
+  height: 660px;
+  max-height: 660px;
+  margin-left: 272px;
+  background: linear-gradient(180deg, #141414 0%, #000000 100%);
+  border-radius: 198px 48px 48px 198px;
+}
+
+.segbox {
+  position: absolute;
+  top: -76px;
+}
+
+/* Featured slider styles */
+.featured-slider .slick-slide {
+  transition: all 0.3s ease;
+  opacity: 0.4;
+  transform: scale(0.7);
+}
+
+.featured-slider .slick-slide.slick-center {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 10;
+}
+
+.featured-slider .slick-slide > div {
+  margin: 0 auto;
+}
