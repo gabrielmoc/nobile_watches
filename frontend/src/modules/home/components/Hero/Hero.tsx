@@ -595,7 +595,7 @@ export function Hero() {
                   internacional para que você possa vender suas peças com confiança.
                 </p>
                 <Link
-                  href="/vender"
+                  href="/vendedor"
                   className="inline-flex items-center justify-center gap-2 bg-[#141414] hover:bg-[#C09609] text-white font-lato font-bold rounded-full px-6 py-3 md:px-8 md:py-4 transition-colors text-sm md:text-base"
                 >
                   Comece a vender

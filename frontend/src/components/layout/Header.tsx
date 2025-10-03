@@ -10,7 +10,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="relative inset-x-0 z-50 group">
+    <div className="relative inset-x-0 z-250 group">
       <header className="relative h-16 md:h-24 mx-auto duration-200 bg-white">
         <div className="container mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
           <div className="flex h-16 md:h-24 items-center justify-between">
@@ -30,13 +30,13 @@ export function Header() {
               {/* Desktop Navigation Links */}
               <nav className="hidden lg:flex items-center space-x-8">
                 <Link
-                  href="/perguntas-frequentes"
+                  href="/#"
                   className="font-lato text-md font-medium text-gray-400 hover:text-gray-900 transition-colors"
                 >
                   Perguntas frequentes
                 </Link>
                 <Link
-                  href="/vender-relogio"
+                  href="/vendedor"
                   className="font-lato text-md font-medium text-gray-400 hover:text-gray-900 transition-colors"
                 >
                   Vender meu relógio

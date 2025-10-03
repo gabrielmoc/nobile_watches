@@ -181,7 +181,7 @@ export function VendedorHero() {
               </p>
             </div>
             <Link
-              href="/vender-relogio"
+              href="/login"
               className="w-full max-w-[343px] h-[56px] inline-flex items-center justify-center bg-[#D5A60A] hover:bg-[#C09609] text-white tracking-[0.02em] font-lato font-bold rounded-full px-8 py-4 transition-colors text-base"
             >
               Vender meus relógios
@@ -214,7 +214,7 @@ export function VendedorHero() {
                 com compradores confiáveis.
               </p>
               <Link
-                href="/vender-relogio"
+                href="/login"
                 className="w-[343px] h-[56px] inline-flex items-center justify-center bg-[#D5A60A] hover:bg-[#C09609] text-white tracking-[0.02em] font-lato font-bold rounded-full px-8 py-4 transition-colors text-base"
               >
                 Vender meus relógios
