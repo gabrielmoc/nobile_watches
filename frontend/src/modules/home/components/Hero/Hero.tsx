@@ -23,7 +23,7 @@ export function Hero() {
     dots: true,
     infinite: true,
     speed: 500,
-    autoplay: process.env.NODE_ENV !== "development",
+    autoplay: true,
     autoplaySpeed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -366,59 +366,59 @@ export function Hero() {
         </section>
 
         {/* Seguro do Comprador - NOVO */}
-        <section aria-label="Seguro do comprador" className="my-12 md:my-26">
-          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden min-h-[400px] md:min-h-[500px]">
-            {/* Imagem da caixa - Desktop */}
-            <div className="hidden lg:flex items-center justify-center p-8 lg:p-12 relative">
-              <div className="relative z-10 w-full max-w-[500px] aspect-square">
-                <Image
-                  src="/images/hero/watch-box.svg"
-                  alt="Caixa Rolex com relógio e documentação"
-                  fill
-                  className="object-contain drop-shadow-2xl"
-                  priority
-                />
+        <section aria-label="Seguro do comprador" className="py-[20px] lg:py-[150px]">
+          <div className="relative min-h-[400px] md:min-h-[600px]">
+            {/*  Desktop */}
+            <div className="hidden lg:flex items-center justify-center relative md:min-h-[600px]">
+              <Image
+                src="/images/hero/watch-box-bg.svg"
+                alt="Caixa Rolex com relógio e documentação"
+                width={1200}
+                height={660}
+                className="absolute"
+                priority
+              />
+
+              {/* Conteúdo - Mobile e Desktop */}
+              <div className="flex flex-col justify-center relative z-20 max-w-[500px] ml-auto mr-[88px]">
+                <div className="space-y-6 md:space-y-8 relative">
+                  <div>
+                    <p className="font-erstoria text-[#D5A60A] text-sm mb-3 md:mb-3 tracking-wider">
+                      Seguro do comprador
+                    </p>
+                    <h2 className="font-erstoria text-2xl md:text-3xl lg:text-[52px] text-white leading-[102%] mb-4 md:mb-6">
+                      Proteção completa em cada etapa da sua compra
+                    </h2>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {protectionFeatures.map((feature, index) => (
+                      <div key={index} className="h-[24px] flex items-center gap-2.5">
+                        <div className="flex-shrink-0 w-10 h-10 md:w-[24px] md:h-[24px] flex items-center justify-center font-normal text-[#ffffff]">
+                          {feature.icon}
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-lato text-white text-sm md:text-base font-light">
+                            {feature.title}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Conteúdo - Mobile e Desktop */}
-            <div className="flex flex-col justify-center p-6 md:p-8 lg:p-12 relative">
-              <div className="absolute right-0 seguro"></div>
-              {/* Imagem da caixa - Mobile */}
-              <div className="lg:hidden mb-6 flex items-center justify-center">
-                <div className="relative z-10 w-full max-w-[280px] aspect-square">
+            {/*  Mobile */}
+            <div>
+              <div className="lg:hidden flex items-center justify-center">
+                <div className="relative z-10 w-full min-h-[572px]">
                   <Image
                     src="/images/hero/watch-box.svg"
                     alt="Caixa Rolex com relógio e documentação"
                     fill
-                    className="object-contain drop-shadow-2xl"
+                    className="object-fill"
                   />
-                </div>
-              </div>
-
-              <div className="space-y-6 md:space-y-8 relative">
-                <div>
-                  <p className="font-erstoria text-[#D5A60A] text-sm mb-3 md:mb-3 tracking-wider">
-                    Seguro do comprador
-                  </p>
-                  <h2 className="font-erstoria text-2xl md:text-3xl lg:text-[50px] text-white leading-[102%] mb-4 md:mb-6">
-                    Proteção completa em cada etapa da sua compra
-                  </h2>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                  {protectionFeatures.map((feature, index) => (
-                    <div key={index} className="h-[24px] flex items-center gap-2.5">
-                      <div className="flex-shrink-0 w-10 h-10 md:w-[24px] md:h-[24px] flex items-center justify-center rounded-full bg-white/10 text-[#ffffff]">
-                        {feature.icon}
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-lato text-white text-sm md:text-base font-normal">
-                          {feature.title}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>

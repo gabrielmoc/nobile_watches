@@ -1,13 +1,9 @@
 "use client";
 
 import { resetPasswordSchema, type ResetPasswordFormData } from "@/lib/validations/auth";
-import {
-  ArrowLeftIcon,
-  CheckCircleIcon,
-  EyeIcon,
-  EyeSlashIcon,
-} from "@heroicons/react/24/outline";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,11 +20,17 @@ export function ResetPasswordForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setError,
+    watch,
   } = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordSchema),
+    mode: "onChange",
   });
+
+  // Observa os valores dos campos
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
 
   const onSubmit = async (data: ResetPasswordFormData) => {
     setIsLoading(true);
@@ -53,19 +55,23 @@ export function ResetPasswordForm() {
     return (
       <div>
         <div className="text-center mb-8">
-          <div className="mx-auto flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-            <CheckCircleIcon className="w-8 h-8 text-green-600" />
+          <div className="mx-auto flex items-center justify-center w-[46px] h-[46px] mb-8">
+            <Image src="/icons/check_square.svg" alt="Check" width={46} height={46} />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="font-erstoria text-[32px] text-[#141414] mb-3 leading-[100%]">
             Senha atualizada com sucesso!
           </h1>
-          <p className="text-gray-600">
+          <p className="font-lato text-sm text-gray-400 leading-[148%]">
             Você pode acessar sua conta normalmente com sua nova senha.
           </p>
         </div>
 
-        <Button onClick={() => router.push("/login")} className="w-full" size="lg">
-          Fazer login agora
+        <Button
+          onClick={() => router.push("/login")}
+          variant="gold"
+          className="w-full h-[56px]"
+        >
+          Ir para o login
         </Button>
       </div>
     );
@@ -74,8 +80,10 @@ export function ResetPasswordForm() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Crie uma nova senha</h1>
-        <p className="text-gray-600">
+        <h1 className="font-erstoria text-[28px] text-[#141414] mb-3 leading-[100%]">
+          Crie uma nova senha
+        </h1>
+        <p className="font-lato text-sm text-gray-400 leading-[148%]">
           Escolha uma senha forte para manter sua conta protegida.
         </p>
       </div>
@@ -154,17 +162,6 @@ export function ResetPasswordForm() {
           )}
         </div>
 
-        {/* Dicas de senha */}
-        <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-blue-800 mb-1 font-medium">Sua senha deve conter:</p>
-          <ul className="text-sm text-blue-700 space-y-1">
-            <li>• Pelo menos 6 caracteres</li>
-            <li>• 1 letra minúscula</li>
-            <li>• 1 letra maiúscula</li>
-            <li>• 1 número</li>
-          </ul>
-        </div>
-
         {/* Erro geral */}
         {errors.root && (
           <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -173,7 +170,13 @@ export function ResetPasswordForm() {
         )}
 
         {/* Botão de redefinir */}
-        <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
+        <Button
+          type="submit"
+          variant="gold"
+          className="w-full h-[56px]"
+          isLoading={isLoading}
+          disabled={!password || !confirmPassword || !isValid || isLoading}
+        >
           Redefinir senha
         </Button>
 
@@ -181,9 +184,8 @@ export function ResetPasswordForm() {
         <div className="flex items-center justify-center">
           <Link
             href="/recuperar-senha"
-            className="flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
+            className="flex items-center text-sm text-[#141414] hover:text-gray-900 transition-colors"
           >
-            <ArrowLeftIcon className="h-4 w-4 mr-2" />
             Voltar
           </Link>
         </div>

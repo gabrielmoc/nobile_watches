@@ -28,8 +28,9 @@
     font-weight: 500;
     background-color: #f7f7f7;
     line-height: 168%;
-    border: 1.5px solid #efefef;
+    border: 1px solid #efefef;
     border-radius: 12px;
+    height: 48px;
   }
 
   input::placeholder {
@@ -50,6 +51,14 @@
   input:-moz-autofill:hover,
   input:-moz-autofill:focus {
     background-color: #f7f7f7 !important;
+  }
+
+  label {
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #141414;
   }
 
   /* Featured slider styles - Destaque do slide central */
@@ -85,26 +94,25 @@
     scroll-behavior: smooth;
   }
 
-  .seguro {
-    isolation: isolate;
+  .hero-fade {
+    background: linear-gradient(0deg, #ffffff 77.15%, rgba(255, 255, 255, 0) 100%);
+  }
 
-    width: 1102px;
-    height: 580px;
+  .auth-content {
+    min-height: 70vh !important;
+  }
 
-    background: linear-gradient(180deg, #141414 0%, #000000 100%);
-    border-radius: 198px 48px 48px 198px;
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    align-self: stretch;
-    flex-grow: 0;
+  .auth-inner {
+    height: 100% !important;
+    min-height: inherit;
   }
 }
 
 @theme {
   --font-lato: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
   --font-erstoria: var(--font-erstoria), ui-sans-serif, system-ui, sans-serif;
+
+  --color-gray-300: #d9d9d9;
   --color-gray-400: #777777;
 
   --font-weight-light: 300;
