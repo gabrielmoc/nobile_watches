@@ -59,20 +59,20 @@ export function Hero() {
   };
 
   const marcas = [
-    { img: "/assets/marca1.svg", nome: "Rolex", href: "/marcas/rolex" },
-    { img: "/assets/marca2.svg", nome: "Tag Heuer", href: "/marcas/tag-heuer" },
-    { img: "/assets/marca3.svg", nome: "Breitling", href: "/marcas/breitling" },
+    { img: "/assets/marca1.svg", nome: "Rolex", href: "/marca/rolex" },
+    { img: "/assets/marca2.svg", nome: "Tag Heuer", href: "/marca/tag-heuer" },
+    { img: "/assets/marca3.svg", nome: "Breitling", href: "/marca/breitling" },
     {
       img: "/assets/marca4.svg",
       nome: "Audemars Piguet",
-      href: "/marcas/audemars-piguet",
+      href: "/marca/audemars-piguet",
     },
-    { img: "/assets/marca5.svg", nome: "Patek Philippe", href: "/marcas/patek-philippe" },
-    { img: "/assets/marca6.svg", nome: "Hublot", href: "/marcas/hublot" },
-    { img: "/assets/marca7.svg", nome: "Cartier", href: "/marcas/cartier" },
-    { img: "/assets/marca8.svg", nome: "Seiko", href: "/marcas/seiko" },
-    { img: "/assets/marca9.svg", nome: "Omega", href: "/marcas/omega" },
-    { img: "/assets/marca10.svg", nome: "IWC", href: "/marcas/iwc" },
+    { img: "/assets/marca5.svg", nome: "Patek Philippe", href: "/marca/patek-philippe" },
+    { img: "/assets/marca6.svg", nome: "Hublot", href: "/marca/hublot" },
+    { img: "/assets/marca7.svg", nome: "Cartier", href: "/marca/cartier" },
+    { img: "/assets/marca8.svg", nome: "Seiko", href: "/marca/seiko" },
+    { img: "/assets/marca9.svg", nome: "Omega", href: "/marca/omega" },
+    { img: "/assets/marca10.svg", nome: "IWC", href: "/marca/iwc" },
   ];
 
   const sugestoes = [
@@ -217,24 +217,25 @@ export function Hero() {
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Banner Slider */}
         <div className="relative">
-          <div className="h-[170px] md:h-[518px] overflow-hidden rounded-[16px] md:rounded-[48px]">
+          <div className="h-[170px] md:h-[350px] lg:h-[518px] overflow-hidden rounded-[16px] md:rounded-[48px]">
             <Slider {...bannerSettings}>
               {[1, 2, 3, 4].map(num => (
                 <div
                   key={num}
-                  className="h-full relative  rounded-[16px] md:rounded-[48px]"
+                  className="h-full relative rounded-[16px] md:rounded-[48px]"
                 >
-                  <Link href={`/promocoes/banner-${num}`} className="block h-full">
+                  {/* <Link href={`/promocoes/banner-${num}`} className="block h-full"> */}
+                  <div className="block h-full">
                     <Image
                       src={`/assets/banner${num}.svg`}
                       alt={`Promoção ${num}`}
-                      className="w-full h-[152px] lg:h-full object-cover rounded-[16px] md:rounded-[48px]"
+                      className="w-full h-[152px] md:h-full object-cover rounded-[16px] md:rounded-[48px]"
                       width={1200}
                       height={518}
                       priority={num === 1}
                     />
-                  </Link>
-                  <button className="absolute bottom-8 left-5 md:bottom-32 md:left-22 bg-white hover:bg-gray-50 font-lato text-[#141414] rounded-full flex items-center justify-center gap-2 text-[12px] lg:text-[16px] font-normal md:font-bold transition-colors w-[128px] h-[32px] md:w-[200px] md:h-[56px]">
+                  </div>
+                  <button className="hidden absolute bottom-8 left-5 md:bottom-32 md:left-22 bg-white hover:bg-gray-50 font-lato text-[#141414] rounded-full lg:flex items-center justify-center gap-2 text-[12px] lg:text-[16px] font-normal md:font-bold transition-colors w-[128px] h-[32px] md:w-[200px] md:h-[56px]">
                     Garanta o seu
                     <svg
                       className="w-[18px] h-[18px] md:w-[22px] md:h-[22px]"
@@ -253,7 +254,7 @@ export function Hero() {
         </div>
 
         {/* Marcas */}
-        <section aria-label="Marcas de relógios" className="py-6 md:py-12">
+        <section aria-label="Marcas de relógios" className="py-6 lg:py-12">
           <div className="relative">
             <div className="absolute left-0 top-0 bottom-0 w-8 md:w-16 bg-gradient-to-r from-[#f7f7f7] to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-8 md:w-16 bg-gradient-to-l from-[#f7f7f7] to-transparent z-10 pointer-events-none" />
