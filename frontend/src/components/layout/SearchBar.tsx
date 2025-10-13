@@ -30,12 +30,15 @@ export function SearchBar({
   return (
     <form onSubmit={handleSubmit} className={`relative w-full ${className}`}>
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+        <div className="absolute inset-y-0 left-0 pl-[14px] flex items-center pointer-events-none">
+          <MagnifyingGlassIcon
+            className="h-[21px] w-[21px] text-[#141414]"
+            aria-hidden="true"
+          />
         </div>
         <input
           type="text"
-          className="block w-full pl-10 pr-3 py-3 border border-gray-100 rounded-xl leading-5 bg-[#f7f7f7] placeholder-gray-400 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-orange-500 focus:border-orange-500 font-lato font-medium text-sm"
+          className="block w-full pl-[48px] pr-3 py-3 border border-[#EFEFEF] rounded-xl leading-5 bg-[#f7f7f7] placeholder-gray-400 placeholder:font-bold focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-orange-500 focus:border-orange-500 font-lato font-medium text-sm"
           placeholder={placeholder}
           value={query}
           onChange={handleInputChange}

@@ -4,6 +4,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { Button } from "../ui/Button";
 import { SearchBar } from "./SearchBar";
 
 export function Header() {
@@ -13,7 +14,7 @@ export function Header() {
     <div className="relative inset-x-0 z-250 group">
       <header className="relative h-16 md:h-24 mx-auto duration-200 bg-white">
         <div className="container mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-          <div className="flex h-16 md:h-24 items-center justify-between">
+          <div className="flex h-16 md:h-24 items-center justify-between gap-4">
             <div className="flex items-center md:gap-x-12">
               {/* Logo */}
               <Link href="/" className="flex items-center">
@@ -44,14 +45,27 @@ export function Header() {
               </nav>
             </div>
 
-            {/* Desktop Search */}
-            <div className="hidden md:flex flex-1 max-w-md ml-8">
-              <SearchBar placeholder="Pesquisar 564.937 relógios..." />
+            {/* Desktop Search and Login */}
+            <div className="hidden md:flex items-center gap-8 flex-1 justify-end">
+              {/* Search Bar */}
+              <div className="flex-1 max-w-md">
+                <SearchBar placeholder="Pesquisar 564.937 relógios..." />
+              </div>
+
+              {/* Login Button */}
+              <Link href="/login">
+                <Button
+                  variant="gold"
+                  className="h-[48px] w-[122px] font-bold leading-[150%] tracking-[0.02em]"
+                >
+                  Acessar
+                </Button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="flex lg:hidden"
+              className="flex md:hidden"
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label="Abrir menu"
             >
@@ -69,7 +83,7 @@ export function Header() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Menu Panel - CORRIGIDO: removido max-w-sm e right-0 */}
+            {/* Menu Panel */}
             <div className="fixed inset-0 w-full bg-white shadow-lg">
               <div className="flex items-center justify-between p-4">
                 <Link href="/" className="flex items-center">
