@@ -257,18 +257,8 @@ export function VendedorHero() {
       </section>
 
       {/* Seguro do Vendedor */}
-      <section className="relative pt-[46px] md:pt-20 lg:pt-[194px] min-h-[535px] md:min-h-[535px] lg:min-h-[1450px] overflow-hidden">
-        <div className="hidde md:block absolute z-20 inset-0 h-[266px]">
-          <Image
-            src="/images/seller/seller-mask-mobile.svg"
-            alt="Relógio com mostrador verde"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-
-        <div className="absolute z-10 top-[94px] md:top-0 inset-0">
+      <section className="relative pt-[46px] lg:pt-[194px] min-h-[535px] lg:min-h-[1450px] overflow-hidden">
+        <div className="absolute z-10 top-[94px] lg:top-0 inset-0">
           <Image
             src="/images/seller/watch-secure.svg"
             alt="Relógio com mostrador verde - Segurança garantida"
@@ -278,17 +268,17 @@ export function VendedorHero() {
           />
         </div>
 
-        <div className="relative z-30 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+        <div className="relative z-30 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="flex flex-col gap-8 lg:gap-16">
             {/* Conteúdo */}
-            <div className="w-full max-w-[316px] lg:max-w-[746px] mx-auto text-center">
-              <p className="font-erstoria text-[#D5A60A] text-sm md:text-[18px] mb-3 leading-[1.4] tracking-[0.01em]">
+            <div className="w-full max-w-[316px] md:max-w-[400px] lg:max-w-[746px] mx-auto text-center">
+              <p className="font-erstoria text-[#D5A60A] text-sm lg:text-[18px] mb-3 leading-[1.4] tracking-[0.01em]">
                 Seguro do vendedor
               </p>
               <h2 className="font-erstoria text-[28px] md:text-4xl lg:text-[64px] text-[#141414] mb-3 leading-[1.12] md:leading-[1]">
                 Proteção completa em cada etapa da sua venda
               </h2>
-              <p className="font-lato text-sm md:text-[16px] text-gray-400 leading-[1.48]">
+              <p className="font-lato text-sm lg:text-[16px] text-gray-400 leading-[1.48]">
                 Todo o processo é cuidadosamente monitorado do pagamento à entrega. Seu
                 relógio só é enviado após a confirmação do pagamento e autenticação por
                 nossos especialistas.
@@ -305,7 +295,7 @@ export function VendedorHero() {
       >
         <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <h2 className="font-erstoria text-3xl md:text-6xl lg:text-[64px] text-[#141414] mb-4">
+            <h2 className="font-erstoria text-3xl md:text-4xl lg:text-[64px] text-[#141414] mb-4">
               Dúvidas frequentes
             </h2>
           </div>

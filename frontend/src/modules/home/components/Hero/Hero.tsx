@@ -528,7 +528,7 @@ export function Hero() {
         <div className="mx-auto w-full max-w-7xl lg:px-8">
           {/* Vendedores Destaque */}
           <section aria-label="Vendedores destaque" className="py-12 md:py-[150px]">
-            <h2 className="font-erstoria text-[28px] md:text-[54px] text-[#141414] mb-5 md:mb-8">
+            <h2 className="font-erstoria text-[28px] md:text-[48px] text-[#141414] mb-5 md:mb-8">
               Vendedores destaque
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
@@ -576,7 +576,7 @@ export function Hero() {
           {/* Torne-se um Vendedor */}
           <section
             aria-label="Torne-se um vendedor"
-            className="mb-12 md:mb-[130px] overflow-hidden relative"
+            className="mb-12 lg:mb-[130px] overflow-hidden relative"
           >
             {/* Mobile */}
             <div className="lg:hidden">
@@ -587,7 +587,7 @@ export function Hero() {
                   um <span className="text-[#D5A60A]">vendedor</span>
                 </h2>
 
-                <div className="w-full md:hidden mt-auto">
+                <div className="w-full mt-auto">
                   <Link
                     href="/vendedor"
                     className="absolute right-[20px] bottom-[20px] z-10 px-[17px] flex items-center justify-center gap-[6px] bg-[#141414] hover:bg-[#C09609] text-white font-lato font-normal rounded-full transition-colors text-[12px] w-[119px] h-[40px]"
@@ -611,7 +611,7 @@ export function Hero() {
                   src="/images/hero/become-seller-mobile.svg"
                   alt="Torne-se um vendedor"
                   fill
-                  className="md:hidden object-cover max-h-[439px] rounded-[8px]"
+                  className="object-cover max-h-[439px] rounded-[8px]"
                   priority
                 />
               </div>

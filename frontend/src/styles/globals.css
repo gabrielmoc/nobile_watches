@@ -121,7 +121,6 @@
   --font-weight-black: 900;
 }
 
-/* Featured slider styles */
 .featured-slider .slick-slide {
   transition: all 0.3s ease;
   opacity: 0.4;
@@ -136,4 +135,71 @@
 
 .featured-slider .slick-slide > div {
   margin: 0 auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Remover bordas/outlines indesejados durante transições */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Melhorar transições de imagens */
+img {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+}
+
+/* Suavizar todas as transições de layout */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Melhorar performance de animações */
+
+.brand {
+  /* Remover outline padrão do foco, mas manter acessibilidade */
+  *:focus {
+    outline: none;
+  }
+
+  *:focus-visible {
+    outline: 2px solid #d5a60a;
+    outline-offset: 2px;
+  }
+
+  .group,
+  .group * {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Reset após hover */
+  .group:not(:hover) * {
+    will-change: auto;
+  }
+}
+
+/* Transição suave para mudanças de grid/flex */
+[class*="grid"],
+[class*="flex"] {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

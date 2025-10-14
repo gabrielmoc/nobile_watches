@@ -1,6 +1,6 @@
 "use client";
 
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -85,7 +85,7 @@ export function Header() {
 
             {/* Menu Panel */}
             <div className="fixed inset-0 w-full bg-white shadow-lg">
-              <div className="flex items-center justify-between p-4">
+              <div className="flex items-center justify-between h-16 px-4">
                 <Link href="/" className="flex items-center">
                   <Image src="/logo.svg" alt="Nobile" width={91} height={24} priority />
                 </Link>
@@ -93,7 +93,7 @@ export function Header() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   aria-label="Fechar menu"
                 >
-                  <XMarkIcon className="h-6 w-6" />
+                  <Image src="/icons/XSquare.svg" alt="Fechar" width={32} height={32} />
                 </button>
               </div>
 
@@ -103,9 +103,16 @@ export function Header() {
                   <SearchBar placeholder="Pesquisar 564.937 relógios..." />
                 </div>
 
+                <Link href="/login">
+                  <Button
+                    variant="gold"
+                    className="h-[56px] w-full font-bold leading-[150%] tracking-[0.02em]"
+                  >
+                    Login
+                  </Button>
+                </Link>
                 <div className="space-y-6">
-                  {/* Navigation */}
-                  <div className="space-y-4">
+                  {/* <div className="space-y-4">
                     <h3 className="text-sm font-medium text-[#141414] tracking-wider">
                       Gerenciamento
                     </h3>
@@ -139,10 +146,10 @@ export function Header() {
                         Minha coleção
                       </Link>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Account Actions */}
-                  <div className="space-y-4">
+                  {/* <div className="space-y-4">
                     <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">
                       Meus dados
                     </h3>
@@ -169,10 +176,10 @@ export function Header() {
                         Meus anúncios
                       </Link>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Options */}
-                  <div className="space-y-4">
+                  {/* <div className="space-y-4">
                     <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">
                       Opções
                     </h3>
@@ -182,7 +189,7 @@ export function Header() {
                     >
                       Sair
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
