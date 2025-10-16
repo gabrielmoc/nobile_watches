@@ -204,7 +204,7 @@ function MenuItemButton({
     <Link
       href={item.href}
       onClick={onClick}
-      className={`flex flex-col items-center justify-center gap-2 border border-gray-100  rounded-[12px] px-8 py-6 bg-[#F7F7F7] hover:bg-gray-50 transition-colors min-w-[140px] ${
+      className={`flex flex-col items-center justify-center gap-2 border border-[#EFEFEF] rounded-[12px] px-8 py-6 bg-[#F7F7F7] hover:bg-gray-50 transition-colors min-w-[140px] ${
         isLogout ? "text-red-600 hover:bg-red-50" : "text-gray-700"
       }`}
     >

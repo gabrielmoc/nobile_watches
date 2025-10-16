@@ -15,6 +15,7 @@ interface BrandPageProps {
 }
 
 // Mapeamento de slugs para nomes de marcas
+// NOTA: Este mapeamento deve estar sincronizado com AVAILABLE_BRANDS em stringUtils.ts
 const brandMap: Record<string, string> = {
   rolex: "Rolex",
   "patek-philippe": "Patek Philippe",

@@ -78,16 +78,16 @@ export const IMAGE_CONFIG = {
 
 // === BRANDS ===
 export const WATCH_BRANDS = [
-  { slug: "rolex", name: "Rolex", logo: "/assets/marca1.svg" },
-  { slug: "tag-heuer", name: "Tag Heuer", logo: "/assets/marca2.svg" },
-  { slug: "breitling", name: "Breitling", logo: "/assets/marca3.svg" },
-  { slug: "audemars-piguet", name: "Audemars Piguet", logo: "/assets/marca4.svg" },
-  { slug: "patek-philippe", name: "Patek Philippe", logo: "/assets/marca5.svg" },
-  { slug: "hublot", name: "Hublot", logo: "/assets/marca6.svg" },
-  { slug: "cartier", name: "Cartier", logo: "/assets/marca7.svg" },
-  { slug: "seiko", name: "Seiko", logo: "/assets/marca8.svg" },
-  { slug: "omega", name: "Omega", logo: "/assets/marca9.svg" },
-  { slug: "iwc", name: "IWC", logo: "/assets/marca10.svg" },
+  { slug: "rolex", name: "Rolex", logo: "/images/brand/marca1.svg" },
+  { slug: "tag-heuer", name: "Tag Heuer", logo: "/images/brand/marca2.svg" },
+  { slug: "breitling", name: "Breitling", logo: "/images/brand/marca3.svg" },
+  { slug: "audemars-piguet", name: "Audemars Piguet", logo: "/images/brand/marca4.svg" },
+  { slug: "patek-philippe", name: "Patek Philippe", logo: "/images/brand/marca5.svg" },
+  { slug: "hublot", name: "Hublot", logo: "/images/brand/marca6.svg" },
+  { slug: "cartier", name: "Cartier", logo: "/images/brand/marca7.svg" },
+  { slug: "seiko", name: "Seiko", logo: "/images/brand/marca8.svg" },
+  { slug: "omega", name: "Omega", logo: "/images/brand/marca9.svg" },
+  { slug: "iwc", name: "IWC", logo: "/images/brand/marca10.svg" },
 ] as const;
 
 // === VALIDATION ===

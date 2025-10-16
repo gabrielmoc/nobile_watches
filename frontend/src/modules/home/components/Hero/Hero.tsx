@@ -62,20 +62,24 @@ export function Hero() {
   };
 
   const marcas = [
-    { img: "/assets/marca1.svg", nome: "Rolex", href: "/marca/rolex" },
-    { img: "/assets/marca2.svg", nome: "Tag Heuer", href: "/marca/tag-heuer" },
-    { img: "/assets/marca3.svg", nome: "Breitling", href: "/marca/breitling" },
+    { img: "/images/brand/marca1.svg", nome: "Rolex", href: "/marca/rolex" },
+    { img: "/images/brand/marca2.svg", nome: "Tag Heuer", href: "/marca/tag-heuer" },
+    { img: "/images/brand/marca3.svg", nome: "Breitling", href: "/marca/breitling" },
     {
-      img: "/assets/marca4.svg",
+      img: "/images/brand/marca4.svg",
       nome: "Audemars Piguet",
       href: "/marca/audemars-piguet",
     },
-    { img: "/assets/marca5.svg", nome: "Patek Philippe", href: "/marca/patek-philippe" },
-    { img: "/assets/marca6.svg", nome: "Hublot", href: "/marca/hublot" },
-    { img: "/assets/marca7.svg", nome: "Cartier", href: "/marca/cartier" },
-    { img: "/assets/marca8.svg", nome: "Seiko", href: "/marca/seiko" },
-    { img: "/assets/marca9.svg", nome: "Omega", href: "/marca/omega" },
-    { img: "/assets/marca10.svg", nome: "IWC", href: "/marca/iwc" },
+    {
+      img: "/images/brand/marca5.svg",
+      nome: "Patek Philippe",
+      href: "/marca/patek-philippe",
+    },
+    { img: "/images/brand/marca6.svg", nome: "Hublot", href: "/marca/hublot" },
+    { img: "/images/brand/marca7.svg", nome: "Cartier", href: "/marca/cartier" },
+    { img: "/images/brand/marca8.svg", nome: "Seiko", href: "/marca/seiko" },
+    { img: "/images/brand/marca9.svg", nome: "Omega", href: "/marca/omega" },
+    { img: "/images/brand/marca10.svg", nome: "IWC", href: "/marca/iwc" },
   ];
 
   const sugestoes = [
@@ -112,25 +116,25 @@ export function Hero() {
   const vendedores = [
     {
       nome: "Cordial Watches",
-      logo: "/assets/vend1.svg",
+      logo: "/images/seller/vend1.svg",
       descricao: "Cordial Watches",
       bgColor: "bg-[#141414]",
     },
     {
       nome: "TMG Time gateways",
-      logo: "/assets/vend2.svg",
+      logo: "/images/seller/vend2.svg",
       descricao: "Time gateways",
       bgColor: "bg-[#6B2C2C]",
     },
     {
       nome: "Fist Wear.TM",
-      logo: "/assets/vend3.svg",
+      logo: "/images/seller/vend3.svg",
       descricao: "Fist wear",
       bgColor: "bg-[#2C4A3A]",
     },
     {
       nome: "Linksor Joias",
-      logo: "/assets/vend4.svg",
+      logo: "/images/seller/vend4.svg",
       descricao: "Linksor joias",
       bgColor: "bg-[#1A2638]",
     },
@@ -230,7 +234,7 @@ export function Hero() {
                   {/* <Link href={`/promocoes/banner-${num}`} className="block h-full"> */}
                   <div className="block h-full">
                     <Image
-                      src={`/assets/banner${num}.svg`}
+                      src={`/images/hero/banner${num}.svg`}
                       alt={`Promoção ${num}`}
                       className="w-full h-[152px] md:h-full object-cover rounded-[16px] md:rounded-[48px]"
                       width={1200}

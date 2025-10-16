@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "../ui/Button";
+import { MobileUserMenu } from "./MobileUserMenu";
 import { SearchBar } from "./SearchBar";
 import { UserMenu } from "./UserMenu";
 
@@ -82,44 +83,16 @@ export function Header() {
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
-            <nav className="container mx-auto max-w-7xl px-5 py-4 space-y-4">
-              <Link
-                href="/#"
-                className="block font-lato text-md font-medium text-gray-700 hover:text-gray-900"
-              >
-                Perguntas frequentes
-              </Link>
-              <Link
-                href="/vendedor"
-                className="block font-lato text-md font-medium text-gray-700 hover:text-gray-900"
-              >
-                Vender meu relógio
-              </Link>
-              <div className="pt-2">
-                <SearchBar />
-              </div>
-              {!isAuthenticated && (
-                <Link href="/auth/login" className="w-full">
-                  <Button
-                    variant="gold"
-                    size="default"
-                    className="h-[48px] w-full font-bold"
-                  >
-                    Acessar
-                  </Button>
-                </Link>
-              )}
-            </nav>
-          </div>
-        )}
       </header>
 
-      {/* DEV ONLY: Toggle para testar estados */}
-      <div className="fixed bottom-4 right-4 z-[9999] bg-black/80 text-white p-3 rounded-lg text-sm">
+      {/* Mobile Menu - Novo componente unificado */}
+      <MobileUserMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* DEV ONLY: Toggle para testar estados - APENAS NO DESKTOP */}
+      <div className="hidden md:block fixed bottom-4 right-4 z-[9999] bg-black/80 text-white p-3 rounded-lg text-sm">
         <button
           onClick={() => (isAuthenticated ? mockLogout() : mockLogin())}
           className="hover:underline"

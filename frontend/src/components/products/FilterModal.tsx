@@ -78,14 +78,14 @@ export function FilterModal({ isOpen, onClose, filterOptions }: FilterModalProps
 
   // Marcas principais com logos reais
   const mainBrands = [
-    { name: "Rolex", logo: "/assets/marca1.svg" },
-    { name: "Tag Heuer", logo: "/assets/marca2.svg" },
-    { name: "Breitling", logo: "/assets/marca3.svg" },
-    { name: "Audemars Piguet", logo: "/assets/marca4.svg" },
-    { name: "Patek Philippe", logo: "/assets/marca5.svg" },
-    { name: "Hublot", logo: "/assets/marca6.svg" },
-    { name: "Cartier", logo: "/assets/marca7.svg" },
-    { name: "Seiko", logo: "/assets/marca8.svg" },
+    { name: "Rolex", logo: "/images/brand/marca1.svg" },
+    { name: "Tag Heuer", logo: "/images/brand/marca2.svg" },
+    { name: "Breitling", logo: "/images/brand/marca3.svg" },
+    { name: "Audemars Piguet", logo: "/images/brand/marca4.svg" },
+    { name: "Patek Philippe", logo: "/images/brand/marca5.svg" },
+    { name: "Hublot", logo: "/images/brand/marca6.svg" },
+    { name: "Cartier", logo: "/images/brand/marca7.svg" },
+    { name: "Seiko", logo: "/images/brand/marca8.svg" },
   ];
 
   const activeFiltersCount = selectedBrands.length;
