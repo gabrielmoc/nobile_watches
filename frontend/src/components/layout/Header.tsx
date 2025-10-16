@@ -1,14 +1,17 @@
 "use client";
 
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import { useAuth } from "@/hooks/useAuth";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "../ui/Button";
 import { SearchBar } from "./SearchBar";
+import { UserMenu } from "./UserMenu";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, mockLogin, mockLogout } = useAuth();
 
   return (
     <div className="relative inset-x-0 z-250 group">
@@ -45,157 +48,85 @@ export function Header() {
               </nav>
             </div>
 
-            {/* Desktop Search and Login */}
-            <div className="hidden md:flex items-center gap-8 flex-1 justify-end">
-              {/* Search Bar */}
-              <div className="flex-1 max-w-md">
-                <SearchBar placeholder="Pesquisar 564.937 relógios..." />
-              </div>
+            {/* Desktop Search and Auth Actions */}
+            <div className="hidden md:flex items-center gap-4">
+              <SearchBar className="md:w-[420px]" />
 
-              {/* Login Button */}
-              <Link href="/login">
-                <Button
-                  variant="gold"
-                  className="h-[48px] w-[122px] font-bold leading-[150%] tracking-[0.02em]"
-                >
-                  Acessar
-                </Button>
-              </Link>
+              {isAuthenticated && user ? (
+                <UserMenu user={user} />
+              ) : (
+                <Link href="/login">
+                  <Button
+                    variant="gold"
+                    size="default"
+                    className="h-[48px] w-[122px] font-bold leading-[150%] tracking-[0.02em] whitespace-nowrap"
+                  >
+                    Acessar
+                  </Button>
+                </Link>
+              )}
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle */}
             <button
-              className="flex md:hidden"
-              onClick={() => setIsMobileMenuOpen(true)}
-              aria-label="Abrir menu"
+              type="button"
+              className="md:hidden p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Menu"
             >
-              <Bars3Icon className="h-6 w-6" />
+              {isMobileMenuOpen ? (
+                <XMarkIcon className="h-6 w-6 text-gray-900" />
+              ) : (
+                <Bars3Icon className="h-6 w-6 text-gray-900" />
+              )}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden">
-            {/* Backdrop */}
-            <div
-              className="fixed inset-0 bg-black bg-opacity-50"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-
-            {/* Menu Panel */}
-            <div className="fixed inset-0 w-full bg-white shadow-lg">
-              <div className="flex items-center justify-between h-16 px-4">
-                <Link href="/" className="flex items-center">
-                  <Image src="/logo.svg" alt="Nobile" width={91} height={24} priority />
-                </Link>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  aria-label="Fechar menu"
-                >
-                  <Image src="/icons/XSquare.svg" alt="Fechar" width={32} height={32} />
-                </button>
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
+            <nav className="container mx-auto max-w-7xl px-5 py-4 space-y-4">
+              <Link
+                href="/#"
+                className="block font-lato text-md font-medium text-gray-700 hover:text-gray-900"
+              >
+                Perguntas frequentes
+              </Link>
+              <Link
+                href="/vendedor"
+                className="block font-lato text-md font-medium text-gray-700 hover:text-gray-900"
+              >
+                Vender meu relógio
+              </Link>
+              <div className="pt-2">
+                <SearchBar />
               </div>
-
-              <div className="p-4">
-                {/* Search Bar dentro do menu mobile */}
-                <div className="mb-6">
-                  <SearchBar placeholder="Pesquisar 564.937 relógios..." />
-                </div>
-
-                <Link href="/login">
+              {!isAuthenticated && (
+                <Link href="/auth/login" className="w-full">
                   <Button
                     variant="gold"
-                    className="h-[56px] w-full font-bold leading-[150%] tracking-[0.02em]"
+                    size="default"
+                    className="h-[48px] w-full font-bold"
                   >
-                    Login
+                    Acessar
                   </Button>
                 </Link>
-                <div className="space-y-6">
-                  {/* <div className="space-y-4">
-                    <h3 className="text-sm font-medium text-[#141414] tracking-wider">
-                      Gerenciamento
-                    </h3>
-                    <div className="space-y-3">
-                      <Link
-                        href="/carrinho"
-                        className="flex items-center text-gray-700 hover:text-gray-900"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Meu carrinho
-                      </Link>
-                      <Link
-                        href="/compras"
-                        className="flex items-center text-gray-700 hover:text-gray-900"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Minhas compras
-                      </Link>
-                      <Link
-                        href="/lista-desejos"
-                        className="flex items-center text-gray-700 hover:text-gray-900"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Lista de desejos
-                      </Link>
-                      <Link
-                        href="/colecao"
-                        className="flex items-center text-gray-700 hover:text-gray-900"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Minha coleção
-                      </Link>
-                    </div>
-                  </div> */}
-
-                  {/* Account Actions */}
-                  {/* <div className="space-y-4">
-                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">
-                      Meus dados
-                    </h3>
-                    <div className="space-y-3">
-                      <Link
-                        href="/perfil"
-                        className="flex items-center text-gray-700 hover:text-gray-900"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Meu perfil
-                      </Link>
-                      <Link
-                        href="/vender"
-                        className="flex items-center text-gray-700 hover:text-gray-900"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Vender
-                      </Link>
-                      <Link
-                        href="/anuncios"
-                        className="flex items-center text-gray-700 hover:text-gray-900"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Meus anúncios
-                      </Link>
-                    </div>
-                  </div> */}
-
-                  {/* Options */}
-                  {/* <div className="space-y-4">
-                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">
-                      Opções
-                    </h3>
-                    <button
-                      className="flex items-center text-red-600 hover:text-red-700"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Sair
-                    </button>
-                  </div> */}
-                </div>
-              </div>
-            </div>
+              )}
+            </nav>
           </div>
         )}
       </header>
+
+      {/* DEV ONLY: Toggle para testar estados */}
+      <div className="fixed bottom-4 right-4 z-[9999] bg-black/80 text-white p-3 rounded-lg text-sm">
+        <button
+          onClick={() => (isAuthenticated ? mockLogout() : mockLogin())}
+          className="hover:underline"
+        >
+          {isAuthenticated ? "Simular Logout" : "Simular Login"}
+        </button>
+      </div>
     </div>
   );
 }

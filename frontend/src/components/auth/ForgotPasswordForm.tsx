@@ -30,18 +30,13 @@ export function ForgotPasswordForm() {
     mode: "onChange",
   });
 
-  // Observa o valor do email
   const email = watch("email");
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
     setIsLoading(true);
     try {
-      // TODO: Implementar chamada para API de recuperação de senha
       console.log("Forgot password data:", data);
-
-      // Simular delay da API
       await new Promise(resolve => setTimeout(resolve, 1000));
-
       setIsSubmitted(true);
     } catch (error) {
       setError("root", {
@@ -52,13 +47,6 @@ export function ForgotPasswordForm() {
     }
   };
 
-  const handleResendCode = async () => {
-    const email = getValues("email");
-    if (email) {
-      await onSubmit({ email });
-    }
-  };
-
   const handleCodeChange = (index: number, value: string) => {
     if (value.length > 1) return;
 
@@ -66,7 +54,6 @@ export function ForgotPasswordForm() {
     newCode[index] = value;
     setVerificationCode(newCode);
 
-    // Auto-focus próximo input
     if (value && index < 5) {
       const nextInput = document.getElementById(`code-${index + 1}`);
       nextInput?.focus();
@@ -89,7 +76,7 @@ export function ForgotPasswordForm() {
 
   if (isSubmitted) {
     return (
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full min-h-[450px]">
         <div className="mb-8">
           <h1 className="font-erstoria text-[28px] text-[#141414] mb-3 leading-[100%]">
             Verifique seu e-mail
@@ -101,10 +88,9 @@ export function ForgotPasswordForm() {
           </p>
         </div>
 
-        <div className="space-y-8 flex-1">
-          {/* Código de verificação */}
-          <div>
-            <div className="flex justify-center gap-3 mb-6">
+        <div className="flex-1 flex flex-col">
+          <div className="mb-8">
+            <div className="flex justify-center gap-3">
               {Array.from({ length: 6 }).map((_, index) => (
                 <input
                   key={index}
@@ -145,7 +131,7 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <div className="flex flex-col h-full min-h-full">
+    <div className="flex flex-col h-full min-h-[450px]">
       <div className="mb-8">
         <h1 className="font-erstoria text-[28px] text-[#141414] mb-3 leading-[100%]">
           Esqueceu sua senha?
@@ -157,8 +143,7 @@ export function ForgotPasswordForm() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex flex-col">
-        <div className="space-y-6 flex-1">
-          {/* Email */}
+        <div className="space-y-6">
           <div>
             <label
               htmlFor="email"
@@ -175,7 +160,7 @@ export function ForgotPasswordForm() {
                 type="email"
                 id="email"
                 placeholder="Digite seu e-mail..."
-                className={`w-full h-[48px] pl-12.5 pr-4 py-3 border rounded-xl focus:outline-none transition-colors ${
+                className={`w-full h-[48px] pl-12 pr-4 py-3 border rounded-xl focus:outline-none transition-colors ${
                   errors.email
                     ? "border-[#E81F33] text-[#E81F33] placeholder:text-[#E81F33]"
                     : "border-[#D9D9D9] focus:border-[#D5A60A] focus:ring-1 focus:ring-[#D5A60A]"
@@ -187,7 +172,6 @@ export function ForgotPasswordForm() {
             )}
           </div>
 
-          {/* Erro geral */}
           {errors.root && (
             <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
               <p className="text-sm text-red-600">{errors.root.message}</p>
@@ -196,7 +180,6 @@ export function ForgotPasswordForm() {
         </div>
 
         <div className="mt-auto space-y-6 pt-8">
-          {/* Botão de enviar */}
           <Button
             type="submit"
             variant="gold"
@@ -207,7 +190,6 @@ export function ForgotPasswordForm() {
             Enviar código de verificação
           </Button>
 
-          {/* Voltar */}
           <div className="flex items-center justify-center">
             <Link
               href="/login"

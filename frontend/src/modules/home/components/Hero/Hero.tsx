@@ -22,13 +22,16 @@ export function Hero() {
   const bannerSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 800,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-  };
+    fade: true,
+    cssEase: "cubic-bezier(0.4, 0, 0.2, 1)",
+    dotsClass: "slick-dots banner-dots",
+  } as const;
 
   const featuredSettings = {
     dots: false,
@@ -217,7 +220,7 @@ export function Hero() {
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Banner Slider */}
         <div className="relative">
-          <div className="h-[170px] md:h-[350px] lg:h-[518px] overflow-hidden rounded-[16px] md:rounded-[48px]">
+          <div className="h-[180px] md:h-[350px] lg:h-[518px] overflow-hidden rounded-[16px] md:rounded-[48px]">
             <Slider {...bannerSettings}>
               {[1, 2, 3, 4].map(num => (
                 <div

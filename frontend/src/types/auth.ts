@@ -1,13 +1,21 @@
+/**
+ * Tipos relacionados à autenticação
+ */
+
 export interface User {
   id: string;
   name: string;
   email: string;
-  phone: string;
-  avatar?: string;
-  isVerified: boolean;
-  isSeller: boolean;
-  createdAt: string;
-  updatedAt: string;
+  avatar: string;
+  role?: "buyer" | "seller" | "admin";
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface AuthTokens {
+  accessToken: string;
+  refreshToken?: string;
+  expiresIn?: number;
 }
 
 export interface LoginCredentials {
@@ -20,37 +28,53 @@ export interface RegisterData {
   email: string;
   password: string;
   confirmPassword: string;
-  phone: string;
-  country: string;
-  state: string;
-  city: string;
   acceptTerms: boolean;
-}
-
-export interface ForgotPasswordData {
-  email: string;
-}
-
-export interface ResetPasswordData {
-  code: string;
-  password: string;
-  confirmPassword: string;
 }
 
 export interface AuthResponse {
   user: User;
-  token: string;
-  refreshToken: string;
-}
-
-export interface AuthError {
-  message: string;
-  field?: string;
+  tokens: AuthTokens;
 }
 
 export interface AuthState {
   user: User | null;
-  token: string | null;
-  isLoading: boolean;
   isAuthenticated: boolean;
+  isLoading: boolean;
+  error: string | null;
+}
+
+/**
+ * Tipos para o menu de usuário
+ */
+
+export interface MenuItem {
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  label: string;
+  href: string;
+  badge?: number; // Para mostrar contadores (ex: itens no carrinho)
+}
+
+export interface MenuSection {
+  title: string;
+  items: MenuItem[];
+}
+
+/**
+ * Constantes úteis
+ */
+
+export const AUTH_TOKEN_KEY = "nobile_auth_token";
+export const REFRESH_TOKEN_KEY = "nobile_refresh_token";
+export const USER_DATA_KEY = "nobile_user_data";
+
+/**
+ * Helpers de tipo para guards
+ */
+
+export function isAuthenticated(user: User | null): user is User {
+  return user !== null && !!user.id;
+}
+
+export function hasRole(user: User | null, role: User["role"]): boolean {
+  return user?.role === role;
 }

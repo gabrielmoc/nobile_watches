@@ -123,8 +123,8 @@
 
 .featured-slider .slick-slide {
   transition: all 0.3s ease;
-  opacity: 0.4;
-  transform: scale(0.7);
+  opacity: 0.5; /* Aumentado de 0.4 para 0.5 */
+  transform: scale(0.8); /* Aumentado de 0.7 para 0.8 */
 }
 
 .featured-slider .slick-slide.slick-center {
@@ -202,4 +202,83 @@ img {
 [class*="grid"],
 [class*="flex"] {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Banner Slider Dots - Posicionados abaixo do slider */
+.banner-dots {
+  position: relative !important;
+  bottom: auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 16px 0 0 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+  z-index: 10 !important;
+  width: 100% !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.banner-dots li {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 12px !important;
+  height: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.banner-dots li button {
+  width: 12px !important;
+  height: 12px !important;
+  padding: 0 !important;
+  border: 2px solid #d9d9d9 !important;
+  border-radius: 50% !important;
+  background-color: #d9d9d9 !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.banner-dots li button:hover {
+  background-color: rgba(213, 166, 10, 0.3) !important;
+  /* border-color: #d5a60a !important; */
+  transform: scale(1.1) !important;
+}
+
+.banner-dots li.slick-active button {
+  background-color: #141414 !important;
+  border-color: #141414 !important;
+  box-shadow: 0 2px 8px rgba(213, 166, 10, 0.25) !important;
+}
+
+.banner-dots li button:before {
+  display: none !important;
+}
+
+/* Responsivo - ajustes para mobile */
+@media (max-width: 768px) {
+  .banner-dots {
+    padding: 12px 0 0 0 !important;
+    gap: 8px !important;
+  }
+
+  .banner-dots li {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .banner-dots li button {
+    width: 6px !important;
+    height: 6px !important;
+    border-width: 1.5px !important;
+  }
 }
