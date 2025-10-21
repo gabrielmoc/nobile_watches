@@ -1,4 +1,3 @@
-// src/components/products/ProductCard.tsx
 "use client";
 
 import { stringToSlug } from "@/lib/utils/stringUtils";

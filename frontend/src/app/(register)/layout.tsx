@@ -7,14 +7,9 @@ interface RegisterLayoutProps {
 
 export default function RegisterLayout({ children }: RegisterLayoutProps) {
   return (
-    <div className="min-h-screen relative flex flex-col lg:block bg-[#0A0A0A]">
-      {/* Background mobile - DIFERENTE da tela de login - com scroll habilitado */}
+    <div className="min-h-screen relative flex flex-col lg:block lg:bg-[#0A0A0A]">
+      {/* Background mobile */}
       <div className="relative h-[calc(30vh+18px)] lg:hidden flex-shrink-0">
-        {/* 
-          IMPORTANTE: Use uma imagem específica para cadastro
-          Exemplo: /images/auth/register-bg-mobile.svg ou register-bg-mobile.png
-          Essa imagem deve mostrar o relógio que aparece no design de referência
-        */}
         <Image
           src="/images/auth/register-bg-mobile.svg"
           alt="Crie sua conta na Nobile"
@@ -49,7 +44,7 @@ export default function RegisterLayout({ children }: RegisterLayoutProps) {
         </header>
       </div>
 
-      {/* Background desktop - mantém a mesma imagem do login */}
+      {/* Background desktop */}
       <div className="absolute inset-0 hidden lg:block">
         <Image
           src="/images/auth/auth-bg.svg"
@@ -59,20 +54,13 @@ export default function RegisterLayout({ children }: RegisterLayoutProps) {
           priority
         />
 
-        {/* Overlay escuro para melhor legibilidade */}
         <div className="absolute inset-0 bg-black/10"></div>
       </div>
 
-      {/* Container do formulário - COM SCROLL VERTICAL no mobile */}
+      {/* Container do formulário */}
       <div className="flex-1 lg:absolute lg:inset-0 relative z-10 flex items-start lg:items-center justify-center lg:justify-end lg:px-15 xl:px-15 -mt-[18px] lg:mt-0">
-        <div className="w-full lg:max-w-lg pb-6 lg:pb-0">
-          {/* 
-            Card do formulário 
-            - No mobile: min-h-[69vh] com overflow-y-auto para permitir scroll
-            - No desktop: max-h-[90vh] com overflow-y-auto caso o formulário seja muito longo
-          */}
-          <div className="bg-white w-full lg:max-w-[596px] rounded-t-[32px] lg:rounded-2xl shadow-2xl px-6 pt-8 pb-10 lg:p-10.5 min-h-[69vh] lg:min-h-0 lg:max-h-[90vh] overflow-y-auto">
-            {/* Conteúdo do formulário */}
+        <div className="w-full lg:max-w-lg">
+          <div className="scrollbar-subtle bg-white w-full lg:max-w-[596px] rounded-t-[32px] lg:rounded-2xl shadow-2xl px-6 pt-[30px] pb-10 lg:p-10.5 min-h-[calc(70vh+18px)] lg:min-h-0 lg:max-h-[90vh] overflow-y-auto">
             {children}
           </div>
         </div>

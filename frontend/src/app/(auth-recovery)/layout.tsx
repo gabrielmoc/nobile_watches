@@ -64,8 +64,7 @@ export default function AuthRecoveryLayout({ children }: AuthRecoveryLayoutProps
             <Image src="/logo-recovery.svg" alt="Nobile" width={120} height={28} />
           </div>
 
-          {/* Card do formulário - com backdrop blur para melhor contraste */}
-          <div className="bg-white/95 backdrop-blur-sm shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] py-8 lg:py-8 px-[20px] lg:px-[42px] pb-[20px] auth-inner flex-1 lg:flex-none overflow-y-auto lg:max-h-[calc(90vh-90px)]">
+          <div className="bg-white py-[30px] lg:py-8 px-[20px] lg:px-[42px] pb-[20px] auth-inner flex-1 lg:flex-none overflow-y-auto lg:max-h-[calc(90vh-90px)]">
             {children}
           </div>
         </div>
