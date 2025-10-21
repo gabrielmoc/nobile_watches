@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "../ui/Button";
 import { SearchBar } from "./SearchBar";
 
 interface MobileUserMenuProps {
@@ -232,7 +233,27 @@ export function MobileUserMenu({ isOpen, onClose }: MobileUserMenuProps) {
             >
               Vender meu relógio
             </Link>
+            <div className="py-4">
+              <Link href="/login">
+                <Button
+                  variant="gold"
+                  size="default"
+                  className="h-[56px] w-full font-bold leading-[150%] tracking-[0.02em] whitespace-nowrap mb-2.5"
+                >
+                  Login
+                </Button>
+              </Link>
 
+              <Link href="/cadastro">
+                <Button
+                  variant="outline"
+                  size="default"
+                  className="h-[56px] w-full font-bold leading-[150%] tracking-[0.02em] whitespace-nowrap"
+                >
+                  Cadastro
+                </Button>
+              </Link>
+            </div>
             {/* DEV ONLY: Simular Login */}
             <div className="pt-4 space-y-3">
               <button

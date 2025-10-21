@@ -1,20 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface AuthLayoutProps {
+interface RegisterLayoutProps {
   children: React.ReactNode;
 }
 
-export default function AuthLayout({ children }: AuthLayoutProps) {
+export default function RegisterLayout({ children }: RegisterLayoutProps) {
   return (
     <div className="min-h-screen relative flex flex-col lg:block bg-[#0A0A0A]">
-      {/* Background images - diferentes para mobile e desktop */}
-
-      {/* Background mobile - ocupa 31% da altura + 18px para ficar atrás do card */}
-      <div className="relative h-[calc(31vh+18px)] lg:hidden flex-shrink-0">
+      {/* Background mobile - DIFERENTE da tela de login - com scroll habilitado */}
+      <div className="relative h-[calc(30vh+18px)] lg:hidden flex-shrink-0">
+        {/* 
+          IMPORTANTE: Use uma imagem específica para cadastro
+          Exemplo: /images/auth/register-bg-mobile.svg ou register-bg-mobile.png
+          Essa imagem deve mostrar o relógio que aparece no design de referência
+        */}
         <Image
-          src="/images/auth/auth-bg-mobile.svg"
-          alt="Vitrine Nobile com relógios de luxo"
+          src="/images/auth/register-bg-mobile.svg"
+          alt="Crie sua conta na Nobile"
           fill
           className="object-cover"
           priority
@@ -23,7 +26,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         {/* Header mobile com logo e menu hamburguer */}
         <header className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center">
-            <span className="font-erstoria text-[32px] text-white">Nobile</span>
+            <Image src="/logo-dark.svg" alt="Nobile" width={91} height={24} />
           </Link>
 
           <button type="button" className="p-2" aria-label="Menu">
@@ -32,7 +35,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
               height="24"
               viewBox="0 0 24 24"
               fill="none"
-              className="text-white"
+              className="text-pb-500"
             >
               <path
                 d="M3 12H21M3 6H21M3 18H21"
@@ -46,7 +49,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         </header>
       </div>
 
-      {/* Background desktop - mantém a imagem atual ocupando toda a tela */}
+      {/* Background desktop - mantém a mesma imagem do login */}
       <div className="absolute inset-0 hidden lg:block">
         <Image
           src="/images/auth/auth-bg.svg"
@@ -56,15 +59,19 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           priority
         />
 
-        {/* Overlay escuro para melhor legibilidade - apenas no desktop */}
+        {/* Overlay escuro para melhor legibilidade */}
         <div className="absolute inset-0 bg-black/10"></div>
       </div>
 
-      {/* Container do formulário */}
+      {/* Container do formulário - COM SCROLL VERTICAL no mobile */}
       <div className="flex-1 lg:absolute lg:inset-0 relative z-10 flex items-start lg:items-center justify-center lg:justify-end lg:px-15 xl:px-15 -mt-[18px] lg:mt-0">
-        <div className="w-full lg:max-w-lg">
-          {/* Card do formulário */}
-          <div className="bg-white w-full lg:max-w-[596px] rounded-t-[32px] lg:rounded-2xl shadow-2xl px-6 pt-8 pb-10 lg:p-10.5 min-h-[69vh] lg:min-h-0">
+        <div className="w-full lg:max-w-lg pb-6 lg:pb-0">
+          {/* 
+            Card do formulário 
+            - No mobile: min-h-[69vh] com overflow-y-auto para permitir scroll
+            - No desktop: max-h-[90vh] com overflow-y-auto caso o formulário seja muito longo
+          */}
+          <div className="bg-white w-full lg:max-w-[596px] rounded-t-[32px] lg:rounded-2xl shadow-2xl px-6 pt-8 pb-10 lg:p-10.5 min-h-[69vh] lg:min-h-0 lg:max-h-[90vh] overflow-y-auto">
             {/* Conteúdo do formulário */}
             {children}
           </div>

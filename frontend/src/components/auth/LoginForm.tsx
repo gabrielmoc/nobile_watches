@@ -2,12 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import { loginSchema, type LoginFormData } from "@/lib/validations/auth";
-import {
-  EnvelopeIcon,
-  EyeIcon,
-  EyeSlashIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/outline";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
@@ -66,8 +61,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="font-erstoria text-[28px] font-normal text-gray-900 mb-3.5">
+      <div className="flex flex-col gap-3 mb-6">
+        <h1 className="font-erstoria text-[28px] font-normal text-pb-500">
           Acesse sua conta
         </h1>
         <p className="font-lato text-gray-400 text-sm leading-[148%]">
@@ -82,7 +77,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           {/* Google */}
           <button
             type="button"
-            className="flex-1 flex items-center justify-center w-[60px] h-[60px] max-w-[60px] bg-[#F7F7F7] border border-[#D9D9D9] rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+            className="flex-1 flex items-center justify-center w-[60px] h-[60px] max-w-[60px] bg-[#F7F7F7] border border-[#D9D9D9] rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-offset-2"
             aria-label="Entrar com Google"
           >
             <Image src="/icons/google.svg" alt="Google" width={40} height={40} />
@@ -91,7 +86,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           {/* Apple */}
           <button
             type="button"
-            className="flex-1 flex items-center justify-center w-[60px] h-[60px] max-w-[60px] bg-[#F7F7F7] border border-[#D9D9D9] rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+            className="flex-1 flex items-center justify-center w-[60px] h-[60px] max-w-[60px] bg-[#F7F7F7] border border-[#D9D9D9] rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-offset-2"
             aria-label="Entrar com Apple"
           >
             <Image src="/icons/apple.svg" alt="Apple" width={40} height={40} />
@@ -112,25 +107,27 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         {/* Email */}
         <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-normal text-[#141414] mb-2.5"
-          >
+          <label htmlFor="email" className="block text-sm text-pb-500 mb-2.5">
             E-mail
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <EnvelopeIcon className="h-5 w-5 text-[#141414]" />
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Image
+                src="/icons/envelope-outline.svg"
+                alt="Envelope"
+                width={24}
+                height={24}
+              />
             </div>
             <input
               {...register("email")}
               type="email"
               id="email"
               placeholder="Digite seu e-mail..."
-              className={`w-full h-[48px] pl-12.5 pr-3 py-3 border rounded-xl focus:outline-none transition-colors ${
+              className={`w-full h-[48px] pl-12 pr-3 py-3 border rounded-xl focus:outline-none transition-colors ${
                 errors.email
                   ? "border-[#E81F33] text-[#E81F33] placeholder:text-[#E81F33]"
-                  : "border-[#D9D9D9]"
+                  : "border-[#EFEFEF]"
               }`}
             />
           </div>
@@ -141,23 +138,25 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
         {/* Senha */}
         <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-normal text-[#141414] mb-2.5"
-          >
+          <label htmlFor="password" className="block text-sm text-pb-500 mb-2.5">
             Senha
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <LockClosedIcon className="h-5 w-5 text-[#141414]" />
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Image
+                src="/icons/password-lock.svg"
+                alt="Password"
+                width={24}
+                height={24}
+              />
             </div>
             <input
               {...register("password")}
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder="Digite sua senha..."
-              className={`w-full h-[48px] pl-12.5 pr-3 py-3 border rounded-xl focus:outline-none transition-colors ${
-                errors.password ? "border-[#E81F33]" : "border-[#D9D9D9]"
+              className={`w-full h-[48px] pl-12 pr-3 py-3 border rounded-xl focus:outline-none transition-colors ${
+                errors.password ? "border-[#E81F33]" : "border-[#EFEFEF]"
               }`}
             />
             <button
@@ -166,9 +165,9 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
               className="absolute inset-y-0 right-0 flex items-center pr-3"
             >
               {showPassword ? (
-                <EyeSlashIcon className="h-5 w-5 text-[#141414]" />
+                <EyeSlashIcon className="h-5 w-5 text-pb-500" />
               ) : (
-                <EyeIcon className="h-5 w-6 text-[#141414]" />
+                <EyeIcon className="h-5 w-6 text-pb-500" />
               )}
             </button>
           </div>
@@ -199,7 +198,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
         <div className="text-center">
           <Link
             href="/recuperar-senha"
-            className="font-lato text-base text-[#141414] font-bold hover:text-gray-900 transition-colors"
+            className="font-lato text-base text-pb-500 font-bold hover:text-gray-900 transition-colors"
           >
             Esqueci minha senha
           </Link>

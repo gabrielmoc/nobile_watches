@@ -1,4 +1,4 @@
-// src/app/(main)/marca/[slug]/page.tsx
+// src/app/(main)/[brand]/page.tsx
 import { BrandPageClient } from "@/components/products/BrandPageClient";
 import {
   getFilterOptions,
@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 
 interface BrandPageProps {
   params: Promise<{
-    slug: string;
+    brand: string;
   }>;
 }
 
@@ -31,7 +31,7 @@ const brandMap: Record<string, string> = {
 
 export async function generateMetadata(props: BrandPageProps): Promise<Metadata> {
   const params = await props.params;
-  const brandName = brandMap[params.slug];
+  const brandName = brandMap[params.brand];
 
   if (!brandName) {
     return {
@@ -40,14 +40,14 @@ export async function generateMetadata(props: BrandPageProps): Promise<Metadata>
   }
 
   return {
-    title: `${brandName} - Relógios de Luxo`,
+    title: `${brandName} - Relógios de Luxo | Nobile`,
     description: `Explore nossa coleção de relógios ${brandName}. Encontre modelos exclusivos com garantia de autenticidade.`,
   };
 }
 
 export default async function BrandPage(props: BrandPageProps) {
   const params = await props.params;
-  const brandName = brandMap[params.slug];
+  const brandName = brandMap[params.brand];
 
   if (!brandName) {
     notFound();

@@ -28,7 +28,10 @@ export interface RegisterData {
   email: string;
   password: string;
   confirmPassword: string;
-  acceptTerms: boolean;
+  phone: string;
+  country: string;
+  state: string;
+  city: string;
 }
 
 export interface AuthResponse {

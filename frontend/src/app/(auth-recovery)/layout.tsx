@@ -7,11 +7,9 @@ interface AuthRecoveryLayoutProps {
 
 export default function AuthRecoveryLayout({ children }: AuthRecoveryLayoutProps) {
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background images - diferentes para mobile e desktop */}
-
+    <div className="h-screen lg:h-screen overflow-hidden relative flex flex-col lg:block">
       {/* Background mobile - ocupa 31% da altura + 18px para ficar atrás do card */}
-      <div className="relative h-[calc(31vh+18px)] lg:hidden">
+      <div className="relative h-[calc(31vh+18px)] flex-shrink-0 lg:hidden">
         <Image
           src="/images/auth/auth-bg-mobile.svg"
           alt="Vitrine Nobile com relógios de luxo"
@@ -59,15 +57,15 @@ export default function AuthRecoveryLayout({ children }: AuthRecoveryLayoutProps
       </div>
 
       {/* Container do formulário */}
-      <div className="flex-1 lg:absolute lg:inset-0 relative z-10 flex items-start lg:items-center justify-center lg:px-15 xl:px-15 -mt-[18px] lg:mt-0">
-        <div className="w-full max-w-[498px] min-[60vh] rounded-3xl overflow-hidden auth-content">
-          {/* Logo */}
-          <div className="hidden lg:flex h-[90px] max-h-[90px] px-[42px] items-center bg-[#EFEFEF]">
+      <div className="flex-1 lg:absolute lg:inset-0 relative z-10 flex items-start lg:items-center justify-center lg:px-15 xl:px-15 -mt-[18px] lg:mt-0 overflow-hidden">
+        <div className="w-full max-w-[498px] h-full lg:h-auto flex flex-col rounded-3xl overflow-hidden auth-content">
+          {/* Logo - apenas desktop */}
+          <div className="hidden lg:flex h-[90px] flex-shrink-0 px-[42px] items-center bg-[#EFEFEF]">
             <Image src="/logo-recovery.svg" alt="Nobile" width={120} height={28} />
           </div>
 
           {/* Card do formulário - com backdrop blur para melhor contraste */}
-          <div className="bg-white/95 backdrop-blur-sm shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] py-8 lg:py-8 px-[20px] lg:px-[42px] pb-[20px] auth-inner">
+          <div className="bg-white/95 backdrop-blur-sm shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] py-8 lg:py-8 px-[20px] lg:px-[42px] pb-[20px] auth-inner flex-1 lg:flex-none overflow-y-auto lg:max-h-[calc(90vh-90px)]">
             {children}
           </div>
         </div>

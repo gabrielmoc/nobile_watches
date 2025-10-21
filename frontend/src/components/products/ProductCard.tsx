@@ -1,5 +1,7 @@
+// src/components/products/ProductCard.tsx
 "use client";
 
+import { stringToSlug } from "@/lib/utils/stringUtils";
 import { Product } from "@/types/mock";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,13 +20,16 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
     setIsFavorited(!isFavorited);
   };
 
+  // Gera o link do produto usando a estrutura /{marca}/{modelo}
+  const productUrl = `/${stringToSlug(product.brand)}/${stringToSlug(product.model)}`;
+
   if (viewMode === "list") {
     return (
       <div className="group transition-all duration-300 rounded-lg hover:shadow-md hover:border-gray-200 overflow-hidden">
         <div className="flex gap-6 p-0">
           {/* Imagem */}
           <Link
-            href={`/produto/${product.id}`}
+            href={productUrl}
             className="flex-shrink-0 w-[281px] h-[269px] relative focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A60A] focus-visible:ring-offset-2 rounded-lg"
           >
             <div className="relative w-full h-full rounded-lg bg-[#EFEFEF] overflow-hidden">
@@ -42,7 +47,7 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
             <div>
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
-                  <Link href={`/produto/${product.id}`}>
+                  <Link href={productUrl}>
                     <div className="flex items-center gap-2 mb-2">
                       <p className="font-erstoria text-base md:text-lg text-[#D5A60A] leading-[140%]">
                         {product.brand}
@@ -80,36 +85,25 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
                     src={
                       isFavorited ? "/icons/heart-filled.svg" : "/icons/heart-outline.svg"
                     }
-                    alt={isFavorited ? "Favoritado" : "Favoritar"}
+                    alt={
+                      isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"
+                    }
                     width={24}
                     height={24}
-                    className="w-full h-full"
                   />
                 </button>
               </div>
 
               {/* Informações adicionais */}
-              {/* <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-600">
-                {product.year && (
-                  <div className="flex items-center gap-1">
-                    <span className="font-lato">Ano:</span>
-                    <span className="font-lato font-medium">{product.year}</span>
-                  </div>
-                )}
-                {product.condition && (
-                  <div className="flex items-center gap-1">
-                    <span className="font-lato">Estado:</span>
-                    <span className="font-lato font-medium">{product.condition}</span>
-                  </div>
-                )}
+              {/* <div className="space-y-1 text-sm font-lato text-gray-600">
                 {product.caseMaterial && (
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center justify-between">
                     <span className="font-lato">Material:</span>
                     <span className="font-lato font-medium">{product.caseMaterial}</span>
                   </div>
                 )}
                 {product.diameter && (
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center justify-between">
                     <span className="font-lato">Diâmetro:</span>
                     <span className="font-lato font-medium">{product.diameter}mm</span>
                   </div>
@@ -119,7 +113,7 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
 
             {/* Preço */}
             <div className="mt-4">
-              <Link href={`/produto/${product.id}`}>
+              <Link href={productUrl}>
                 <p className="font-lato text-2xl md:text-3xl font-medium leading-[120%] text-[#141414]">
                   R$ {product.price.toLocaleString("pt-BR")}
                 </p>
@@ -135,7 +129,7 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
   return (
     <div className="group transition-all duration-300">
       <Link
-        href={`/produto/${product.id}`}
+        href={productUrl}
         className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A60A] focus-visible:ring-offset-2 rounded-lg block"
       >
         <div className="relative aspect-square rounded-lg bg-[#EFEFEF] overflow-hidden mb-4">
@@ -162,7 +156,7 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
           </div>
         )}
 
-        <Link href={`/produto/${product.id}`}>
+        <Link href={productUrl}>
           <p className="font-erstoria text-sm md:text-base text-[#D5A60A] leading-[140%] mb-2 md:mb-3">
             {product.brand}
           </p>
@@ -185,10 +179,9 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
         >
           <Image
             src={isFavorited ? "/icons/heart-filled.svg" : "/icons/heart-outline.svg"}
-            alt={isFavorited ? "Favoritado" : "Favoritar"}
+            alt={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
             width={24}
             height={24}
-            className="w-full h-full"
           />
         </button>
       </div>

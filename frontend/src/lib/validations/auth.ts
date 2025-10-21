@@ -34,9 +34,6 @@ export const registerSchema = z
     country: z.string().min(1, "País é obrigatório"),
     state: z.string().min(1, "Estado é obrigatório"),
     city: z.string().min(1, "Cidade é obrigatória"),
-    acceptTerms: z
-      .boolean()
-      .refine(val => val === true, "Você deve aceitar os termos de uso"),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: "Senhas não coincidem",

@@ -76,7 +76,7 @@ export function ForgotPasswordForm() {
 
   if (isSubmitted) {
     return (
-      <div className="flex flex-col h-full min-h-[450px]">
+      <div className="flex flex-col h-full min-h-[450px] pb-8 lg:pb-0">
         <div className="mb-8">
           <h1 className="font-erstoria text-[28px] text-[#141414] mb-3 leading-[100%]">
             Verifique seu e-mail
@@ -131,9 +131,9 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <div className="flex flex-col h-full min-h-[450px]">
+    <div className="flex flex-col h-full min-h-[450px] pb-8 lg:pb-0">
       <div className="mb-8">
-        <h1 className="font-erstoria text-[28px] text-[#141414] mb-3 leading-[100%]">
+        <h1 className="font-erstoria text-[28px] text-pb-500 mb-3 leading-[100%]">
           Esqueceu sua senha?
         </h1>
         <p className="font-lato text-sm text-gray-400 leading-[148%]">

@@ -29,7 +29,7 @@ export function SearchBar({
 
     if (brandSlug) {
       // Se for uma marca, redireciona para a página da marca
-      router.push(`/marca/${brandSlug}`);
+      router.push(`/${brandSlug}`);
     } else {
       // Se não for uma marca, redireciona para a página de busca
       router.push(`/search/${encodeURIComponent(query.trim())}`);

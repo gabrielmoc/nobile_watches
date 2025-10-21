@@ -3,15 +3,13 @@
 import { Button } from "@/components/ui/Button";
 import { registerSchema, type RegisterFormData } from "@/lib/validations/auth";
 import {
-  EnvelopeIcon,
   EyeIcon,
   EyeSlashIcon,
-  LockClosedIcon,
   MapPinIcon,
   PhoneIcon,
-  UserIcon,
 } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -30,15 +28,40 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setError,
+    watch,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
+    mode: "onChange", // Valida em tempo real
     defaultValues: {
       country: "Brasil",
       phone: "+55 ",
     },
   });
+
+  // Observa os valores dos campos para controlar o estado do botão
+  const name = watch("name");
+  const email = watch("email");
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
+  const phone = watch("phone");
+  const country = watch("country");
+  const state = watch("state");
+  const city = watch("city");
+
+  // Determina se o botão deve estar habilitado
+  const isButtonEnabled = Boolean(
+    name &&
+      email &&
+      password &&
+      confirmPassword &&
+      phone &&
+      country &&
+      state &&
+      city &&
+      isValid
+  );
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
@@ -62,53 +85,36 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   };
 
   return (
-    <div>
-      <div className="mb-6">
-        <h1 className="font-erstoria text-2xl font-normal text-gray-900 mb-2">
+    <div className="w-full max-w-[500px]">
+      <div className="flex flex-col gap-3 mb-6">
+        <h1 className="font-erstoria text-[28px] font-normal text-pb-500">
           Crie sua conta
         </h1>
-        <p className="font-lato text-gray-400 text-sm">
+        <p className="font-lato text-gray-400 text-sm leading-[148%]">
           Descubra as marcas mais exclusivas, negocie com segurança e acompanhe a
           valorização das suas peças.
         </p>
       </div>
 
       {/* Botões de login social */}
-      <div className="mb-6">
-        <div className="flex space-x-3">
+      <div className="mb-8">
+        <div className="flex justify-center gap-3">
           {/* Google */}
           <button
             type="button"
-            className="flex-1 flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+            className="flex-1 flex items-center justify-center w-[60px] h-[60px] max-w-[60px] bg-[#F7F7F7] border border-[#D9D9D9] rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-offset-2"
+            aria-label="Entrar com Google"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
-              <path
-                fill="#4285F4"
-                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-              />
-              <path
-                fill="#34A853"
-                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-              />
-              <path
-                fill="#EA4335"
-                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-              />
-            </svg>
+            <Image src="/icons/google.svg" alt="Google" width={40} height={40} />
           </button>
 
           {/* Apple */}
           <button
             type="button"
-            className="flex-1 flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+            className="flex-1 flex items-center justify-center w-[60px] h-[60px] max-w-[60px] bg-[#F7F7F7] border border-[#D9D9D9] rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-offset-2"
+            aria-label="Entrar com Apple"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-            </svg>
+            <Image src="/icons/apple.svg" alt="Apple" width={40} height={40} />
           </button>
         </div>
       </div>
@@ -116,29 +122,29 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       {/* Divisor */}
       <div className="relative mb-6">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300" />
+          <div className="w-full border-t border-[#EFEFEF]" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-3 bg-white text-gray-500">Ou</span>
+          <span className="font-lato px-3 bg-white text-gray-400">Ou</span>
         </div>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Nome */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="name" className="block text-sm text-pb-500 mb-2.5">
             Nome
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <UserIcon className="h-5 w-5 text-gray-400" />
+              <Image src="/icons/user-outline.svg" alt="User" width={24} height={24} />
             </div>
             <input
               {...register("name")}
               type="text"
               id="name"
               placeholder="Digite seu nome completo"
-              className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+              className="w-full pl-12 pr-3 py-3 border border-[#EFEFEF] rounded-xl focus:outline-none transition-colors"
             />
           </div>
           {errors.name && (
@@ -146,21 +152,26 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           )}
         </div>
 
-        {/* Email */}
+        {/* E-mail */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm text-[#141414] mb-[10px]">
             E-mail
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <EnvelopeIcon className="h-5 w-5 text-gray-400" />
+              <Image
+                src="/icons/envelope-outline.svg"
+                alt="Envelope"
+                width={24}
+                height={24}
+              />
             </div>
             <input
               {...register("email")}
               type="email"
               id="email"
               placeholder="Digite seu e-mail..."
-              className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+              className="w-full pl-12 pr-3 py-3 border border-[#EFEFEF] rounded-[12px] focus:outline-none transition-colors"
             />
           </div>
           {errors.email && (
@@ -170,22 +181,24 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
 
         {/* Senha */}
         <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label htmlFor="password" className="block text-sm text-[#141414] mb-[10px]">
             Senha
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <LockClosedIcon className="h-5 w-5 text-gray-400" />
+              <Image
+                src="/icons/password-lock.svg"
+                alt="Password"
+                width={24}
+                height={24}
+              />
             </div>
             <input
               {...register("password")}
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder="Digite sua senha..."
-              className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+              className="w-full pl-12 pr-3 py-3 border border-[#EFEFEF] rounded-[12px] focus:outline-none transition-colors"
             />
             <button
               type="button"
@@ -193,9 +206,9 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
               className="absolute inset-y-0 right-0 flex items-center pr-3"
             >
               {showPassword ? (
-                <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+                <EyeSlashIcon className="h-5 w-5 text-pb-500" />
               ) : (
-                <EyeIcon className="h-5 w-5 text-gray-400" />
+                <EyeIcon className="h-5 w-5 text-pb-500" />
               )}
             </button>
           </div>
@@ -204,24 +217,29 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           )}
         </div>
 
-        {/* Confirmar Senha */}
+        {/* Confirmar senha */}
         <div>
           <label
             htmlFor="confirmPassword"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm text-pb-500 mb-[10px]"
           >
             Confirme sua senha
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <LockClosedIcon className="h-5 w-5 text-gray-400" />
+              <Image
+                src="/icons/password-lock.svg"
+                alt="Password"
+                width={24}
+                height={24}
+              />
             </div>
             <input
               {...register("confirmPassword")}
               type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"
               placeholder="Confirme sua senha..."
-              className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+              className="w-full pl-12 pr-3 py-3 border border-[#EFEFEF] rounded-[12px] focus:outline-none transition-colors"
             />
             <button
               type="button"
@@ -229,9 +247,9 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
               className="absolute inset-y-0 right-0 flex items-center pr-3"
             >
               {showConfirmPassword ? (
-                <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+                <EyeSlashIcon className="h-5 w-5 text-pb-500" />
               ) : (
-                <EyeIcon className="h-5 w-5 text-gray-400" />
+                <EyeIcon className="h-5 w-5 text-pb-500" />
               )}
             </button>
           </div>
@@ -242,19 +260,19 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
 
         {/* Telefone */}
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="phone" className="block text-sm text-[#141414] mb-[10px]">
             Número
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <PhoneIcon className="h-5 w-5 text-gray-400" />
+              <PhoneIcon className="h-5 w-5 text-pb-500" />
             </div>
             <input
               {...register("phone")}
               type="tel"
               id="phone"
-              placeholder="+55 11 99999-9999"
-              className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+              placeholder="Digite seu número..."
+              className="w-full pl-10 pr-3 py-3 border border-[#EFEFEF] rounded-[12px] focus:outline-none transition-colors"
             />
           </div>
           {errors.phone && (
@@ -262,51 +280,42 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           )}
         </div>
 
-        {/* Localização */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div>
-            <label
-              htmlFor="country"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              País
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <MapPinIcon className="h-5 w-5 text-gray-400" />
-              </div>
-              <select
-                {...register("country")}
-                id="country"
-                className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
-              >
-                <option value="Brasil">Brasil</option>
-              </select>
-            </div>
-            {errors.country && (
-              <p className="mt-1 text-sm text-red-600">{errors.country.message}</p>
-            )}
-          </div>
-        </div>
-
-        {/* Termos de uso */}
-        <div className="flex items-start">
-          <input
-            {...register("acceptTerms")}
-            type="checkbox"
-            id="acceptTerms"
-            className="mt-1 h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
-          />
-          <label htmlFor="acceptTerms" className="ml-2 text-sm text-gray-700">
-            Aceitar{" "}
-            <Link href="/termos-uso" className="text-orange-600 hover:text-orange-500">
-              termos de uso
-            </Link>
+        {/* Localização - País ocupa 100% da largura */}
+        <div>
+          <label htmlFor="country" className="block text-sm text-[#141414] mb-[10px]">
+            País
           </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MapPinIcon className="h-5 w-5 text-pb-500" />
+            </div>
+            <select
+              {...register("country")}
+              id="country"
+              className="w-full pl-10 pr-3 py-3 border border-[#EFEFEF] rounded-[12px] focus:outline-none transition-colors appearance-none bg-[#F7F7F7]"
+            >
+              <option value="Brasil">Brasil</option>
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <svg
+                className="h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
+          {errors.country && (
+            <p className="mt-1 text-sm text-red-600">{errors.country.message}</p>
+          )}
         </div>
-        {errors.acceptTerms && (
-          <p className="text-sm text-red-600">{errors.acceptTerms.message}</p>
-        )}
 
         {/* Erro geral */}
         {errors.root && (
@@ -316,16 +325,19 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         )}
 
         {/* Botão de cadastro */}
-        <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
+        <Button
+          type="submit"
+          variant="gold"
+          className="w-full h-[54px]"
+          isLoading={isLoading}
+          disabled={!isButtonEnabled || isLoading}
+        >
           Criar conta
         </Button>
 
         {/* Link para login */}
         <div className="text-center">
-          <Link
-            href="/login"
-            className="font-medium text-orange-600 hover:text-orange-500 transition-colors"
-          >
+          <Link href="/login" className="font-bold text-pb-500 transition-colors">
             Login
           </Link>
         </div>

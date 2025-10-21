@@ -15,6 +15,7 @@
     font-family:
       var(--font-erstoria), var(--font-lato), ui-sans-serif, system-ui, sans-serif;
     line-height: 100%;
+    color: #141414;
   }
 
   a {
@@ -114,6 +115,8 @@
 
   --color-gray-300: #d9d9d9;
   --color-gray-400: #777777;
+
+  --color-pb-500: #141414;
 
   --font-weight-light: 300;
   --font-weight-normal: 400;
@@ -281,4 +284,8 @@ img {
     height: 6px !important;
     border-width: 1.5px !important;
   }
+}
+
+.bp {
+  border: 4px solid pink;
 }

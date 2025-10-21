@@ -62,24 +62,24 @@ export function Hero() {
   };
 
   const marcas = [
-    { img: "/images/brand/marca1.svg", nome: "Rolex", href: "/marca/rolex" },
-    { img: "/images/brand/marca2.svg", nome: "Tag Heuer", href: "/marca/tag-heuer" },
-    { img: "/images/brand/marca3.svg", nome: "Breitling", href: "/marca/breitling" },
+    { img: "/images/brand/marca1.svg", nome: "Rolex", href: "/rolex" },
+    { img: "/images/brand/marca2.svg", nome: "Tag Heuer", href: "/tag-heuer" },
+    { img: "/images/brand/marca3.svg", nome: "Breitling", href: "/breitling" },
     {
       img: "/images/brand/marca4.svg",
       nome: "Audemars Piguet",
-      href: "/marca/audemars-piguet",
+      href: "/audemars-piguet",
     },
     {
       img: "/images/brand/marca5.svg",
       nome: "Patek Philippe",
-      href: "/marca/patek-philippe",
+      href: "/patek-philippe",
     },
-    { img: "/images/brand/marca6.svg", nome: "Hublot", href: "/marca/hublot" },
-    { img: "/images/brand/marca7.svg", nome: "Cartier", href: "/marca/cartier" },
-    { img: "/images/brand/marca8.svg", nome: "Seiko", href: "/marca/seiko" },
-    { img: "/images/brand/marca9.svg", nome: "Omega", href: "/marca/omega" },
-    { img: "/images/brand/marca10.svg", nome: "IWC", href: "/marca/iwc" },
+    { img: "/images/brand/marca6.svg", nome: "Hublot", href: "/hublot" },
+    { img: "/images/brand/marca7.svg", nome: "Cartier", href: "/cartier" },
+    { img: "/images/brand/marca8.svg", nome: "Seiko", href: "/seiko" },
+    { img: "/images/brand/marca9.svg", nome: "Omega", href: "/omega" },
+    { img: "/images/brand/marca10.svg", nome: "IWC", href: "/iwc" },
   ];
 
   const sugestoes = [

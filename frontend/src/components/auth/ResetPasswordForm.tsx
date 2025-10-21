@@ -98,19 +98,24 @@ export function ResetPasswordForm() {
 
         {/* Nova senha */}
         <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="password" className="block text-sm text-pb-500 mb-2.5">
             Nova senha
           </label>
           <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Image
+                src="/icons/password-lock.svg"
+                alt="Password"
+                width={24}
+                height={24}
+              />
+            </div>
             <input
               {...register("password")}
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder="Digite sua nova senha..."
-              className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors pr-10"
+              className="w-full pl-12 pr-3 py-3 border border-[#EFEFEF] rounded-xl focus:outline-none transition-colors"
             />
             <button
               type="button"
@@ -118,9 +123,9 @@ export function ResetPasswordForm() {
               className="absolute inset-y-0 right-0 flex items-center pr-3"
             >
               {showPassword ? (
-                <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+                <EyeSlashIcon className="h-5 w-5 text-pb-500" />
               ) : (
-                <EyeIcon className="h-5 w-5 text-gray-400" />
+                <EyeIcon className="h-5 w-5 text-pb-500" />
               )}
             </button>
           </div>
@@ -131,19 +136,24 @@ export function ResetPasswordForm() {
 
         {/* Confirmar nova senha */}
         <div>
-          <label
-            htmlFor="confirmPassword"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="confirmPassword" className="block text-sm text-pb-500 mb-2.5">
             Confirme sua nova senha
           </label>
           <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Image
+                src="/icons/password-lock.svg"
+                alt="Password"
+                width={24}
+                height={24}
+              />
+            </div>
             <input
               {...register("confirmPassword")}
               type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"
               placeholder="Confirme sua nova senha..."
-              className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors pr-10"
+              className="w-full pl-12 pr-3 py-3 border border-[#EFEFEF] rounded-xl focus:outline-none transition-colors"
             />
             <button
               type="button"
@@ -151,9 +161,9 @@ export function ResetPasswordForm() {
               className="absolute inset-y-0 right-0 flex items-center pr-3"
             >
               {showConfirmPassword ? (
-                <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+                <EyeSlashIcon className="h-5 w-5 text-pb-500" />
               ) : (
-                <EyeIcon className="h-5 w-5 text-gray-400" />
+                <EyeIcon className="h-5 w-5 text-pb-500" />
               )}
             </button>
           </div>
@@ -173,7 +183,7 @@ export function ResetPasswordForm() {
         <Button
           type="submit"
           variant="gold"
-          className="w-full h-[56px]"
+          className="w-full h-[56px] mt-2"
           isLoading={isLoading}
           disabled={!password || !confirmPassword || !isValid || isLoading}
         >
