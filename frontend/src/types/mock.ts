@@ -18,6 +18,7 @@ export interface Product {
   condition?: "Novo" | "Muito bom" | "Bom" | "Usado";
   hasBox: boolean;
   hasDocuments: boolean;
+  adCode: string;
 
   // Movimento
   movement?: "Automático" | "Quartzo" | "Manual";

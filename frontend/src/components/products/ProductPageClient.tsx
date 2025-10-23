@@ -1,4 +1,3 @@
-// src/components/products/ProductPageClient.tsx
 "use client";
 
 import { stringToSlug } from "@/lib/utils/stringUtils";
@@ -6,7 +5,9 @@ import { Product } from "@/types/mock";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { PriceEvolutionChart } from "./PriceEvolutionChart";
 import { ProductCard } from "./ProductCard";
+import { ProductSpecs } from "./ProductSpecs";
 
 interface ProductPageClientProps {
   product: Product;
@@ -310,220 +311,140 @@ export function ProductPageClient({ product, relatedProducts }: ProductPageClien
                 </span>
               </div>
             </div>
-            {/* Status do produto */}
-            <div className="flex flex-wrap gap-3">
-              {product.hasBox && (
-                <span className="px-4 py-2 bg-[#EFEFEF] rounded-full font-lato text-sm text-[#141414]">
-                  Possui Caixa
-                </span>
-              )}
-              {product.hasDocuments && (
-                <span className="px-4 py-2 bg-[#EFEFEF] rounded-full font-lato text-sm text-[#141414]">
-                  Possui Documentação
-                </span>
-              )}
-              {product.condition && (
-                <span className="px-4 py-2 bg-[#EFEFEF] rounded-full font-lato text-sm text-[#141414]">
-                  {product.condition}
-                </span>
-              )}
-            </div>
           </div>
         </div>
 
         {/* Descrição Detalhada */}
-        <div className="mb-16">
-          <h2 className="font-erstoria text-2xl text-[#141414] mb-6">Descrição</h2>
-          <div className="space-y-4 font-lato text-gray-700 leading-relaxed">
+        <div className="mb-12">
+          <h2 className="font-erstoria text-xl text-pb-500 tracking-[-0.01em] mb-[16px]">
+            Descrição
+          </h2>
+
+          {/* Status do produto */}
+          <div className="flex flex-wrap gap-[6px] mb-[16px]">
+            {product.hasBox && (
+              <span className="px-2 py-[3px] bg-[#D9D9D9] rounded-[32px] font-lato text-sm text-pb-500 tracking-[-0.01em]">
+                Possui Caixa
+              </span>
+            )}
+            {product.hasDocuments && (
+              <span className="px-2 py-[3px] bg-[#D9D9D9] rounded-[32px] font-lato text-sm text-pb-500 tracking-[-0.01em]">
+                Possui Documentação
+              </span>
+            )}
+            {product.condition && (
+              <span className="px-2 py-[3px] bg-[#D9D9D9] rounded-[32px] font-lato text-sm text-pb-500 tracking-[-0.01em]">
+                {product.condition}
+              </span>
+            )}
+          </div>
+
+          <div className="space-y-2 font-lato text-gray-400 tracking-[-0.01em] leading-normal">
             <p>
-              With its limited production run, the {product.brand} {product.model} Ref.{" "}
-              {product.reference} stands as an exceptional find for serious collectors.
-              This watch features a substantial yet balanced case measuring{" "}
-              {product.diameter}mm in diameter, with sapphire crystals on both front and
-              back.
+              With its limited production run, the Patek Philippe Perpetual Calendar
+              Chronograph Ref. 5970P in platinum stands as an exceptional find for serious
+              collectors. It is estimated that fewer than 400 pieces of this model were
+              produced in platinum between 2009 and 2010. This watch features a
+              substantial yet balanced case measuring 40mm in diameter, with sapphire
+              crystals on both front and back. It is worn on a classic black leather strap
+              and features an elegantly complex yet legible dial in black. Displayed on
+              the dial are the day and month at 12 o’clock, 30-minute chronograph counter
+              with leap year at 3, moon phase and date at 6, and a continuous seconds
+              counter with 24-hour display at 9.
             </p>
             <p>
-              This coveted timepiece is powered by the {product.movement?.toLowerCase()}{" "}
-              {product.caliber} movement with a power reserve of approximately{" "}
-              {product.powerReserve} hours.
-            </p>
-            <p>
-              This pre-owned {product.brand} {product.model} is presented in the
-              manufacturer&apos;s wooden box, inclusive of papers and accessories.
+              This coveted timepiece is powered by the hand-wound CH 27-70 Q movement with
+              a power reserve of approximately 60 hours.This pre-owned Patek Philippe
+              Perpetual Calendar Chronograph Platinum Watch 5970P-001 is presented in the
+              manufacturer’s wooden box, inclusive of papers and a bifold leather wallet.
             </p>
           </div>
         </div>
 
         {/* Especificações Técnicas */}
+        <ProductSpecs product={product} />
+
+        {/* Seção Evolução do Valor - Grid 2 colunas */}
         <div className="mb-16">
-          <h2 className="font-erstoria text-2xl text-[#141414] mb-8">
-            Especificações Técnicas
+          <h2 className="font-erstoria text-[24px] font-medium text-pb-500 mb-6">
+            Evolução do valor
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Dados Básicos */}
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(400px,_1fr)_minmax(400px,_550px)] gap-6 lg:gap-8">
+            {/* Coluna Esquerda: Gráfico */}
             <div>
-              <h3 className="font-erstoria text-lg text-[#141414] mb-4 pb-2 border-b border-gray-200">
-                Dados Básicos
-              </h3>
-              <div className="space-y-3">
-                <DataRow label="Marca" value={product.brand} />
-                <DataRow label="Modelo" value={product.model} />
-                <DataRow label="Número de referência" value={product.reference} />
-                {product.year && (
-                  <DataRow label="Ano de fabricação" value={product.year.toString()} />
-                )}
-                {product.condition && (
-                  <DataRow label="Estado" value={product.condition} />
-                )}
-                {product.gender && <DataRow label="Gênero" value={product.gender} />}
-                {product.location && (
-                  <DataRow label="Localização" value={product.location} />
-                )}
-                <DataRow
-                  label="Preço"
-                  value={`R$ ${product.price.toLocaleString("pt-BR")}`}
-                />
-                {product.availability && (
-                  <DataRow label="Disponibilidade" value={product.availability} />
-                )}
-              </div>
-            </div>
-
-            {/* Movimento */}
-            <div>
-              <h3 className="font-erstoria text-lg text-[#141414] mb-4 pb-2 border-b border-gray-200">
-                Movimento
-              </h3>
-              <div className="space-y-3">
-                {product.movement && (
-                  <DataRow label="Movimento" value={product.movement} />
-                )}
-                {product.caliber && <DataRow label="Calibre" value={product.caliber} />}
-                {product.powerReserve && (
-                  <DataRow label="Reserva de corda" value={`${product.powerReserve}h`} />
-                )}
-                {product.jewels && (
-                  <DataRow label="Número de rubis" value={product.jewels.toString()} />
-                )}
-              </div>
-            </div>
-
-            {/* Caixa */}
-            <div>
-              <h3 className="font-erstoria text-lg text-[#141414] mb-4 pb-2 border-b border-gray-200">
-                Caixa
-              </h3>
-              <div className="space-y-3">
-                {product.caseMaterial && (
-                  <DataRow label="Material da caixa" value={product.caseMaterial} />
-                )}
-                {product.diameter && (
-                  <DataRow label="Diâmetro" value={`${product.diameter}mm`} />
-                )}
-                {product.waterResistance && (
-                  <DataRow label="Estanqueidade" value={product.waterResistance} />
-                )}
-                {product.bezelMaterial && (
-                  <DataRow label="Material da luneta" value={product.bezelMaterial} />
-                )}
-                {product.crystal && <DataRow label="Vidro" value={product.crystal} />}
-                {product.dialColor && (
-                  <DataRow label="Mostrador" value={product.dialColor} />
-                )}
-                {product.dialNumbers && (
-                  <DataRow label="Algarismos do mostrador" value={product.dialNumbers} />
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Bracelete */}
-          <div className="mt-8">
-            <h3 className="font-erstoria text-lg text-[#141414] mb-4 pb-2 border-b border-gray-200">
-              Bracelete
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-3">
-              {product.strapMaterial && (
-                <DataRow label="Material do bracelete" value={product.strapMaterial} />
-              )}
-              {product.strapColor && (
-                <DataRow label="Cor do bracelete" value={product.strapColor} />
-              )}
-              {product.clasp && <DataRow label="Fecho" value={product.clasp} />}
-              {product.claspMaterial && (
-                <DataRow label="Material do fecho" value={product.claspMaterial} />
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Evolução do Valor */}
-        <div className="mb-16 p-8 bg-[#FAFAFA] rounded-lg">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="font-erstoria text-2xl text-[#141414]">Evolução do valor</h2>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <span className="font-lato text-sm text-gray-600">Desde 24/02/2025</span>
-                <span className="font-lato text-lg font-semibold text-green-600">
-                  +R$ {priceEvolution.change.toLocaleString("pt-BR")}
-                </span>
-                <span className="font-lato text-lg font-semibold text-green-600">
-                  +{priceEvolution.percentChange}%
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Gráfico simplificado */}
-          <div className="relative h-64 bg-white rounded-lg p-6">
-            <svg className="w-full h-full" viewBox="0 0 800 200">
-              {/* Grade de fundo */}
-              <line x1="0" y1="0" x2="800" y2="0" stroke="#E5E5E5" strokeWidth="1" />
-              <line x1="0" y1="50" x2="800" y2="50" stroke="#E5E5E5" strokeWidth="1" />
-              <line x1="0" y1="100" x2="800" y2="100" stroke="#E5E5E5" strokeWidth="1" />
-              <line x1="0" y1="150" x2="800" y2="150" stroke="#E5E5E5" strokeWidth="1" />
-              <line x1="0" y1="200" x2="800" y2="200" stroke="#E5E5E5" strokeWidth="1" />
-
-              {/* Linha do gráfico */}
-              <polyline
-                points="0,180 200,140 400,100 600,60 800,20"
-                fill="none"
-                stroke="#D5A60A"
-                strokeWidth="3"
+              <PriceEvolutionChart
+                data={priceEvolution.history}
+                currentPrice={priceEvolution.current}
+                change={priceEvolution.change}
+                percentChange={priceEvolution.percentChange}
               />
+            </div>
 
-              {/* Área abaixo da linha */}
-              <polygon
-                points="0,180 200,140 400,100 600,60 800,20 800,200 0,200"
-                fill="#D5A60A"
-                fillOpacity="0.1"
-              />
-            </svg>
-          </div>
+            {/* Coluna Direita: Card do Produto */}
+            <div className="bg-[#F7F7F7] rounded-lg p-8 h-[458px]">
+              <div className="flex gap-8 h-[302px]">
+                {/* Imagem do produto */}
+                <div className="relative flex-1 rounded-[13.62px] overflow-hidden">
+                  <Image
+                    src={product.image}
+                    alt={`${product.brand} ${product.model}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
 
-          {/* Filtros de tempo */}
-          <div className="flex items-center justify-center gap-4 mt-6">
-            <button className="px-4 py-2 bg-[#D5A60A] text-white rounded-lg font-lato text-sm">
-              Máx.
-            </button>
-            <button className="px-4 py-2 bg-white text-[#141414] rounded-lg font-lato text-sm hover:bg-gray-100">
-              6 mês.
-            </button>
-            <button className="px-4 py-2 bg-white text-[#141414] rounded-lg font-lato text-sm hover:bg-gray-100">
-              3 mês.
-            </button>
-            <button className="px-4 py-2 bg-white text-[#141414] rounded-lg font-lato text-sm hover:bg-gray-100">
-              1 mês.
-            </button>
+                {/* Informações do produto */}
+                <div className="flex-1 py-8">
+                  {/* Marca */}
+                  <div className="mb-5">
+                    <p className="text-sm text-pb-500 tracking-[-0.01em] mb-3">
+                      {product.brand}
+                    </p>
+                    <div className="h-[88px]">
+                      <h3 className="text-[22px] font-medium tracking-[-0.01em] mb-1">
+                        {product.model}
+                      </h3>
+                      <p className="text-sm">{product.reference}</p>
+                    </div>
+                  </div>
+
+                  {/* Especificações */}
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center text-gray-400">
+                      <span className="font-lato text-sm">Caixa:</span>
+                      <span className="font-lato text-sm">
+                        {product.caseMaterial || "N/A"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-gray-400">
+                      <span className="font-lato text-sm">Mostrador:</span>
+                      <span className="font-lato text-sm">
+                        {product.dialColor || "N/A"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-gray-400">
+                      <span className="font-lato text-sm">Estado:</span>
+                      <span className="font-lato text-sm">
+                        {product.condition || "N/A"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Botão Adicionar a coleção */}
+              <button className="w-full h-[56px] mt-8 py-3 border-1 border-[#141414] rounded-full font-lato font-bold text-[#141414] hover:bg-[#141414] hover:text-white transition-colors duration-200">
+                Adicionar a coleção
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Produtos Relacionados / Sugestões */}
         {relatedProducts.length > 0 && (
-          <div className="mb-16">
+          <div className="mb-[160px]">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="font-erstoria text-2xl text-[#141414]">
+              <h2 className="font-erstoria text-[28px] text-[#141414]">
                 Sugestões para você
               </h2>
               <Link
@@ -542,18 +463,6 @@ export function ProductPageClient({ product, relatedProducts }: ProductPageClien
           </div>
         )}
       </div>
-    </div>
-  );
-}
-
-// Componente auxiliar para linhas de dados
-function DataRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex justify-between items-start gap-4">
-      <span className="font-lato text-sm text-gray-600">{label}:</span>
-      <span className="font-lato text-sm text-[#141414] font-medium text-right">
-        {value}
-      </span>
     </div>
   );
 }

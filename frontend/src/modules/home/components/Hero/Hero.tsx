@@ -1,5 +1,8 @@
 "use client";
 
+import { ProductCard } from "@/components/products";
+import { mockProducts } from "@/lib/data/mockProducts";
+import { Product } from "@/types/mock";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -80,37 +83,6 @@ export function Hero() {
     { img: "/images/brand/marca8.svg", nome: "Seiko", href: "/seiko" },
     { img: "/images/brand/marca9.svg", nome: "Omega", href: "/omega" },
     { img: "/images/brand/marca10.svg", nome: "IWC", href: "/iwc" },
-  ];
-
-  const sugestoes = [
-    {
-      marca: "Rolex",
-      modelo: "GMT-Master II",
-      descricao: "40mm Stainless Steel Bl...",
-      preco: "R$ 75.300",
-      imagem: "/images/hero/sugestao1.svg",
-    },
-    {
-      marca: "Hublot",
-      modelo: "Classic Fusion",
-      descricao: "581.NX.7071.LR Quart...",
-      preco: "R$ 75.300",
-      imagem: "/images/hero/sugestao2.svg",
-    },
-    {
-      marca: "Omega",
-      modelo: "De Ville Prestige",
-      descricao: "Chronometer C.O.S.C. Au...",
-      preco: "R$ 75.300",
-      imagem: "/images/hero/sugestao3.svg",
-    },
-    {
-      marca: "Audemars Piguet",
-      modelo: "Royal Oak Offsho...",
-      descricao: "25940OK.OO.D002CA.01",
-      preco: "R$ 75.300",
-      imagem: "/images/hero/sugestao4.svg",
-    },
   ];
 
   const vendedores = [
@@ -219,6 +191,13 @@ export function Hero() {
     },
   ];
 
+  const suggestedProducts = [
+    mockProducts[0],
+    mockProducts[3],
+    mockProducts[2],
+    mockProducts[8],
+  ].filter((product): product is Product => product !== undefined);
+
   return (
     <div className="mt-5 sm:mt-12">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
@@ -317,59 +296,16 @@ export function Hero() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {sugestoes.map((produto, index) => (
-              <div key={index} className="group overflow-hidden transition-all">
-                <Link href={`/produto/${index}`} className="block">
-                  <div className="aspect-square rounded-lg bg-[#EFEFEF] relative overflow-hidden">
-                    <Image
-                      src={produto.imagem}
-                      alt={`${produto.marca} ${produto.modelo}`}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                </Link>
-                <div className="mt-3 md:mt-4 h-auto md:h-[116px] relative">
-                  <div className="absolute top-0 right-0 w-auto h-auto flex items-center justify-center">
-                    <Image
-                      src="/icons/verified-badge.svg"
-                      alt="Verified"
-                      width={18}
-                      height={18}
-                      className="md:w-[22px] md:h-[22px]"
-                    />
-                  </div>
-                  <Link href={`/produto/${index}`}>
-                    <p className="font-erstoria text-sm md:text-base text-[#D5A60A] leading-[140%] mb-2 md:mb-3">
-                      {produto.marca}
-                    </p>
-                    <h3 className="font-erstoria text-lg md:text-[22px] text-[#141414] font-normal leading-[120%] line-clamp-1">
-                      {produto.modelo}
-                    </h3>
-                    <p className="font-lato text-xs md:text-[15px] font-normal text-gray-400 leading-[120%] mb-3 md:mb-4 line-clamp-1">
-                      {produto.descricao}
-                    </p>
-                    <p className="font-lato text-lg md:text-xl font-medium leading-[120%] text-[#141414]">
-                      {produto.preco}
-                    </p>
-                  </Link>
-                  <button
-                    className="absolute bottom-0 right-0 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center hover:scale-110 transition-transform"
-                    aria-label="Adicionar aos favoritos"
-                    onClick={e => {
-                      e.preventDefault();
-                      console.log("Favoritar produto:", produto.modelo);
-                    }}
-                  >
-                    <Image
-                      src="/icons/heart-outline.svg"
-                      alt="Favoritar"
-                      width={20}
-                      height={20}
-                      className="md:w-[24px] md:h-[24px]"
-                    />
-                  </button>
-                </div>
+            {suggestedProducts.map((product, index) => (
+              <div
+                key={product.id}
+                className="animate-fadeIn"
+                style={{
+                  animationDelay: `${index * 20}ms`,
+                  animationFillMode: "backwards",
+                }}
+              >
+                <ProductCard product={product} viewMode="grid" />
               </div>
             ))}
           </div>
