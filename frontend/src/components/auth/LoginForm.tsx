@@ -1,12 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import { useAuth } from "@/lib/context/AuthContext";
+
 import { loginSchema, type LoginFormData } from "@/lib/validations/auth";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -16,8 +18,9 @@ interface LoginFormProps {
 
 export function LoginForm({ onSuccess }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { login, isLoading } = useAuth();
 
   const {
     register,
@@ -27,35 +30,26 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     watch,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    mode: "onChange", // Valida em tempo real
+    mode: "onChange",
   });
 
-  // Observa os valores dos campos para controlar o estado do botão
   const email = watch("email");
   const password = watch("password");
-
-  // Determina se o botão deve estar habilitado
-  const isButtonEnabled = Boolean(email && password && isValid);
+  const isButtonEnabled = Boolean(email && password && isValid && !isLoading);
 
   const onSubmit = async (data: LoginFormData) => {
-    setIsLoading(true);
     try {
-      // TODO: Implementar chamada para API de login
-      console.log("Login data:", data);
+      await login(data.email, data.password);
 
-      // Simular delay da API
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Redireciona para a página anterior ou home
+      const redirect = searchParams.get("redirect") || "/";
+      router.push(redirect);
 
-      // Em caso de sucesso
       onSuccess?.();
-      router.push("/");
-    } catch (error) {
-      // Tratar erros da API
+    } catch (error: any) {
       setError("root", {
-        message: "E-mail ou senha incorretos. Tente novamente.",
+        message: error.message || "E-mail ou senha incorretos. Tente novamente.",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -131,9 +125,6 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
               }`}
             />
           </div>
-          {/* {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-          )} */}
         </div>
 
         {/* Senha */}
@@ -171,9 +162,6 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
               )}
             </button>
           </div>
-          {/* {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
-          )} */}
         </div>
 
         {/* Erro geral */}
@@ -189,7 +177,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           variant="gold"
           className="w-full h-[54px]"
           isLoading={isLoading}
-          disabled={!isButtonEnabled || isLoading}
+          disabled={!isButtonEnabled}
         >
           Acessar
         </Button>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import { useAuth } from "@/lib/context/AuthContext";
 import { registerSchema, type RegisterFormData } from "@/lib/validations/auth";
 import {
   EyeIcon,
@@ -22,8 +23,8 @@ interface RegisterFormProps {
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { register: registerUser, isLoading } = useAuth();
 
   const {
     register,
@@ -33,7 +34,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
     watch,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
-    mode: "onChange", // Valida em tempo real
+    mode: "onChange",
     defaultValues: {
       country: "Brasil",
       phone: "+55 ",
@@ -60,27 +61,30 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       country &&
       state &&
       city &&
-      isValid
+      isValid &&
+      !isLoading
   );
 
   const onSubmit = async (data: RegisterFormData) => {
-    setIsLoading(true);
     try {
-      // TODO: Implementar chamada para API de cadastro
-      console.log("Register data:", data);
-
-      // Simular delay da API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Em caso de sucesso
-      onSuccess?.();
-      router.push("/login");
-    } catch (error) {
-      setError("root", {
-        message: "Erro ao criar conta. Tente novamente.",
+      await registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        phone: data.phone,
+        country: data.country,
+        state: data.state,
+        city: data.city,
+        role: "BUYER", // Padrão: comprador
       });
-    } finally {
-      setIsLoading(false);
+
+      // Após registro bem-sucedido, redireciona para home
+      router.push("/");
+      onSuccess?.();
+    } catch (error: any) {
+      setError("root", {
+        message: error.message || "Erro ao criar conta. Tente novamente.",
+      });
     }
   };
 
@@ -317,6 +321,50 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           )}
         </div>
 
+        {/* Estado */}
+        <div>
+          <label htmlFor="state" className="block text-sm text-[#141414] mb-[10px]">
+            Estado
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MapPinIcon className="h-5 w-5 text-pb-500" />
+            </div>
+            <input
+              {...register("state")}
+              type="text"
+              id="state"
+              placeholder="Digite seu estado..."
+              className="w-full pl-10 pr-3 py-3 border border-[#EFEFEF] rounded-[12px] focus:outline-none transition-colors"
+            />
+          </div>
+          {errors.state && (
+            <p className="mt-1 text-sm text-red-600">{errors.state.message}</p>
+          )}
+        </div>
+
+        {/* Cidade */}
+        <div>
+          <label htmlFor="city" className="block text-sm text-[#141414] mb-[10px]">
+            Cidade
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MapPinIcon className="h-5 w-5 text-pb-500" />
+            </div>
+            <input
+              {...register("city")}
+              type="text"
+              id="city"
+              placeholder="Digite sua cidade..."
+              className="w-full pl-10 pr-3 py-3 border border-[#EFEFEF] rounded-[12px] focus:outline-none transition-colors"
+            />
+          </div>
+          {errors.city && (
+            <p className="mt-1 text-sm text-red-600">{errors.city.message}</p>
+          )}
+        </div>
+
         {/* Erro geral */}
         {errors.root && (
           <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -330,7 +378,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           variant="gold"
           className="w-full h-[54px]"
           isLoading={isLoading}
-          disabled={!isButtonEnabled || isLoading}
+          disabled={!isButtonEnabled}
         >
           Criar conta
         </Button>

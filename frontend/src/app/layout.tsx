@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/lib/context/AuthContext";
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import localFont from "next/font/local";
@@ -75,11 +76,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <meta name="theme-color" content="#f97316" />
       </head>
       <body className={`${lato.className} antialiased`}>
-        {/* Providers globais */}
-        <div id="root" className="min-h-screen flex flex-col">
-          {children}
-        </div>
-
+        <AuthProvider>{children}</AuthProvider>
         {/* Portais para modais */}
         <div id="modal-root" />
         <div id="tooltip-root" />

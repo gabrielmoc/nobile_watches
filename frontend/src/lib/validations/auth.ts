@@ -65,6 +65,7 @@ export const resetPasswordSchema = z
     path: ["confirmPassword"],
   });
 
+// Tipos inferidos dos schemas
 export type LoginFormData = z.infer<typeof loginSchema>;
 export type RegisterFormData = z.infer<typeof registerSchema>;
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
