@@ -8,11 +8,11 @@ export function Footer() {
     <footer className="bg-[#EFEFEF]">
       <div className="container mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
-        <div className="py-12 lg:py-20">
+        <div className="py-12 lg:pt-[88px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
             {/* Brand Section */}
-            <div className="lg:col-span-2 flex flex-col justify-between min-w-[352px] max-w-[352px]">
-              <div className="flex items-center justify-between gap-4 mb-6">
+            <div className="lg:col-span-2 flex flex-col justify-between lg:min-w-[300px] lg:max-w-[352px]">
+              <div className="h-[32px] flex items-center justify-between gap-4 lg:mb-[150px]">
                 <Link href="/" className="flex items-center flex-shrink-0">
                   <Image
                     src="/logo.svg"
@@ -24,7 +24,7 @@ export function Footer() {
                 </Link>
 
                 {/* Social Icons */}
-                <div className="flex items-center gap-3.5 flex-shrink-0">
+                <div className="flex items-center gap-[15px] flex-shrink-0">
                   <Link
                     href="https://instagram.com"
                     target="_blank"
@@ -72,21 +72,21 @@ export function Footer() {
                 </div>
               </div>
 
-              <p className="font-lato text-lg text-gray-400 leading-[1.4]">
+              <p className="hidden lg:block font-lato text-lg text-gray-400 leading-[1.4]">
                 Nascemos para ajudar vendedores e compradores a terem mais segurança.
               </p>
             </div>
 
             {/* Sobre a Nobile */}
             <div>
-              <h3 className="font-erstoria text-[22px] font-normal text-[#D5A60A] leading-[1.4] mb-4">
+              <h3 className="font-erstoria text-[22px] font-normal text-[#D5A60A] tracking-[-1%] leading-[1.4] mb-8 h-[15px]">
                 Sobre a Nobile
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 <li>
                   <Link
                     href="/sobre-nos"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Sobre nós
                   </Link>
@@ -94,7 +94,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/como-funciona"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Como funciona
                   </Link>
@@ -102,7 +102,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/contato"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Contato
                   </Link>
@@ -110,7 +110,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/perguntas-frequentes"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Perguntas frequentes
                   </Link>
@@ -118,7 +118,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/politicas-termos"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Políticas e termos
                   </Link>
@@ -128,14 +128,14 @@ export function Footer() {
 
             {/* Comprar na Nobile */}
             <div>
-              <h3 className="font-erstoria text-[22px] font-normal text-[#D5A60A] leading-[1.4] mb-4">
+              <h3 className="font-erstoria text-[22px] font-normal text-[#D5A60A] tracking-[-1%] leading-[1.4] mb-8 h-[15px]">
                 Comprar na Nobile
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 <li>
                   <Link
                     href="/seguro-comprador"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Seguro do comprador
                   </Link>
@@ -143,7 +143,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/garantia-autenticidade"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Garantia de autenticidade
                   </Link>
@@ -151,7 +151,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/processo-pagamento"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Processo de pagamento
                   </Link>
@@ -159,7 +159,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/politicas-termos"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Políticas e termos
                   </Link>
@@ -169,14 +169,14 @@ export function Footer() {
 
             {/* Vender na Nobile */}
             <div>
-              <h3 className="font-erstoria text-[22px] font-normal text-[#D5A60A] leading-[1.4] mb-4">
+              <h3 className="font-erstoria text-[22px] font-normal text-[#D5A60A] tracking-[-1%] leading-[1.4] mb-8 h-[15px]">
                 Vender na Nobile
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 <li>
                   <Link
                     href="/guia-vendedores"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Guia para vendedores
                   </Link>
@@ -184,7 +184,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/vender-relogio"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Vender relógios como particular
                   </Link>
@@ -192,7 +192,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/avaliacao-autenticidade"
-                    className="font-lato text-lg font-medium text-[#141414] leading-[1.4] hover:text-[#D5A60A] transition-colors"
+                    className="font-lato text-lg font-medium text-pb-500 leading-[1.4] hover:text-[#D5A60A] transition-colors"
                   >
                     Avaliação de autenticidade
                   </Link>
@@ -203,8 +203,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-200 py-6">
-          <p className="text-center font-lato text-xs text-gray-400">
+        <div className="h-[73px] flex items-center justify-center">
+          <p className="text-center text-xs text-gray-400 font-medium">
             Todos os direitos reservados © Nobile V.1.0.
           </p>
         </div>

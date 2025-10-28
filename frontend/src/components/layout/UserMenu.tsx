@@ -1,5 +1,6 @@
 "use client";
 
+import { User } from "@/lib/auth/auth";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Heart,
@@ -8,18 +9,12 @@ import {
   ShoppingCart,
   Store,
   Tag,
-  User,
+  User as UserIcon,
   Watch,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-
-interface User {
-  name: string;
-  email: string;
-  avatar: string;
-}
 
 interface UserMenuProps {
   user: User;
@@ -49,7 +44,7 @@ const menuItems: MenuItem[] = [
   { icon: Heart, label: "Lista de desejos", href: "/desejos", section: "gerenciamento" },
   // Meus dados
   { icon: Watch, label: "Minha coleção", href: "/colecao", section: "meusDados" },
-  { icon: User, label: "Meu perfil", href: "/perfil", section: "meusDados" },
+  { icon: UserIcon, label: "Meu perfil", href: "/perfil", section: "meusDados" },
   { icon: Store, label: "Vender", href: "/vender", section: "meusDados" },
   { icon: Tag, label: "Meus anúncios", href: "/anuncios", section: "meusDados" },
   // Opções
@@ -80,6 +75,9 @@ export function UserMenu({ user }: UserMenuProps) {
   const meusDadosItems = menuItems.filter(item => item.section === "meusDados");
   const opcoesItems = menuItems.filter(item => item.section === "opcoes");
 
+  // Avatar padrão se não houver
+  const avatarUrl = user.avatar || "/images/avatar-placeholder.jpg";
+
   return (
     <div className="relative" ref={menuRef}>
       {/* Trigger Button */}
@@ -89,7 +87,7 @@ export function UserMenu({ user }: UserMenuProps) {
         aria-label="Menu do usuário"
       >
         <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-200">
-          <Image src={user.avatar} alt={user.name} fill className="object-cover" />
+          <Image src={avatarUrl} alt={user.name} fill className="object-cover" />
         </div>
 
         {isOpen ? (

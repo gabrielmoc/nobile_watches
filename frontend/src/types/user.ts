@@ -34,3 +34,55 @@ export interface UserPreferences {
     showPhone: boolean;
   };
 }
+
+/**
+ * Tipos relacionados ao perfil e dados do usuário
+ */
+
+export interface UserProfile {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  role: "BUYER" | "SELLER" | "ADMIN";
+  isVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UserActivity {
+  vendidos: number;
+  comprados: number;
+  colecao: number;
+}
+
+export interface PaymentMethod {
+  id: string;
+  cardholderName: string;
+  cardNumber: string; // últimos 4 dígitos
+  expiryDate: string;
+  cvv: string;
+  type: "Crédito" | "Débito";
+}
+
+export interface BillingAddress {
+  id: string;
+  street: string;
+  number: string;
+  complement?: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  isDefault: boolean;
+}
+
+export interface UserProfileData {
+  user: UserProfile;
+  activity: UserActivity;
+  paymentMethods: PaymentMethod[];
+  billingAddresses: BillingAddress[];
+}

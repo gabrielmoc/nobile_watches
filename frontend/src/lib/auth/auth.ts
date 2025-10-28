@@ -1,13 +1,45 @@
+// src/lib/auth/auth.ts
 import { cookies } from "next/headers";
 
 const TOKEN_NAME = "nobile_token";
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
+
+interface Address {
+  id: string;
+  type: "home" | "work" | "other";
+  street: string;
+  number: string;
+  complement?: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  isDefault: boolean;
+}
 
 export interface User {
   id: number;
   name: string;
   email: string;
   role: "BUYER" | "SELLER" | "ADMIN";
+
+  // não existem
+  avatar?: string;
+  phone?: string;
+  cpf?: string;
+  addresses?: Address[];
+  preferences?: {
+    notifications: {
+      email: boolean;
+      sms: boolean;
+      push: boolean;
+    };
+    privacy: {
+      showEmail: boolean;
+      showPhone: boolean;
+    };
+  };
+  createdAt?: string;
 }
 
 export interface AuthResponse {

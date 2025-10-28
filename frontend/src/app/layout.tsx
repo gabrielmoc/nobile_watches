@@ -76,7 +76,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <meta name="theme-color" content="#f97316" />
       </head>
       <body className={`${lato.className} antialiased`}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          {children}
+          {/* <SimulateLoginButton /> */}
+        </AuthProvider>
         {/* Portais para modais */}
         <div id="modal-root" />
         <div id="tooltip-root" />
