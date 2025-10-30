@@ -6,8 +6,8 @@ export interface Product {
   model: string;
   description: string;
   price: number;
-  image: string;
-  images?: string[];
+  // image: string;
+  images: string[];
   reference: string;
   verified: boolean;
 

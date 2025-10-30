@@ -4,6 +4,63 @@ import { useEffect, useState } from "react";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 
 /**
+ * Dados mockados para desenvolvimento
+ */
+const MOCK_ORDERS: OrderListItem[] = [
+  {
+    id: 1,
+    seller: {
+      name: "Cordial Watches",
+      isVerified: true,
+    },
+    watch: {
+      id: 1,
+      brand: "Patek Philippe",
+      model: "Aquanaut",
+      image: "/images/mock/order1.svg",
+      condition: "Com caixa e documentos",
+    },
+    total: 80300,
+    status: "em_transito",
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 2,
+    seller: {
+      name: "Cordial Watches",
+      isVerified: true,
+    },
+    watch: {
+      id: 2,
+      brand: "Omega",
+      model: "De Ville Prestige",
+      image: "/images/mock/order2.svg",
+      condition: "Novo com etiquetas",
+    },
+    total: 125000,
+    status: "entregue",
+    createdAt: new Date(Date.now() - 86400000).toISOString(),
+  },
+  {
+    id: 3,
+    seller: {
+      name: "Premium Watches BR",
+      isVerified: true,
+    },
+    watch: {
+      id: 3,
+      brand: "Audemars Piguet",
+      model: "Royal Oak Offshore",
+      image: "/images/mock/order3.svg",
+      condition: "Seminovo - excelente estado",
+    },
+    total: 45000,
+    status: "pago",
+    createdAt: new Date(Date.now() - 172800000).toISOString(),
+  },
+];
+
+/**
  * Hook para buscar e gerenciar pedidos do usuário
  */
 export function useUserOrders() {
@@ -19,6 +76,16 @@ export function useUserOrders() {
     try {
       setIsLoading(true);
       setError(null);
+
+      // Usar dados mockados se a API não estiver disponível
+      const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" || true;
+
+      if (useMockData) {
+        // Simular delay de rede
+        await new Promise(resolve => setTimeout(resolve, 500));
+        setOrders(MOCK_ORDERS);
+        return;
+      }
 
       const response = await fetch(`${API_BASE_URL}/orders`, {
         credentials: "include",
@@ -51,7 +118,9 @@ export function useUserOrders() {
 
       setOrders(formattedOrders);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro desconhecido");
+      // Em caso de erro, usar dados mockados
+      console.warn("Usando dados mockados devido ao erro:", err);
+      setOrders(MOCK_ORDERS);
     } finally {
       setIsLoading(false);
     }

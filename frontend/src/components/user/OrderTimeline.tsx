@@ -14,8 +14,8 @@ export function OrderTimelineComponent({ timeline }: OrderTimelineProps) {
   };
 
   return (
-    <div className="space-y-6">
-      <h3 className="text-lg font-semibold">Status do pedido</h3>
+    <div className="">
+      {/* <h3 className="font-lato text-lg font-medium">Status do pedido</h3> */}
 
       <div className="relative">
         {/* Linha vertical */}
@@ -28,28 +28,30 @@ export function OrderTimelineComponent({ timeline }: OrderTimelineProps) {
             const isLast = index === timeline.length - 1;
 
             return (
-              <div key={item.id} className="relative flex gap-6">
+              <div key={item.id} className="h-[52px] relative flex gap-4">
                 {/* Ícone */}
                 <div className="relative z-10 flex-shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center">
-                    <Icon className="w-4 h-4 text-white" strokeWidth={2.5} />
+                  <div className="w-[52px] h-[52px] rounded-full bg-[#F8F2DC] flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-[#D5A60A]" strokeWidth={1.5} />
                   </div>
                 </div>
 
                 {/* Conteúdo */}
-                <div className={`flex-1 ${!isLast ? "pb-8" : ""}`}>
-                  <div className="bg-white rounded-lg p-4 border border-gray-200">
-                    <h4 className="font-semibold text-gray-900">{item.title}</h4>
-                    <p className="text-sm text-gray-600 mt-1">{item.description}</p>
-                    <p className="text-xs text-gray-500 mt-2">
-                      {new Date(item.date).toLocaleDateString("pt-BR", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "2-digit",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </p>
+                <div className={`flex-1 py-2.5 ${!isLast ? "pb-8" : ""}`}>
+                  <div className="">
+                    <h4 className="font-lato text-base font-semibold">{item.title}</h4>
+                    <div className="flex items-center justify-between mt-1">
+                      <p className="text-sm text-gray-400">{item.description}</p>
+                      <p className="text-xs text-gray-400">
+                        {new Date(item.date).toLocaleDateString("pt-BR", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

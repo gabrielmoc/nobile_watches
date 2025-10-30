@@ -77,7 +77,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  console.log("user", user);
   // Verifica se há usuário mockado ao montar o componente
   useEffect(() => {
     const mockToken = localStorage.getItem("mock_auth_token");

@@ -102,13 +102,11 @@ export function FilterModal({ isOpen, onClose, filterOptions }: FilterModalProps
       <div className="absolute inset-0 flex items-stretch justify-center p-0">
         <div className="relative w-full max-w-[504px] bg-white flex flex-col h-full shadow-2xl overflow-hidden">
           {/* Header fixo */}
-          <div className="flex-shrink-0 flex items-center justify-between px-[48px] pt-[38px] pb-[30px]">
-            <h2 className="font-erstoria text-[24px] leading-none text-[#141414]">
-              Filtros
-            </h2>
+          <div className="h-[64px] lg:h-auto flex-shrink-0 flex items-center justify-between px-[20px] lg:px-[48px] pt-6 lg:pt-[38px] pb-6 lg:pb-[30px]">
+            <h2 className="text-[24px] leading-none text-[#141414]">Filtros</h2>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-50 transition-colors"
+              className="w-auto h-auto flex items-center justify-center rounded-lg hover:bg-gray-50 transition-colors"
               aria-label="Fechar"
             >
               <Image src="/icons/XSquare.svg" alt="Fechar" width={32} height={32} />
@@ -116,7 +114,7 @@ export function FilterModal({ isOpen, onClose, filterOptions }: FilterModalProps
           </div>
 
           {/* Content - Scrollable */}
-          <div className="flex-1 overflow-y-auto px-[48px] py-2 space-y-8">
+          <div className="flex-1 overflow-y-auto px-5 lg:px-[48px] py-4 lg:py-2 space-y-8">
             {/* Principais Marcas - Com Logos Reais */}
             <div>
               <h3 className="font-lato text-sm text-[#141414] mb-4">Principais marcas</h3>

@@ -2,100 +2,133 @@
 
 import { OrderCard } from "@/components/user/OrderCard";
 import { UserNav } from "@/components/user/UserNav";
-import { useUserOrders } from "@/hooks/useUserOrders";
+import { useUserOrders } from "@/lib/hooks/useUserOrders";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
-type OrderFilter = "em_andamento" | "finalizados";
+type TabType = "em_transito" | "entregue";
 
-export default function MyPurchasesPage() {
+export default function MinhasComprasPage() {
   const { orders, isLoading, error } = useUserOrders();
-  const [filter, setFilter] = useState<OrderFilter>("em_andamento");
+  const [activeTab, setActiveTab] = useState<TabType>("em_transito");
 
-  const filteredOrders = orders.filter(order => {
-    if (filter === "finalizados") {
-      return order.status === "entregue" || order.status === "cancelado";
-    }
-    return order.status !== "entregue" && order.status !== "cancelado";
-  });
+  // Filtrar pedidos por status
+  const ordersInTransit = orders.filter(
+    order =>
+      order.status === "enviado" ||
+      order.status === "em_transito" ||
+      order.status === "em_preparacao" ||
+      order.status === "pago"
+  );
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900" />
-      </div>
-    );
-  }
+  const deliveredOrders = orders.filter(
+    order => order.status === "entregue" || order.status === "cancelado"
+  );
+
+  const displayedOrders = activeTab === "em_transito" ? ordersInTransit : deliveredOrders;
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <p className="text-red-600 mb-4">Erro ao carregar compras</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-gray-900 text-white rounded-lg"
-          >
-            Tentar novamente
-          </button>
+          <p className="text-red-600">Erro ao carregar pedidos: {error}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header com navegação */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="mb-6">
-            <nav className="text-sm text-gray-600 mb-2">Home &gt; Minhas compras</nav>
-            <h1 className="text-3xl font-bold text-gray-900">Minhas compras</h1>
+    <div className="min-h-screen bg-white lg:py-8">
+      {/* ==================== HEADER DESKTOP ==================== */}
+      <div className="hidden lg:block">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <nav className="flex items-center gap-2 text-[18px] leading-[100%] font-erstoria mb-2">
+                <Link
+                  href="/"
+                  className="text-pb-500 hover:text-[#D5A60A] transition-colors"
+                >
+                  Home
+                </Link>
+                <span className="text-pb-500">&gt;</span>
+                <span className="text-[#D5A60A] font-medium">Minhas compras</span>
+              </nav>
+              <h1 className="text-3xl lg:text-[32px] leading-[100%]">Minhas compras</h1>
+            </div>
+            <UserNav />
           </div>
-          <UserNav />
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Filtros */}
-        <div className="flex gap-4 mb-6">
-          <button
-            onClick={() => setFilter("em_andamento")}
-            className={`px-6 py-2 rounded-lg font-medium transition-colors ${
-              filter === "em_andamento"
-                ? "bg-gray-900 text-white"
-                : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
-            }`}
-          >
-            A caminho
-          </button>
-          <button
-            onClick={() => setFilter("finalizados")}
-            className={`px-6 py-2 rounded-lg font-medium transition-colors ${
-              filter === "finalizados"
-                ? "bg-gray-900 text-white"
-                : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
-            }`}
-          >
-            Finalizados
-          </button>
+      {/* ==================== HEADER MOBILE ==================== */}
+      <div className="lg:hidden sticky top-0 z-50 bg-white border-b border-gray-100">
+        <div className="flex items-center gap-3 px-5 h-14.5">
+          <Link href="/" className="-ml-1">
+            <ArrowLeft className="w-[26px] h-[26px] text-pb-500" strokeWidth={1.5} />
+          </Link>
+          <h1 className="font-erstoria text-[20px] text-pb-500 font-medium">
+            Minhas compras
+          </h1>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto lg:mt-12.5 px-5 lg:px-8">
+        {/* Abas de filtro */}
+        <div className="">
+          <div className="flex lg:px-4">
+            <button
+              onClick={() => setActiveTab("entregue")}
+              className={`flex-1 lg:flex-none lg:w-[198px] h-[41px] px-2 text-[18px] font-medium leading-[140%] tracking-[-1%] transition-colors relative ${
+                activeTab === "entregue"
+                  ? "text-pb-500"
+                  : "text-gray-400 hover:text-gray-700"
+              }`}
+            >
+              Finalizados
+              {activeTab === "entregue" && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#BE9F56]" />
+              )}
+            </button>
+            <button
+              onClick={() => setActiveTab("em_transito")}
+              className={`flex-1 lg:flex-none lg:w-[198px] h-[41px] px-2 text-[18px] font-medium leading-[140%] tracking-[-1%] transition-colors relative ${
+                activeTab === "em_transito"
+                  ? "text-pb-500"
+                  : "text-gray-400 hover:text-gray-700"
+              }`}
+            >
+              A caminho
+              {activeTab === "em_transito" && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#BE9F56]" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Lista de pedidos */}
-        {filteredOrders.length === 0 ? (
-          <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-            <p className="text-gray-600 text-lg">
-              {filter === "finalizados"
-                ? "Você ainda não tem pedidos finalizados"
-                : "Você ainda não tem pedidos em andamento"}
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {filteredOrders.map(order => (
-              <OrderCard key={order.id} order={order} />
-            ))}
-          </div>
-        )}
+        <div className="rounded-[12px] lg:border border-[#EFEFEF] py-4 lg:py-6 lg:px-8">
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#BE9F56]" />
+            </div>
+          ) : displayedOrders.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">
+                {activeTab === "em_transito"
+                  ? "Você não possui pedidos a caminho no momento."
+                  : "Você ainda não possui pedidos finalizados."}
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
+              {displayedOrders.map(order => (
+                <OrderCard key={order.id} order={order} showTrackButton={true} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

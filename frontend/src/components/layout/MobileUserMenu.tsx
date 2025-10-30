@@ -40,7 +40,7 @@ const menuItems: MenuItem[] = [
   {
     icon: ShoppingBag,
     label: "Minhas compras",
-    href: "/compras",
+    href: "/minhas-compras",
     section: "gerenciamento",
   },
   {
@@ -71,7 +71,7 @@ const menuItems: MenuItem[] = [
   {
     icon: Tag,
     label: "Meus anúncios",
-    href: "/anuncios",
+    href: "/meus-anuncios",
     section: "meusDados",
   },
   // Opções
@@ -104,7 +104,7 @@ export function MobileUserMenu({ isOpen, onClose }: MobileUserMenuProps) {
       {/* Drawer */}
       <div className="fixed inset-y-0 left-0 right-0 bg-white z-[9999] overflow-y-auto md:hidden">
         {/* Header do menu */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+        <div className="flex h-16 items-center justify-between px-5 border-b border-gray-200">
           <Link href="/" onClick={onClose}>
             <Image
               src="/logo.svg"

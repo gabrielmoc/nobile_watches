@@ -29,7 +29,7 @@ export function UserNav() {
   ];
 
   return (
-    <nav className="flex gap-6 overflow-x-auto pb-2 md:pb-0">
+    <nav className="flex gap-6 overflow-x-auto pb-2 lg:pb-0">
       {navItems.map(item => {
         const isActive = pathname === item.href;
 
@@ -37,14 +37,12 @@ export function UserNav() {
           <Link
             key={item.href}
             href={item.href}
-            className={`h-[50px] flex items-center gap-3 pl-[14px] pr-5 py-2 border border-[#EFEFEF] rounded-[12px] text-xs font-medium whitespace-nowrap transition-colors ${
-              isActive
-                ? "bg-gray-900 text-white"
-                : "bg-[#F7F7F7] text-pb-500 hover:bg-gray-200"
+            className={`h-[50px] flex items-center gap-3 pl-[14px] pr-5 border border-[#EFEFEF] rounded-[12px] text-xs font-medium whitespace-nowrap transition-colors ${
+              isActive ? "bg-[#F7F7F7]" : "bg-[#F7F7F7] text-pb-500 hover:bg-gray-200"
             }`}
           >
             <Image src={item.icon} alt="Edit icon" width={26} height={26} />
-            {item.label}
+            <span className="leading-[100%]">{item.label}</span>
           </Link>
         );
       })}

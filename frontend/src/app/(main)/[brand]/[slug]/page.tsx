@@ -33,7 +33,7 @@ export async function generateMetadata(props: ProductPageProps): Promise<Metadat
     openGraph: {
       title: `${product.brand} ${product.model}`,
       description: product.description || "",
-      images: product.images ? product.images : [product.image],
+      images: product.images || [],
     },
   };
 }
@@ -45,7 +45,7 @@ export default async function ProductPage(props: ProductPageProps) {
   const product = mockProducts.find(
     p => stringToSlug(p.brand) === params.brand && stringToSlug(p.model) === params.slug
   );
-
+  console.log("product", product);
   if (!product) {
     notFound();
   }

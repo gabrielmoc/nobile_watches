@@ -2,16 +2,6 @@
 
 import { User } from "@/lib/auth/auth";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  Heart,
-  LogOut,
-  ShoppingBag,
-  ShoppingCart,
-  Store,
-  Tag,
-  User as UserIcon,
-  Watch,
-} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -21,7 +11,7 @@ interface UserMenuProps {
 }
 
 interface MenuItem {
-  icon: React.ElementType;
+  icon: string;
   label: string;
   href: string;
   section: "gerenciamento" | "meusDados" | "opcoes";
@@ -30,25 +20,55 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
   // Gerenciamento
   {
-    icon: ShoppingCart,
+    icon: "/icons/shopping-cart.svg",
     label: "Meu carrinho",
     href: "/carrinho",
     section: "gerenciamento",
   },
   {
-    icon: ShoppingBag,
+    icon: "/icons/shopping-bag.svg",
     label: "Minhas compras",
-    href: "/compras",
+    href: "/minhas-compras",
     section: "gerenciamento",
   },
-  { icon: Heart, label: "Lista de desejos", href: "/desejos", section: "gerenciamento" },
+  {
+    icon: "/icons/heart-outline.svg",
+    label: "Lista de desejos",
+    href: "/desejos",
+    section: "gerenciamento",
+  },
   // Meus dados
-  { icon: Watch, label: "Minha coleção", href: "/colecao", section: "meusDados" },
-  { icon: UserIcon, label: "Meu perfil", href: "/perfil", section: "meusDados" },
-  { icon: Store, label: "Vender", href: "/vender", section: "meusDados" },
-  { icon: Tag, label: "Meus anúncios", href: "/anuncios", section: "meusDados" },
+  {
+    icon: "/icons/watch.svg",
+    label: "Minha coleção",
+    href: "/colecao",
+    section: "meusDados",
+  },
+  {
+    icon: "/icons/user-outline.svg",
+    label: "Meu perfil",
+    href: "/perfil",
+    section: "meusDados",
+  },
+  {
+    icon: "/icons/hand-user.svg",
+    label: "Vender",
+    href: "/vender",
+    section: "meusDados",
+  },
+  {
+    icon: "/icons/tag.svg",
+    label: "Meus anúncios",
+    href: "/meus-anuncios",
+    section: "meusDados",
+  },
   // Opções
-  { icon: LogOut, label: "Sair", href: "/auth/logout", section: "opcoes" },
+  {
+    icon: "/icons/logout-red.svg",
+    label: "Sair",
+    href: "/auth/logout",
+    section: "opcoes",
+  },
 ];
 
 export function UserMenu({ user }: UserMenuProps) {
@@ -122,7 +142,7 @@ export function UserMenu({ user }: UserMenuProps) {
             <div className="container bg-white mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
               <div className="bg-white py-[48px] overflow-hidden">
                 {/* Grid Layout */}
-                <div className="grid grid-cols-[auto_1fr_auto] gap-4">
+                <div className="grid grid-cols-[auto_1fr_auto] gap-3">
                   {/* Gerenciamento Section */}
                   <div className="min-w-0">
                     <div className="mb-3">
@@ -130,7 +150,7 @@ export function UserMenu({ user }: UserMenuProps) {
                         Gerenciamento
                       </h3>
                     </div>
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-3">
                       {gerenciamentoItems.map(item => (
                         <MenuItemButton
                           key={item.label}
@@ -148,7 +168,7 @@ export function UserMenu({ user }: UserMenuProps) {
                         Meus dados
                       </h3>
                     </div>
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-nowrap gap-3">
                       {meusDadosItems.map(item => (
                         <MenuItemButton
                           key={`meus-dados-${item.label}`}
@@ -196,17 +216,15 @@ function MenuItemButton({
   onClick: () => void;
   isLogout?: boolean;
 }) {
-  const Icon = item.icon;
-
   return (
     <Link
       href={item.href}
       onClick={onClick}
       className={`flex flex-col items-center justify-center gap-2 border border-[#EFEFEF] rounded-[12px] px-8 py-6 bg-[#F7F7F7] hover:bg-gray-50 transition-colors min-w-[140px] ${
-        isLogout ? "text-red-600 hover:bg-red-50" : "text-gray-700"
+        isLogout ? "text-red-600 hover:bg-red-50" : "text-pb-500"
       }`}
     >
-      <Icon className="h-6 w-6" strokeWidth={1.5} />
+      <Image src={item.icon} alt={item.label} width={26} height={26} />
       <span className="text-xs font-medium whitespace-nowrap">{item.label}</span>
     </Link>
   );

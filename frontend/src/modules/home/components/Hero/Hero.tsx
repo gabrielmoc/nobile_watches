@@ -37,22 +37,22 @@ export function Hero() {
   } as const;
 
   const featuredSettings = {
-    dots: false,
+    className: "center",
+    centerMode: true,
     infinite: true,
+    centerPadding: "60px",
+    slidesToShow: 3,
     speed: 500,
+    dots: false,
     autoplay: true,
     autoplaySpeed: 3000,
-    slidesToShow: 3,
-    slidesToScroll: 1,
     arrows: false,
-    centerMode: true,
-    centerPadding: "0",
     afterChange: (index: number) => setCurrentSlide(index),
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
         },
       },
       {
@@ -372,97 +372,119 @@ export function Hero() {
         </section>
       </div>
 
-      {/* Relógios em Destaque - Largura Total */}
+      {/* Relógios em Destaque */}
       <section
         aria-label="Relógios em destaque"
-        className="bg-[#141414] py-16 md:py-24 px-4"
+        className="bg-[#141414] min-h-screen flex flex-col justify-center py-12 px-0 lg:py-16 relative overflow-hidden"
       >
-        <div className="mx-auto w-full max-w-7xl lg:px-8">
-          <h2 className="font-lato text-2xl md:text-3xl text-center text-[#D5A60A] mb-12 md:mb-22 uppercase tracking-wider">
-            Relógios em destaque
-          </h2>
+        <div className="mx-auto w-full max-w-7xl lg:px-2 flex flex-col justify-center flex-1">
+          <div className="flex items-center justify-center relative w-[182px] lg:w-[363px] h-[21px] lg:h-[41px] mx-auto mb-12 lg:mb-16">
+            <Image
+              src="/images/hero/destaques.svg"
+              alt="Relógios em destaque"
+              fill
+              className="object-cover"
+            />
+            <h2 className="font-lato text-xs lg:text-[26px] text-center text-[#D5A60A] font-bold uppercase">
+              Relógios em destaque
+            </h2>
+          </div>
 
-          <div className="relative">
-            <div className="featured-slider">
+          {/* Container do Slider com efeitos de sombra */}
+          <div className="relative flex-1 flex items-center max-h-[398px] lg:max-h-[600px]">
+            {/* Sombra lateral esquerda */}
+            <div className="absolute left-0 top-0 bottom-0 w-[15%] bg-gradient-to-r from-[#141414] via-[#141414]/90 to-transparent z-10 pointer-events-none hidden lg:block" />
+
+            {/* Sombra lateral direita */}
+            <div className="absolute right-0 top-0 bottom-0 w-[15%] bg-gradient-to-l from-[#141414] via-[#141414]/90 to-transparent z-10 pointer-events-none hidden lg:block" />
+
+            <div className="slider-container featured-slider w-full h-[398px] lg:h-[500px] max-h-[500px]">
               <Slider ref={sliderRef} {...featuredSettings}>
-                {[1, 2, 3, 4, 5].map(num => (
-                  <div key={num} className="px-2 md:px-4">
-                    <div className="relative aspect-square max-w-md mx-auto">
-                      <Image
-                        src={`/images/hero/featured-watch${num}.svg`}
-                        alt={`Relógio em destaque ${num}`}
-                        fill
-                        className="object-contain"
-                      />
+                {[1, 2, 3, 4, 5].map((num, index) => {
+                  // Calcula a distância do slide atual
+                  const distanceFromCenter = Math.abs(currentSlide - index);
+                  const isCenterSlide = distanceFromCenter === 0;
+
+                  return (
+                    <div
+                      key={num}
+                      className="h-full lg:h-[500px] flex items-center justify-center px-2 md:px-4"
+                    >
+                      <div
+                        //  className={`relative aspect-[2/3] mx-auto transition-all duration-500 w-full ${
+                        className={`relative aspect-[2/3] mx-auto transition-all duration-500 w-full ${
+                          isCenterSlide ? "lg:scale-110" : "lg:scale-90 opacity-90"
+                        }`}
+                        style={{ maxWidth: isCenterSlide ? "400px" : "220px" }}
+                      >
+                        <Image
+                          src={`/images/hero/featured-watch${num}.svg`}
+                          alt={`Relógio em destaque ${num}`}
+                          fill
+                          className="object-contain"
+                          priority={index === 2}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </Slider>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-4 md:gap-8 mt-6 md:mt-8">
-            <button
-              onClick={() => sliderRef.current?.slickPrev()}
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white/20 flex items-center justify-center hover:border-[#D5A60A] transition-colors group"
-              aria-label="Relógio anterior"
-            >
-              <svg
-                className="w-5 h-5 md:w-6 md:h-6 text-white group-hover:text-[#D5A60A] transition-colors"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          {/* Controles de Navegação e Info */}
+          <div className="mt-8 lg:mt-12">
+            <div className="flex items-center justify-center gap-4 md:gap-8">
+              <button
+                onClick={() => sliderRef.current?.slickPrev()}
+                className="w-10 h-10 md:w-[46px] md:h-[46px] rounded-full hidden md:flex items-center justify-center hover:scale-110 transition-transform"
+                aria-label="Relógio anterior"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
+                <Image
+                  src="/icons/arrow-left-glow.png"
+                  alt="Anterior"
+                  width={46}
+                  height={46}
+                  className="w-full h-full"
                 />
-              </svg>
-            </button>
+              </button>
+              <div className="text-center min-w-[160px] md:min-w-[200px]">
+                <p className="font-erstoria text-white text-xl md:text-[32px] mb-2">
+                  Nautilus
+                </p>
+                <p className="font-lato font-light text-white text-sm md:text-2xl tracking-[-1%]">
+                  R$ 76.094,00
+                </p>
+              </div>
 
-            <div className="text-center min-w-[160px] md:min-w-[200px]">
-              <p className="font-erstoria text-white text-xl md:text-2xl mb-2">
-                Nautilus
-              </p>
-              <p className="font-lato text-gray-400 text-sm md:text-base">R$ 76.094,00</p>
+              <button
+                onClick={() => sliderRef.current?.slickNext()}
+                className="w-10 h-10 md:w-[46px] md:h-[46px] rounded-full hidden md:flex items-center justify-center hover:scale-110 transition-transform"
+                aria-label="Próximo relógio"
+              >
+                <Image
+                  src="/icons/arrow-right-glow.png"
+                  alt="Próximo"
+                  width={46}
+                  height={46}
+                  className="w-full h-full"
+                />
+              </button>
             </div>
 
-            <button
-              onClick={() => sliderRef.current?.slickNext()}
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white/20 flex items-center justify-center hover:border-[#D5A60A] transition-colors group"
-              aria-label="Próximo relógio"
-            >
-              <svg
-                className="w-5 h-5 md:w-6 md:h-6 text-white group-hover:text-[#D5A60A] transition-colors"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
+            {/* Indicadores de Paginação */}
+            <div className="flex justify-center gap-1 md:gap-2 mt-4 lg:mt-8">
+              {[0, 1, 2, 3, 4].map(index => (
+                <button
+                  key={index}
+                  onClick={() => sliderRef.current?.slickGoTo(index)}
+                  className={`w-1 h-1 lg:w-2 lg:h-2 rounded-full transition-all ${
+                    currentSlide === index ? "bg-white" : "bg-white/20 hover:bg-white/40"
+                  }`}
+                  aria-label={`Ir para relógio ${index + 1}`}
                 />
-              </svg>
-            </button>
-          </div>
-
-          <div className="flex justify-center gap-2 mt-6">
-            {[0, 1, 2, 3, 4].map(index => (
-              <button
-                key={index}
-                onClick={() => sliderRef.current?.slickGoTo(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  currentSlide === index
-                    ? "bg-[#D5A60A] w-8"
-                    : "bg-white/20 hover:bg-white/40"
-                }`}
-                aria-label={`Ir para relógio ${index + 1}`}
-              />
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

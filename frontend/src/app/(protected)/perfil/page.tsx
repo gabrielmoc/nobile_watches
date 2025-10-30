@@ -69,13 +69,12 @@ export default function ProfilePage() {
       </div>
 
       {/* ==================== HEADER MOBILE ==================== */}
-      <div className="lg:hidden sticky top-0 z-50 bg-white border-b border-gray-100">
-        <div className="flex items-center justify-between px-6 h-16">
-          <Link href="/" className="p-1 -ml-1">
-            <ArrowLeft className="w-6 h-6 text-pb-500" strokeWidth={1.5} />
+      <div className="lg:hidden sticky top-0 z-50 bg-white">
+        <div className="flex items-center gap-3 px-5 h-14.5">
+          <Link href="/" className="-ml-1">
+            <ArrowLeft className="w-[26px] h-[26px] text-pb-500" strokeWidth={1.5} />
           </Link>
           <h1 className="font-erstoria text-[20px] text-pb-500 font-medium">Perfil</h1>
-          <div className="w-6" />
         </div>
       </div>
 
@@ -284,7 +283,7 @@ export default function ProfilePage() {
       {/* ==================== LAYOUT MOBILE ==================== */}
       <div className="lg:hidden">
         {/* Avatar e Nome - Mobile */}
-        <div className="flex flex-col items-center pt-8 pb-6 px-6">
+        <div className="flex flex-col items-center pt-[30px] pb-6 px-5">
           {/* Avatar com botão de edição */}
           <div className="relative mb-4">
             <div className="w-[126px] h-[126px] rounded-full overflow-hidden bg-gray-200">
@@ -305,8 +304,8 @@ export default function ProfilePage() {
           </div>
 
           {/* Nome */}
-          <h2 className="font-erstoria text-[20px] text-pb-500 font-medium mb-2">
-            Olá, {user.name}!
+          <h2 className="font-lato text-[18px] font-normal mb-2">
+            Olá, <span className="font-semibold">{user.name}!</span>
           </h2>
 
           {/* Badge de verificação */}
@@ -324,7 +323,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Card de Atividade - Mobile */}
-        <div className="mx-6 mb-6">
+        <div className="mx-5 mb-6">
           <div className="bg-[#F7F7F7] rounded-[12px] p-6">
             <h3 className="font-lato text-base font-medium text-pb-500 mb-1">
               Atividade
@@ -357,7 +356,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Dados pessoais - Mobile */}
-        <div className="mx-6 mb-6">
+        <div className="mx-5 mb-6">
           <div className="bg-[#F7F7F7] rounded-[12px] p-6">
             <h3 className="font-lato text-base font-medium text-pb-500 mb-1">
               Dados pessoais
@@ -410,7 +409,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Dados de pagamento - Mobile */}
-        <div className="mx-6 mb-6">
+        <div className="mx-5 mb-6">
           <div className="bg-[#F7F7F7] rounded-[12px] p-6">
             <h3 className="font-lato text-base font-medium text-pb-500 mb-1">
               Dados de pagamento
@@ -482,7 +481,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Endereços de cobrança - Mobile */}
-        <div className="mx-6 mb-24">
+        <div className="mx-5 mb-24">
           <div className="bg-[#F7F7F7] rounded-[12px] p-6">
             <h3 className="font-lato text-base font-medium text-pb-500 mb-1">
               Endereços de cobrança

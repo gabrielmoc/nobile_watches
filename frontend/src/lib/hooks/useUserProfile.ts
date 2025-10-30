@@ -78,7 +78,7 @@ export function useUserProfile() {
   const [data, setData] = useState<UserProfileData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  console.log("data", data);
+
   useEffect(() => {
     fetchUserProfile();
   }, []);
