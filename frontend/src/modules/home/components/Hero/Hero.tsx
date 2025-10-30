@@ -37,22 +37,22 @@ export function Hero() {
   } as const;
 
   const featuredSettings = {
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "60px",
-    slidesToShow: 3,
-    speed: 500,
     dots: false,
+    infinite: true,
+    speed: 500,
     autoplay: true,
     autoplaySpeed: 3000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
     arrows: false,
+    centerMode: true,
+    centerPadding: "0",
     afterChange: (index: number) => setCurrentSlide(index),
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
         },
       },
       {
@@ -375,9 +375,9 @@ export function Hero() {
       {/* Relógios em Destaque */}
       <section
         aria-label="Relógios em destaque"
-        className="bg-[#141414] min-h-screen flex flex-col justify-center py-12 px-0 lg:py-16 relative overflow-hidden"
+        className="bg-[#141414] py-16 md:py-24 px-4"
       >
-        <div className="mx-auto w-full max-w-7xl lg:px-2 flex flex-col justify-center flex-1">
+        <div className="mx-auto w-full max-w-7xl lg:px-8">
           <div className="flex items-center justify-center relative w-[182px] lg:w-[363px] h-[21px] lg:h-[41px] mx-auto mb-12 lg:mb-16">
             <Image
               src="/images/hero/destaques.svg"
@@ -389,50 +389,25 @@ export function Hero() {
               Relógios em destaque
             </h2>
           </div>
-
-          {/* Container do Slider com efeitos de sombra */}
-          <div className="relative flex-1 flex items-center max-h-[398px] lg:max-h-[600px]">
-            {/* Sombra lateral esquerda */}
-            <div className="absolute left-0 top-0 bottom-0 w-[15%] bg-gradient-to-r from-[#141414] via-[#141414]/90 to-transparent z-10 pointer-events-none hidden lg:block" />
-
-            {/* Sombra lateral direita */}
-            <div className="absolute right-0 top-0 bottom-0 w-[15%] bg-gradient-to-l from-[#141414] via-[#141414]/90 to-transparent z-10 pointer-events-none hidden lg:block" />
-
-            <div className="slider-container featured-slider w-full h-[398px] lg:h-[500px] max-h-[500px]">
+          <div className="relative">
+            <div className="featured-slider">
               <Slider ref={sliderRef} {...featuredSettings}>
-                {[1, 2, 3, 4, 5].map((num, index) => {
-                  // Calcula a distância do slide atual
-                  const distanceFromCenter = Math.abs(currentSlide - index);
-                  const isCenterSlide = distanceFromCenter === 0;
-
-                  return (
-                    <div
-                      key={num}
-                      className="h-full lg:h-[500px] flex items-center justify-center px-2 md:px-4"
-                    >
-                      <div
-                        //  className={`relative aspect-[2/3] mx-auto transition-all duration-500 w-full ${
-                        className={`relative aspect-[2/3] mx-auto transition-all duration-500 w-full ${
-                          isCenterSlide ? "lg:scale-110" : "lg:scale-90 opacity-90"
-                        }`}
-                        style={{ maxWidth: isCenterSlide ? "400px" : "220px" }}
-                      >
-                        <Image
-                          src={`/images/hero/featured-watch${num}.svg`}
-                          alt={`Relógio em destaque ${num}`}
-                          fill
-                          className="object-contain"
-                          priority={index === 2}
-                        />
-                      </div>
+                {[1, 2, 3, 4, 5].map(num => (
+                  <div key={num} className="px-2 md:px-4">
+                    <div className="relative aspect-square max-w-md mx-auto">
+                      <Image
+                        src={`/images/hero/featured-watch${num}.svg`}
+                        alt={`Relógio em destaque ${num}`}
+                        fill
+                        className="object-contain"
+                      />
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </Slider>
             </div>
           </div>
 
-          {/* Controles de Navegação e Info */}
           <div className="mt-8 lg:mt-12">
             <div className="flex items-center justify-center gap-4 md:gap-8">
               <button
