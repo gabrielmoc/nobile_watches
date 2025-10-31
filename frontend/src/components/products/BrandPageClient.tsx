@@ -56,7 +56,7 @@ export function BrandPageClient({
   return (
     <>
       <div className="min-h-screen bg-white brand">
-        <div className="container mx-auto max-w-7xl px-5 lg:px-8 pt-4 pb-18 lg:pt-8 lg:pb-30">
+        <div className="container mx-auto max-w-7xl px-5 lg:px-10 pt-4 pb-18 lg:pt-8 lg:pb-30">
           {/* Breadcrumb e Header */}
           <div className="mb-6 lg:mb-8">
             <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: brandName }]} />

@@ -184,8 +184,8 @@ export function Hero() {
   const suggestedProducts = [
     mockProducts[0],
     mockProducts[3],
-    mockProducts[2],
-    mockProducts[8],
+    mockProducts[12],
+    mockProducts[14],
   ].filter((product): product is Product => product !== undefined);
 
   return (

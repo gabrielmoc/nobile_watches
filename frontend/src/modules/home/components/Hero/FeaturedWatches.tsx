@@ -17,7 +17,7 @@ function PrevArrow({ onClick }: { onClick?: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="absolute left-4 md:left-12 lg:left-20 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-sm hidden lg:flex items-center justify-center hover:scale-110 transition-transform group border border-white/20"
+      className="absolute left-60 bottom-8 md:bottom-12 lg:bottom-16 z-20 w-[46px] h-[46px] rounded-full bg-white/10 backdrop-blur-sm hidden lg:flex items-center justify-center hover:scale-110 transition-transform group border border-white/20"
       aria-label="Anterior"
     >
       <Image
@@ -35,7 +35,7 @@ function NextArrow({ onClick }: { onClick?: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-4 md:right-12 lg:right-20 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-sm hidden lg:flex items-center justify-center hover:scale-110 transition-transform group border border-white/20"
+      className="absolute right-60 bottom-8 md:bottom-12 lg:bottom-16 z-20 w-[46px] h-[46px] rounded-full bg-white/10 backdrop-blur-sm hidden lg:flex items-center justify-center hover:scale-110 transition-transform group border border-white/20"
       aria-label="Próximo"
     >
       <Image
@@ -82,7 +82,7 @@ export default function FeaturedWatches() {
   };
 
   return (
-    <section className="w-full bg-[#141414] py-8 md:py-12 lg:py-16 relative overflow-hidden min-h-screen flex flex-col justify-center">
+    <section className="w-full bg-[#141414] py-12 lg:py-16 relative overflow-hidden lg:min-h-screen lg:flex flex-col justify-center">
       <div className="flex items-center justify-center relative w-[182px] lg:w-[363px] h-[21px] lg:h-[41px] mx-auto mb-8 md:mb-12">
         <Image
           src="/images/hero/destaques.svg"
@@ -96,7 +96,7 @@ export default function FeaturedWatches() {
       </div>
 
       {/* Slider Container */}
-      <div className="relative px-4 md:px-8 min-h-[450px] md:min-h-[500px] lg:min-h-[550px] flex items-center">
+      <div className="relative max-w-7xl px-4 md:px-8 min-h-[450px] md:min-h-[500px] lg:min-h-[650px] mx-auto flex items-center">
         <Slider ref={sliderRef} {...settings} className="featured-watches-slider w-full">
           {watches.map((watch, index) => {
             const isCenter = index === centerSlide % watches.length;
@@ -116,10 +116,8 @@ export default function FeaturedWatches() {
                     {isCenter && (
                       <div className="absolute inset-0 flex items-center justify-center -z-10">
                         <div className="relative w-[200px] h-[200px] md:w-[280px] md:h-[280px] lg:w-[350px] lg:h-[350px]">
-                          {/* Você pode substituir isso pela imagem do glow circle */}
                           <div className="absolute inset-0 rounded-full bg-gradient-radial from-white/20 via-white/5 to-transparent blur-2xl" />
                           <div className="absolute inset-8 rounded-full bg-gradient-radial from-white/10 via-transparent to-transparent" />
-                          {/* Se você tiver a imagem, descomente e ajuste o caminho: */}
                           {/* <Image 
                             src="/images/glow-circle.png" 
                             alt="" 
@@ -131,7 +129,7 @@ export default function FeaturedWatches() {
                     )}
 
                     {/* Imagem do relógio */}
-                    <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64">
+                    <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-78">
                       <Image
                         src={watch.image}
                         alt={watch.name}
@@ -145,14 +143,14 @@ export default function FeaturedWatches() {
 
                   {/* Nome e preço - sempre reserva espaço, mas só visível no centro */}
                   <div
-                    className={`mt-4 md:mt-6 text-center transition-opacity duration-500 h-20 md:h-24 lg:h-28 flex flex-col justify-center ${
+                    className={`mt-4 md:mt-6 text-center transition-opacity duration-500 h-20 lg:h-40 flex flex-col justify-center ${
                       isCenter ? "opacity-100 animate-fadeIn" : "opacity-0"
                     }`}
                   >
-                    <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-white mb-1 tracking-wide">
+                    <h3 className="text-xl md:text-2xl lg:text-[32px] font-light text-white tracking-[-1%] mb-1 text-nowrap">
                       {watch.name}
                     </h3>
-                    <p className="text-base md:text-lg lg:text-xl text-gray-300 font-light">
+                    <p className="text-base md:text-lg lg:text-[24px] text-white font-light tracking-tight leading-2 text-nowrap">
                       {watch.price}
                     </p>
                   </div>
@@ -164,7 +162,7 @@ export default function FeaturedWatches() {
       </div>
 
       {/* Pagination dots */}
-      <div className="flex justify-center gap-2 mt-4 md:mt-6">
+      <div className="flex justify-center gap-2">
         {watches.map((_, index) => {
           const isActive = index === centerSlide % watches.length;
           return (

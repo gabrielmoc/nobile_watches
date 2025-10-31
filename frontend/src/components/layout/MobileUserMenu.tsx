@@ -34,7 +34,7 @@ const menuItems: MenuItem[] = [
   {
     icon: ShoppingCart,
     label: "Meu carrinho",
-    href: "/carrinho",
+    href: "#",
     section: "gerenciamento",
   },
   {
@@ -46,7 +46,7 @@ const menuItems: MenuItem[] = [
   {
     icon: Heart,
     label: "Lista de desejos",
-    href: "/desejos",
+    href: "#",
     section: "gerenciamento",
   },
   {
@@ -65,7 +65,7 @@ const menuItems: MenuItem[] = [
   {
     icon: Store,
     label: "Vender",
-    href: "/vender",
+    href: "/vendedor",
     section: "meusDados",
   },
   {
@@ -78,7 +78,7 @@ const menuItems: MenuItem[] = [
   {
     icon: LogOut,
     label: "Sair",
-    href: "/auth/logout",
+    href: "#",
     section: "opcoes",
   },
 ];

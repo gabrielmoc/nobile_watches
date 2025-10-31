@@ -22,19 +22,19 @@ const menuItems: MenuItem[] = [
   {
     icon: "/icons/shopping-cart.svg",
     label: "Meu carrinho",
-    href: "/carrinho",
+    href: "#",
     section: "gerenciamento",
   },
   {
     icon: "/icons/shopping-bag.svg",
     label: "Minhas compras",
-    href: "/minhas-compras",
+    href: "#",
     section: "gerenciamento",
   },
   {
     icon: "/icons/heart-outline.svg",
     label: "Lista de desejos",
-    href: "/desejos",
+    href: "#",
     section: "gerenciamento",
   },
   // Meus dados
@@ -53,7 +53,7 @@ const menuItems: MenuItem[] = [
   {
     icon: "/icons/hand-user.svg",
     label: "Vender",
-    href: "/vender",
+    href: "/vendedor",
     section: "meusDados",
   },
   {
@@ -66,7 +66,7 @@ const menuItems: MenuItem[] = [
   {
     icon: "/icons/logout-red.svg",
     label: "Sair",
-    href: "/auth/logout",
+    href: "#",
     section: "opcoes",
   },
 ];
@@ -138,8 +138,8 @@ export function UserMenu({ user }: UserMenuProps) {
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
 
           {/* Menu Panel - Fixed positioning aligned with header */}
-          <div className="fixed left-0 right-0 top-[64px] md:top-[96px] z-50 bg-white">
-            <div className="container bg-white mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+          <div className="absolute right-0 top-full z-50 bg-white shadow-lg w-screen max-w-7xl">
+            <div className="bg-white mx-auto px-5 sm:px-6 lg:px-8">
               <div className="bg-white py-[48px] overflow-hidden">
                 {/* Grid Layout */}
                 <div className="grid grid-cols-[auto_1fr_auto] gap-3">
@@ -168,7 +168,7 @@ export function UserMenu({ user }: UserMenuProps) {
                         Meus dados
                       </h3>
                     </div>
-                    <div className="flex flex-nowrap gap-3">
+                    <div className="flex flex-wrap gap-3">
                       {meusDadosItems.map(item => (
                         <MenuItemButton
                           key={`meus-dados-${item.label}`}

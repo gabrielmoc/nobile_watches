@@ -180,10 +180,7 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
   // Layout em grade (original)
   return (
     <div className="group transition-all duration-300">
-      <Link
-        href={productUrl}
-        className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A60A] focus-visible:ring-offset-2 rounded-lg block"
-      >
+      <Link href={productUrl} className="focus:outline-none rounded-lg block">
         <div className="relative aspect-square rounded-lg bg-[#EFEFEF] overflow-hidden mb-4">
           <Image
             src={product.images?.[0] || ""}
