@@ -1,5 +1,6 @@
 "use client";
 
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { OrderCard } from "@/components/user/OrderCard";
 import { UserNav } from "@/components/user/UserNav";
 import { useUserOrders } from "@/lib/hooks/useUserOrders";
@@ -45,16 +46,9 @@ export default function MinhasComprasPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <nav className="flex items-center gap-2 text-[18px] leading-[100%] font-erstoria mb-2">
-                <Link
-                  href="/"
-                  className="text-pb-500 hover:text-[#D5A60A] transition-colors"
-                >
-                  Home
-                </Link>
-                <span className="text-pb-500">&gt;</span>
-                <span className="text-[#D5A60A] font-medium">Minhas compras</span>
-              </nav>
+              <Breadcrumbs
+                items={[{ label: "Home", href: "/" }, { label: "Minhas compras" }]}
+              />
               <h1 className="text-3xl lg:text-[32px] leading-[100%]">Minhas compras</h1>
             </div>
             <UserNav />

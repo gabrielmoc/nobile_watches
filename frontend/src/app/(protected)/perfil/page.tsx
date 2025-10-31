@@ -1,17 +1,10 @@
 "use client";
 
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { Button } from "@/components/ui/Button";
 import { UserNav } from "@/components/user/UserNav";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import {
-  ArrowLeft,
-  Calendar,
-  CreditCard,
-  Edit2,
-  Lock,
-  Mail,
-  MapPin,
-  Phone,
-} from "lucide-react";
+import { ArrowLeft, Edit2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -51,16 +44,9 @@ export default function ProfilePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
           <div className="h-[56px] flex items-center justify-between">
             <div>
-              <nav className="flex items-center gap-2 text-[18px] font-erstoria">
-                <Link
-                  href="/"
-                  className="text-pb-500 hover:text-[#D5A60A] transition-colors"
-                >
-                  Home
-                </Link>
-                <span className="text-gray-400">&gt;</span>
-                <span className="text-[#D5A60A] font-medium">Meu perfil</span>
-              </nav>
+              <Breadcrumbs
+                items={[{ label: "Home", href: "/" }, { label: "Meu perfil" }]}
+              />
               <h1 className="text-3xl lg:text-[32px] leading-[100%]">Meu perfil</h1>
             </div>
             <UserNav />
@@ -79,20 +65,26 @@ export default function ProfilePage() {
       </div>
 
       {/* ==================== LAYOUT DESKTOP ==================== */}
-      <div className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-0">
-        <div className="grid grid-cols-6 gap-6 m-6">
+      <div className="hidden lg:block max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-6 gap-6 mt-8 mb-6">
           {/* Card de perfil principal - Desktop */}
-          <div className="col-span-4 bg-[#F7F7F7] rounded-[12px] py-6 px-8">
+          <div className="relative col-span-4 bg-[#F7F7F7] rounded-[12px] py-6 px-8">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-8">
                 {/* Avatar */}
-                <div className="relative w-[118px] h-[118px] rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                  <Image
-                    src="/images/avatar-placeholder.jpg"
-                    alt={user.name}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="relative w-[118px] h-[118px] rounded-full overflow-hidden bg-gray-200">
+                  {user.avatar ? (
+                    <Image
+                      src={user.avatar}
+                      alt={user.name}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gold-500 text-white text-4xl font-medium">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
                 </div>
 
                 {/* Nome e status */}
@@ -111,10 +103,20 @@ export default function ProfilePage() {
                     />
                   </div>
                   <span className="text-sm text-pb-500 leading-[140%]">
-                    Vendedor verificado
+                    {user.role === "SELLER"
+                      ? "Vendedor verificado"
+                      : "Usuário verificado"}
                   </span>
                 </div>
               )}
+
+              {/* Botão editar */}
+              {/* <Link
+                href="/perfil/editar"
+                className="absolute bottom-6 right-8 p-3 rounded-lg border border-gray-200 hover:bg-white transition-colors"
+              >
+                <Edit2 className="w-5 h-5 text-pb-500" />
+              </Link> */}
             </div>
           </div>
 
@@ -143,122 +145,188 @@ export default function ProfilePage() {
 
         {/* Grid de informações - Desktop */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pb-[170px]">
-          {/* Dados pessoais - Desktop */}
-          <div className="bg-[#F7F7F7] rounded-[12px] p-8 pt-[28px]">
-            <h3 className="font-lato text-base font-medium text-pb-500 mb-2">
-              Dados pessoais
-            </h3>
-            <p className="text-xs text-gray-400 mb-4">
+          {/* Dados pessoais */}
+          <div className="bg-[#F7F7F7] rounded-xl p-8 pt-[28px] flex flex-col h-full">
+            <h3 className="font-lato text-base font-medium mb-1">Dados pessoais</h3>
+            <p className="text-xs text-gray-400 font-light mb-4">
               Aqui você pode editar seus dados a qualquer momento.
             </p>
 
-            <div className="space-y-4 mb-6">
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-gray-400" />
-                <span className="text-sm text-gray-700">{user.email}</span>
+            <div className="mb-6">
+              <div className="flex h-[48px] items-center gap-3">
+                <Image
+                  src="/icons/envelope-outline.svg"
+                  alt="Email"
+                  width={24}
+                  height={24}
+                />
+                <span className="text-sm font-medium">{user.email}</span>
               </div>
-              <div className="flex items-center gap-3">
-                <Lock className="w-5 h-5 text-gray-400" />
-                <span className="text-sm text-gray-700">************</span>
+              <div className="flex h-[48px] items-center gap-3">
+                <Image
+                  src="/icons/password-lock.svg"
+                  alt="Password"
+                  width={24}
+                  height={24}
+                />
+                <span className="text-sm font-medium">************</span>
               </div>
               {user.phone && (
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-700">{user.phone}</span>
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image src="/icons/phone.svg" alt="Phone" width={24} height={24} />
+                  <span className="text-sm font-medium">{user.phone}</span>
                 </div>
               )}
               {(user.country || user.state || user.city) && (
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-700">
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image src="/icons/map-pin.svg" alt="Location" width={24} height={24} />
+                  <span className="text-sm font-medium">
                     {[user.country, user.state, user.city].filter(Boolean).join(", ")}.
                   </span>
                 </div>
               )}
             </div>
 
-            <button className="w-full h-[48px] rounded-full border-2 border-pb-500 bg-white font-lato text-base font-medium text-pb-500 hover:bg-gray-50 transition-colors">
-              Editar dados
-            </button>
+            <Link href="/perfil/editar" className="mt-auto">
+              <Button variant="stroke" className="w-full mt-auto">
+                Editar dados
+              </Button>
+            </Link>
           </div>
 
-          {/* Dados de pagamento - Desktop */}
-          <div className="bg-[#F7F7F7] rounded-[12px] p-8 pt-[28px]">
-            <h3 className="font-lato text-base font-medium text-pb-500 mb-2">
-              Dados de pagamento
-            </h3>
-            <p className="text-xs text-gray-400 mb-4">
+          {/* Dados de pagamento */}
+          <div className="bg-[#F7F7F7] rounded-xl p-8 pt-[28px] flex flex-col h-full">
+            <h3 className="font-lato text-base font-medium mb-1">Dados de pagamento</h3>
+            <p className="text-xs text-gray-400 font-light mb-4">
               Aqui você pode editar seus dados a qualquer momento.
             </p>
 
             {paymentMethods && paymentMethods.length > 0 ? (
-              <div className="space-y-4 mb-6">
-                <div className="flex items-center gap-3">
-                  <CreditCard className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-700">
+              <div className="mb-6">
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image src="/icons/id-card.svg" alt="Id Card" width={24} height={24} />
+                  <span className="text-sm font-medium">
                     {paymentMethods[0]?.cardholderName}
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <CreditCard className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-700">
-                    **** **** **** {paymentMethods[0]?.cardNumber}
+
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image
+                    src="/icons/credit-card.svg"
+                    alt="Credit Card"
+                    width={24}
+                    height={24}
+                  />
+                  <span className="text-sm font-medium">
+                    {/* **** **** **** {paymentMethods[0]?.cardNumber} */}
+                    {paymentMethods[0]?.cardNumber}
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Calendar className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-700">
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image
+                    src="/icons/calendar.svg"
+                    alt="Calendar"
+                    width={24}
+                    height={24}
+                  />
+                  <span className="text-sm font-medium">
                     {paymentMethods[0]?.expiryDate}
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Lock className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-700">***</span>
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image
+                    src="/icons/password-lock.svg"
+                    alt="Password"
+                    width={24}
+                    height={24}
+                  />
+                  <span className="text-sm font-medium">***</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <CreditCard className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-700">{paymentMethods[0]?.type}</span>
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image
+                    src="/icons/credit-card.svg"
+                    alt="Credit Card"
+                    width={24}
+                    height={24}
+                  />
+                  <span className="text-sm font-medium">{paymentMethods[0]?.type}</span>
                 </div>
               </div>
             ) : (
               <div className="mb-6 p-4 bg-gray-50 rounded-lg text-center">
-                <p className="text-sm text-gray-500">
+                <p className="text-sm font-medium">
                   Nenhum método de pagamento cadastrado
                 </p>
               </div>
             )}
 
-            <button className="w-full h-[48px] rounded-full border-2 border-pb-500 bg-white font-lato text-base font-medium text-pb-500 hover:bg-gray-50 transition-colors">
-              Editar dados
-            </button>
+            <Link href="/perfil/editar" className="mt-auto">
+              <Button variant="stroke" className="w-full mt-auto">
+                Editar dados
+              </Button>
+            </Link>
           </div>
 
           {/* Endereços de cobrança - Desktop */}
-          <div className="bg-[#F7F7F7] rounded-[12px] p-8 pt-[28px]">
-            <h3 className="font-lato text-base font-medium text-pb-500 mb-2">
+          <div className="bg-[#F7F7F7] rounded-xl p-8 pt-[28px] flex flex-col h-full">
+            <h3 className="font-lato text-base font-medium mb-1">
               Endereços de cobrança
             </h3>
-            <p className="text-xs text-gray-400 mb-4">
+            <p className="text-xs text-gray-400 font-light mb-4">
               Aqui você pode visualizar e editar seus dados de endereço a qualquer
               momento.
             </p>
 
             {billingAddresses && billingAddresses.length > 0 ? (
-              <div className="space-y-6 mb-6">
+              <div className="space-y-4 mb-[18px]">
                 {billingAddresses.slice(0, 2).map(address => (
-                  <div key={address.id}>
-                    <div className="flex items-start gap-2 mb-2">
+                  <div
+                    key={address.id}
+                    className="flex flex-col border-1 border-[#D9D9D9] rounded-xl"
+                  >
+                    <div className="flex items-center p-4 gap-3 border-b-2 border-[#D9D9D9]">
+                      {/* flag-${countryCode}.svg */}
                       {address.country === "Brasil" ? (
-                        <div className="w-6 h-4 bg-green-500 rounded-sm mt-1" />
+                        <Image
+                          src="/icons/flag-br.svg"
+                          alt="Flag Brasil"
+                          width={32}
+                          height={22}
+                        />
                       ) : (
-                        <div className="w-6 h-4 bg-blue-500 rounded-sm mt-1" />
+                        <Image
+                          src="/icons/flag-es.svg"
+                          alt="Flag EUA"
+                          width={32}
+                          height={22}
+                        />
                       )}
+                      <svg
+                        width="1"
+                        height="22"
+                        viewBox="0 0 1 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="1" height="22" fill="#D9D9D9" />
+                      </svg>
+
                       <div>
-                        <p className="text-sm text-gray-700 font-medium">
+                        <p className="text-sm font-medium">
                           {address.street}, {address.number}
                         </p>
-                        <p className="text-xs text-gray-500">
-                          {address.city}, {address.state}. {address.zipCode}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center p-4">
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-center">
+                          {address.city}, {address.state}.
+                        </p>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-center">
+                          {address.zipCode}
                         </p>
                       </div>
                     </div>
@@ -267,15 +335,17 @@ export default function ProfilePage() {
               </div>
             ) : (
               <div className="mb-6 p-4 bg-gray-50 rounded-lg text-center">
-                <p className="text-sm text-gray-500">
+                <p className="text-sm font-medium">
                   Nenhum endereço de cobrança cadastrado
                 </p>
               </div>
             )}
 
-            <button className="w-full h-[48px] rounded-full border-2 border-pb-500 bg-white font-lato text-base font-medium text-pb-500 hover:bg-gray-50 transition-colors">
-              Editar dados
-            </button>
+            <Link href="/perfil/editar" className="mt-auto">
+              <Button variant="stroke" className="w-full mt-auto">
+                Editar dados
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -286,14 +356,14 @@ export default function ProfilePage() {
         <div className="flex flex-col items-center pt-[30px] pb-6 px-5">
           {/* Avatar com botão de edição */}
           <div className="relative mb-4">
-            <div className="w-[126px] h-[126px] rounded-full overflow-hidden bg-gray-200">
-              <Image
-                src="/images/avatar-placeholder.jpg"
-                alt={user.name}
-                width={126}
-                height={126}
-                className="object-cover"
-              />
+            <div className="relative w-[126px] h-[126px] rounded-full overflow-hidden bg-gray-200">
+              {user.avatar ? (
+                <Image src={user.avatar} alt={user.name} fill className="object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gold-500 text-white text-4xl font-medium">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+              )}
             </div>
             <button
               className="absolute bottom-0 right-0 w-9 h-9 rounded-full bg-white border-2 border-gray-100 flex items-center justify-center shadow-sm"
@@ -357,7 +427,7 @@ export default function ProfilePage() {
 
         {/* Dados pessoais - Mobile */}
         <div className="mx-5 mb-6">
-          <div className="bg-[#F7F7F7] rounded-[12px] p-6">
+          <div className="bg-[#F7F7F7] rounded-xl p-6">
             <h3 className="font-lato text-base font-medium text-pb-500 mb-1">
               Dados pessoais
             </h3>
@@ -365,52 +435,52 @@ export default function ProfilePage() {
               Aqui você pode editar seus dados a qualquer momento.
             </p>
 
-            <div className="space-y-5 mb-6">
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-gray-600 flex-shrink-0" strokeWidth={1.5} />
-                <span className="font-lato text-sm text-pb-500 leading-[148%]">
-                  {user.email}
-                </span>
+            <div className="mb-6">
+              <div className="flex h-[48px] items-center gap-3">
+                <Image
+                  src="/icons/envelope-outline.svg"
+                  alt="Email"
+                  width={24}
+                  height={24}
+                />
+                <span className="text-sm font-medium">{user.email}</span>
               </div>
-              <div className="flex items-center gap-3">
-                <Lock className="w-5 h-5 text-gray-600 flex-shrink-0" strokeWidth={1.5} />
-                <span className="font-lato text-sm text-pb-500 leading-[148%]">
-                  ************
-                </span>
+              <div className="flex h-[48px] items-center gap-3">
+                <Image
+                  src="/icons/password-lock.svg"
+                  alt="Password"
+                  width={24}
+                  height={24}
+                />
+                <span className="text-sm font-medium">************</span>
               </div>
               {user.phone && (
-                <div className="flex items-center gap-3">
-                  <Phone
-                    className="w-5 h-5 text-gray-600 flex-shrink-0"
-                    strokeWidth={1.5}
-                  />
-                  <span className="font-lato text-sm text-pb-500 leading-[148%]">
-                    {user.phone}
-                  </span>
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image src="/icons/phone.svg" alt="Phone" width={24} height={24} />
+                  <span className="text-sm font-medium">{user.phone}</span>
                 </div>
               )}
               {(user.country || user.state || user.city) && (
-                <div className="flex items-center gap-3">
-                  <MapPin
-                    className="w-5 h-5 text-gray-600 flex-shrink-0"
-                    strokeWidth={1.5}
-                  />
-                  <span className="font-lato text-sm text-pb-500 leading-[148%]">
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image src="/icons/map-pin.svg" alt="Location" width={24} height={24} />
+                  <span className="text-sm font-medium">
                     {[user.country, user.state, user.city].filter(Boolean).join(", ")}.
                   </span>
                 </div>
               )}
             </div>
 
-            <button className="w-full h-12 rounded-full border-[1.5px] border-pb-500 bg-white font-lato text-base font-medium text-pb-500">
-              Editar dados
-            </button>
+            <Link href="/perfil/editar" className="mt-auto">
+              <Button variant="stroke" className="w-full mt-auto">
+                Editar dados
+              </Button>
+            </Link>
           </div>
         </div>
 
         {/* Dados de pagamento - Mobile */}
         <div className="mx-5 mb-6">
-          <div className="bg-[#F7F7F7] rounded-[12px] p-6">
+          <div className="bg-[#F7F7F7] rounded-xl p-6">
             <h3 className="font-lato text-base font-medium text-pb-500 mb-1">
               Dados de pagamento
             </h3>
@@ -419,64 +489,69 @@ export default function ProfilePage() {
             </p>
 
             {paymentMethods && paymentMethods.length > 0 ? (
-              <div className="space-y-5 mb-6">
-                <div className="flex items-center gap-3">
-                  <CreditCard
-                    className="w-5 h-5 text-gray-600 flex-shrink-0"
-                    strokeWidth={1.5}
-                  />
-                  <span className="font-lato text-sm text-pb-500 leading-[148%]">
+              <div className="mb-6">
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image src="/icons/id-card.svg" alt="Id Card" width={24} height={24} />
+                  <span className="text-sm font-medium">
                     {paymentMethods[0]?.cardholderName}
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <CreditCard
-                    className="w-5 h-5 text-gray-600 flex-shrink-0"
-                    strokeWidth={1.5}
+
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image
+                    src="/icons/credit-card.svg"
+                    alt="Credit Card"
+                    width={24}
+                    height={24}
                   />
-                  <span className="font-lato text-sm text-pb-500 leading-[148%]">
-                    **** **** **** {paymentMethods[0]?.cardNumber}
+                  <span className="text-sm font-medium">
+                    {/* **** **** **** {paymentMethods[0]?.cardNumber} */}
+                    {paymentMethods[0]?.cardNumber}
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Calendar
-                    className="w-5 h-5 text-gray-600 flex-shrink-0"
-                    strokeWidth={1.5}
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image
+                    src="/icons/calendar.svg"
+                    alt="Calendar"
+                    width={24}
+                    height={24}
                   />
-                  <span className="font-lato text-sm text-pb-500 leading-[148%]">
+                  <span className="text-sm font-medium">
                     {paymentMethods[0]?.expiryDate}
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Lock
-                    className="w-5 h-5 text-gray-600 flex-shrink-0"
-                    strokeWidth={1.5}
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image
+                    src="/icons/password-lock.svg"
+                    alt="Password"
+                    width={24}
+                    height={24}
                   />
-                  <span className="font-lato text-sm text-pb-500 leading-[148%]">
-                    ***
-                  </span>
+                  <span className="text-sm font-medium">***</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <CreditCard
-                    className="w-5 h-5 text-gray-600 flex-shrink-0"
-                    strokeWidth={1.5}
+                <div className="flex h-[48px] items-center gap-3">
+                  <Image
+                    src="/icons/credit-card.svg"
+                    alt="Credit Card"
+                    width={24}
+                    height={24}
                   />
-                  <span className="font-lato text-sm text-pb-500 leading-[148%]">
-                    {paymentMethods[0]?.type}
-                  </span>
+                  <span className="text-sm font-medium">{paymentMethods[0]?.type}</span>
                 </div>
               </div>
             ) : (
               <div className="mb-6 p-4 bg-gray-50 rounded-lg text-center">
-                <p className="font-lato text-sm text-gray-500">
+                <p className="text-sm font-medium">
                   Nenhum método de pagamento cadastrado
                 </p>
               </div>
             )}
 
-            <button className="w-full h-12 rounded-full border-[1.5px] border-pb-500 bg-white font-lato text-base font-medium text-pb-500">
-              Editar dados
-            </button>
+            <Link href="/perfil/editar" className="mt-auto">
+              <Button variant="stroke" className="w-full mt-auto">
+                Editar dados
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -492,29 +567,54 @@ export default function ProfilePage() {
             </p>
 
             {billingAddresses && billingAddresses.length > 0 ? (
-              <div className="space-y-6 mb-6">
+              <div className="space-y-4 mb-[18px]">
                 {billingAddresses.slice(0, 2).map(address => (
-                  <div key={address.id} className="space-y-2">
-                    <div className="flex items-start gap-3">
+                  <div
+                    key={address.id}
+                    className="flex flex-col border-1 border-[#D9D9D9] rounded-xl"
+                  >
+                    <div className="flex items-center p-4 gap-3 border-b-2 border-[#D9D9D9]">
+                      {/* flag-${countryCode}.svg */}
                       {address.country === "Brasil" ? (
-                        <div className="w-8 h-5 bg-[#009739] rounded-[2px] mt-0.5 flex-shrink-0" />
+                        <Image
+                          src="/icons/flag-br.svg"
+                          alt="Flag Brasil"
+                          width={32}
+                          height={22}
+                        />
                       ) : (
-                        <div className="w-8 h-5 bg-[#B22234] rounded-[2px] mt-0.5 flex-shrink-0" />
+                        <Image
+                          src="/icons/flag-es.svg"
+                          alt="Flag EUA"
+                          width={32}
+                          height={22}
+                        />
                       )}
-                      <div className="flex-1">
-                        <p className="font-lato text-sm text-pb-500 leading-[148%] font-medium">
+                      <svg
+                        width="1"
+                        height="22"
+                        viewBox="0 0 1 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="1" height="22" fill="#D9D9D9" />
+                      </svg>
+
+                      <div>
+                        <p className="text-sm font-medium">
                           {address.street}, {address.number}
                         </p>
                       </div>
                     </div>
-                    <div className="flex gap-3 pl-11">
+
+                    <div className="flex items-center p-4">
                       <div className="flex-1">
-                        <p className="font-lato text-sm text-pb-500 leading-[148%]">
+                        <p className="text-sm font-medium text-center">
                           {address.city}, {address.state}.
                         </p>
                       </div>
-                      <div>
-                        <p className="font-lato text-sm text-pb-500 leading-[148%]">
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-center">
                           {address.zipCode}
                         </p>
                       </div>
@@ -524,15 +624,17 @@ export default function ProfilePage() {
               </div>
             ) : (
               <div className="mb-6 p-4 bg-gray-50 rounded-lg text-center">
-                <p className="font-lato text-sm text-gray-500">
+                <p className="text-sm font-medium">
                   Nenhum endereço de cobrança cadastrado
                 </p>
               </div>
             )}
 
-            <button className="w-full h-12 rounded-full border-[1.5px] border-pb-500 bg-white font-lato text-base font-medium text-pb-500">
-              Editar dados
-            </button>
+            <Link href="/perfil/editar" className="mt-auto">
+              <Button variant="stroke" className="w-full mt-auto">
+                Editar dados
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

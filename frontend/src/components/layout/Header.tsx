@@ -60,9 +60,10 @@ export function Header() {
                   <Button
                     variant="gold"
                     size="default"
-                    className="h-[48px] w-[122px] font-bold leading-[150%] tracking-[0.02em] whitespace-nowrap"
+                    className="relative h-[48px] w-[122px] font-bold leading-[150%] tracking-[0.02em] whitespace-nowrap"
                   >
-                    Acessar
+                    <span className="relative z-10">Acessar</span>
+                    <span className="absolute bottom-0 left-0 w-full h-1/2 rounded-b-full bg-white opacity-25 blur-lg"></span>
                   </Button>
                 </Link>
               )}

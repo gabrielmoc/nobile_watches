@@ -21,28 +21,16 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         />
 
         {/* Header mobile com logo e menu hamburguer */}
-        <header className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-4">
+        <header className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-5 h-[64px]">
           <Link href="/" className="flex items-center">
-            <span className="font-erstoria text-[32px] text-white">Nobile</span>
+            <Image
+              src="/logo-theme-dark.svg"
+              alt="Nobile"
+              width={91}
+              height={24}
+              priority
+            />
           </Link>
-
-          <button type="button" className="p-2" aria-label="Menu">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="text-white"
-            >
-              <path
-                d="M3 12H21M3 6H21M3 18H21"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
         </header>
       </div>
 

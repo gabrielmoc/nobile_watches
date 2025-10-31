@@ -5,6 +5,7 @@ import { Product } from "@/types/mock";
 import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent, useEffect, useRef, useState } from "react";
+import { Breadcrumbs } from "../ui/Breadcrumbs";
 import AuthWatchCard from "./AuthWatchCard";
 import { PriceEvolutionChart } from "./PriceEvolutionChart";
 import { ProductCard } from "./ProductCard";
@@ -112,20 +113,14 @@ export function ProductPageClient({ product, relatedProducts }: ProductPageClien
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto max-w-7xl px-4 lg:px-8 pt-5 lg:pt-[48px] pb-28">
-        <nav className="flex lg:hidden items-center gap-2 text-[18px] font-erstoria leading-[100%] mb-6">
-          <Link href="/" className="text-pb-500 hover:text-[#D5A60A] transition-colors">
-            Home
-          </Link>
-          <span className="text-pb-500">&gt;</span>
-          <Link
-            href={`/${stringToSlug(product.brand)}`}
-            className="text-pb-500 hover:text-[#D5A60A] transition-colors"
-          >
-            {product.brand}
-          </Link>
-          <span className="text-pb-500">&gt;</span>
-          <span className="text-[#D5A60A]">{product.model}</span>
-        </nav>
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: product.brand, href: `/${stringToSlug(product.brand)}` },
+            { label: product.model },
+          ]}
+          className="flex lg:hidden mb-6"
+        />
 
         {/* Layout principal - Grid 2 colunas */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(400px,_1fr)_minmax(400px,_510px)] gap-6 lg:gap-8 xl:gap-12 mb-6 lg:mb-16">
@@ -323,24 +318,14 @@ export function ProductPageClient({ product, relatedProducts }: ProductPageClien
 
           {/* Coluna Direita: Informações do Produto */}
           <div className="pt-2 lg:pt-12 space-y-8">
-            {/* Breadcrumb */}
-            <nav className="hidden lg:flex items-center gap-2 text-[18px] font-erstoria leading-[100%]">
-              <Link
-                href="/"
-                className="text-pb-500 hover:text-[#D5A60A] transition-colors"
-              >
-                Home
-              </Link>
-              <span className="text-pb-500">&gt;</span>
-              <Link
-                href={`/${stringToSlug(product.brand)}`}
-                className="text-pb-500 hover:text-[#D5A60A] transition-colors"
-              >
-                {product.brand}
-              </Link>
-              <span className="text-pb-500">&gt;</span>
-              <span className="text-[#D5A60A]">{product.model}</span>
-            </nav>
+            <Breadcrumbs
+              items={[
+                { label: "Home", href: "/" },
+                { label: product.brand, href: `/${stringToSlug(product.brand)}` },
+                { label: product.model },
+              ]}
+              className="hidden lg:flex"
+            />
 
             <div className="space-y-4 lg:space-y-6">
               {/* Cabeçalho com marca */}

@@ -6,14 +6,13 @@ import { Product } from "@/types/mock";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Slider from "react-slick";
+import FeaturedWatches from "./FeaturedWatches";
 
 export function Hero() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentSlide, setCurrentSlide] = useState(0);
   const router = useRouter();
-  const sliderRef = useRef<any>(null);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,33 +35,24 @@ export function Hero() {
     dotsClass: "slick-dots banner-dots",
   } as const;
 
-  const featuredSettings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: false,
-    centerMode: true,
-    centerPadding: "0",
-    afterChange: (index: number) => setCurrentSlide(index),
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
+  const initialProducts = [
+    { img: "/images/hero/banner1.svg", nome: "Rolex Deepsea", href: "/rolex/deepsea" },
+    {
+      img: "/images/hero/banner2.svg",
+      nome: "Rolex Oyster-Perpetual",
+      href: "/rolex/oyster-perpetual",
+    },
+    {
+      img: "/images/hero/banner3.svg",
+      nome: "Patek Philippe",
+      href: "/patek-philippe/patek-philippe-nautilus",
+    },
+    {
+      img: "/images/hero/banner4.svg",
+      nome: "Breitling Superocean Heritage",
+      href: "/breitling/superocean-heritage",
+    },
+  ];
 
   const marcas = [
     { img: "/images/brand/marca1.svg", nome: "Rolex", href: "/rolex" },
@@ -205,36 +195,37 @@ export function Hero() {
         <div className="relative">
           <div className="h-[180px] md:h-[350px] lg:h-[518px] overflow-hidden rounded-[16px] md:rounded-[48px]">
             <Slider {...bannerSettings}>
-              {[1, 2, 3, 4].map(num => (
-                <div
-                  key={num}
-                  className="h-full relative rounded-[16px] md:rounded-[48px]"
-                >
-                  {/* <Link href={`/promocoes/banner-${num}`} className="block h-full"> */}
-                  <div className="block h-full">
-                    <Image
-                      src={`/images/hero/banner${num}.svg`}
-                      alt={`Promoção ${num}`}
-                      className="w-full h-[152px] md:h-full object-cover rounded-[16px] md:rounded-[48px]"
-                      width={1200}
-                      height={518}
-                      priority={num === 1}
-                    />
+              {initialProducts.map((product, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="h-full relative rounded-[16px] md:rounded-[48px]"
+                  >
+                    <Link href={product.href} className="block h-full">
+                      <Image
+                        src={product.img}
+                        alt={product.nome}
+                        className="w-full h-[152px] md:h-full object-cover rounded-[16px] md:rounded-[48px]"
+                        width={1200}
+                        height={518}
+                        priority={index === 1}
+                      />
+                    </Link>
+                    <button className="hidden absolute bottom-8 left-5 md:bottom-32 md:left-22 bg-white hover:bg-gray-50 font-lato text-[#141414] rounded-full lg:flex items-center justify-center gap-2 text-[12px] lg:text-[16px] font-normal md:font-bold transition-colors w-[128px] h-[32px] md:w-[200px] md:h-[56px]">
+                      Garanta o seu
+                      <svg
+                        className="w-[18px] h-[18px] md:w-[22px] md:h-[22px]"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#D5A60A"
+                        strokeWidth="2"
+                      >
+                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                      </svg>
+                    </button>
                   </div>
-                  <button className="hidden absolute bottom-8 left-5 md:bottom-32 md:left-22 bg-white hover:bg-gray-50 font-lato text-[#141414] rounded-full lg:flex items-center justify-center gap-2 text-[12px] lg:text-[16px] font-normal md:font-bold transition-colors w-[128px] h-[32px] md:w-[200px] md:h-[56px]">
-                    Garanta o seu
-                    <svg
-                      className="w-[18px] h-[18px] md:w-[22px] md:h-[22px]"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#D5A60A"
-                      strokeWidth="2"
-                    >
-                      <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </Slider>
           </div>
         </div>
@@ -287,12 +278,12 @@ export function Hero() {
             <h2 className="font-erstoria text-2xl md:text-[28px] text-slate-900">
               Sugestões para você
             </h2>
-            <Link
+            {/* <Link
               href="/relogios"
               className="font-lato text-sm text-[#D5A60A] hover:text-[#C09609] transition-colors font-normal underline whitespace-nowrap"
             >
               Ver tudo
-            </Link>
+            </Link> */}
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -373,96 +364,7 @@ export function Hero() {
       </div>
 
       {/* Relógios em Destaque */}
-      <section
-        aria-label="Relógios em destaque"
-        className="bg-[#141414] py-16 md:py-24 px-4"
-      >
-        <div className="mx-auto w-full max-w-7xl lg:px-8">
-          <div className="flex items-center justify-center relative w-[182px] lg:w-[363px] h-[21px] lg:h-[41px] mx-auto mb-12 lg:mb-16">
-            <Image
-              src="/images/hero/destaques.svg"
-              alt="Relógios em destaque"
-              fill
-              className="object-cover"
-            />
-            <h2 className="font-lato text-xs lg:text-[26px] text-center text-[#D5A60A] font-bold uppercase">
-              Relógios em destaque
-            </h2>
-          </div>
-          <div className="relative">
-            <div className="featured-slider">
-              <Slider ref={sliderRef} {...featuredSettings}>
-                {[1, 2, 3, 4, 5].map(num => (
-                  <div key={num} className="px-2 md:px-4">
-                    <div className="relative aspect-square max-w-md mx-auto">
-                      <Image
-                        src={`/images/hero/featured-watch${num}.svg`}
-                        alt={`Relógio em destaque ${num}`}
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </Slider>
-            </div>
-          </div>
-
-          <div className="mt-8 lg:mt-12">
-            <div className="flex items-center justify-center gap-4 md:gap-8">
-              <button
-                onClick={() => sliderRef.current?.slickPrev()}
-                className="w-10 h-10 md:w-[46px] md:h-[46px] rounded-full hidden md:flex items-center justify-center hover:scale-110 transition-transform"
-                aria-label="Relógio anterior"
-              >
-                <Image
-                  src="/icons/arrow-left-glow.png"
-                  alt="Anterior"
-                  width={46}
-                  height={46}
-                  className="w-full h-full"
-                />
-              </button>
-              <div className="text-center min-w-[160px] md:min-w-[200px]">
-                <p className="font-erstoria text-white text-xl md:text-[32px] mb-2">
-                  Nautilus
-                </p>
-                <p className="font-lato font-light text-white text-sm md:text-2xl tracking-[-1%]">
-                  R$ 76.094,00
-                </p>
-              </div>
-
-              <button
-                onClick={() => sliderRef.current?.slickNext()}
-                className="w-10 h-10 md:w-[46px] md:h-[46px] rounded-full hidden md:flex items-center justify-center hover:scale-110 transition-transform"
-                aria-label="Próximo relógio"
-              >
-                <Image
-                  src="/icons/arrow-right-glow.png"
-                  alt="Próximo"
-                  width={46}
-                  height={46}
-                  className="w-full h-full"
-                />
-              </button>
-            </div>
-
-            {/* Indicadores de Paginação */}
-            <div className="flex justify-center gap-1 md:gap-2 mt-4 lg:mt-8">
-              {[0, 1, 2, 3, 4].map(index => (
-                <button
-                  key={index}
-                  onClick={() => sliderRef.current?.slickGoTo(index)}
-                  className={`w-1 h-1 lg:w-2 lg:h-2 rounded-full transition-all ${
-                    currentSlide === index ? "bg-white" : "bg-white/20 hover:bg-white/40"
-                  }`}
-                  aria-label={`Ir para relógio ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeaturedWatches />
 
       <div className="px-5 sm:px-8">
         <div className="mx-auto w-full max-w-7xl lg:px-8">

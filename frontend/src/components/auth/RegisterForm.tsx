@@ -20,11 +20,13 @@ interface RegisterFormProps {
   onSuccess?: () => void;
 }
 
+const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" || true;
+
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
-  const { register: registerUser, isLoading } = useAuth();
+  const { register: registerUser, mockLogin, isLoading } = useAuth();
 
   const {
     register,
@@ -67,16 +69,18 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      await registerUser({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        phone: data.phone,
-        country: data.country,
-        state: data.state,
-        city: data.city,
-        role: "BUYER", // Padrão: comprador
-      });
+      useMockData
+        ? mockLogin()
+        : await registerUser({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            phone: data.phone,
+            country: data.country,
+            state: data.state,
+            city: data.city,
+            role: "BUYER", // Padrão: comprador
+          });
 
       // Após registro bem-sucedido, redireciona para home
       router.push("/");
@@ -292,6 +296,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <MapPinIcon className="h-5 w-5 text-pb-500" />
+              {/* <Image src="/icons/map-pin.svg" alt="MapPin" width={24} height={24} /> */}
             </div>
             <select
               {...register("country")}

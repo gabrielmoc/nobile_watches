@@ -51,6 +51,9 @@ export interface UserProfile {
   isVerified: boolean;
   createdAt: string;
   updatedAt: string;
+
+  // não existe
+  avatar?: string;
 }
 
 export interface UserActivity {

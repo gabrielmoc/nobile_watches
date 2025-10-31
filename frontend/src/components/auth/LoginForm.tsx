@@ -16,11 +16,13 @@ interface LoginFormProps {
   onSuccess?: () => void;
 }
 
+const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" || true;
+
 export function LoginForm({ onSuccess }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { login, isLoading } = useAuth();
+  const { login, isAuthenticated, mockLogin, mockLogout, isLoading } = useAuth();
 
   const {
     register,
@@ -38,8 +40,10 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   const isButtonEnabled = Boolean(email && password && isValid && !isLoading);
 
   const onSubmit = async (data: LoginFormData) => {
+    mockLogin();
+
     try {
-      await login(data.email, data.password);
+      useMockData ? mockLogin() : await login(data.email, data.password);
 
       // Redireciona para a página anterior ou home
       const redirect = searchParams.get("redirect") || "/";
@@ -182,13 +186,21 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           Acessar
         </Button>
 
-        {/* Esqueci minha senha */}
-        <div className="text-center">
+        <div className="flex items-center justify-between h-[28px]">
+          {/* Esqueci minha senha */}
+
           <Link
             href="/recuperar-senha"
             className="font-lato text-base text-pb-500 font-bold hover:text-gray-900 transition-colors"
           >
             Esqueci minha senha
+          </Link>
+
+          <Link
+            href="/cadastro"
+            className="font-lato text-base text-pb-500 font-bold hover:text-gray-900 transition-colors"
+          >
+            Criar conta
           </Link>
         </div>
       </form>
