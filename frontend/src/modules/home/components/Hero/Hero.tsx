@@ -201,7 +201,7 @@ export function Hero() {
                     key={index}
                     className="h-full relative rounded-[16px] md:rounded-[48px]"
                   >
-                    <Link href={product.href} className="block h-full">
+                    <Link href={product.href} className="block h-full remove-ef">
                       <Image
                         src={product.img}
                         alt={product.nome}

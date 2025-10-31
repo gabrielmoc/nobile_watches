@@ -335,3 +335,14 @@ img {
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out;
 }
+
+a.remove-ef {
+  outline: none;
+}
+
+a.remove-ef:focus,
+a.remove-ef:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}

@@ -17,14 +17,9 @@ function PrevArrow({ onClick }: { onClick?: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="absolute left-4 md:left-12 lg:left-20 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform group border border-white/20"
+      className="absolute left-4 md:left-12 lg:left-20 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-sm hidden lg:flex items-center justify-center hover:scale-110 transition-transform group border border-white/20"
       aria-label="Anterior"
     >
-      {/* <button
-                onClick={() => sliderRef.current?.slickPrev()}
-                className="w-10 h-10 md:w-[46px] md:h-[46px] rounded-full hidden md:flex items-center justify-center hover:scale-110 transition-transform"
-                aria-label="Relógio anterior"
-              > */}
       <Image
         src="/icons/arrow-left-glow.png"
         alt="Anterior"
@@ -40,7 +35,7 @@ function NextArrow({ onClick }: { onClick?: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-4 md:right-12 lg:right-20 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform group border border-white/20"
+      className="absolute right-4 md:right-12 lg:right-20 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-sm hidden lg:flex items-center justify-center hover:scale-110 transition-transform group border border-white/20"
       aria-label="Próximo"
     >
       <Image
